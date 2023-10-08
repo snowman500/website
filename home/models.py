@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 # 用户表
 class JfUser(models.Model):
-    user_name = models.CharField(User, verbose_name="user_name", on_delete=models.CASCADE) # 用户名
+    # user_name = models.CharField(User, verbose_name="user_name", on_delete=models.CASCADE) # 用户名
     password = models.CharField(max_length=150, verbose_name="password") # 密码
     email = models.CharField(max_length=150, verbose_name="email address") # Email 地址
     activation = models.CharField(max_length=150, verbose_name="activation identification ") # 账户是否激活标志
@@ -15,7 +15,7 @@ class JfUser(models.Model):
     
 # 地址表
 class JfAddress(models.Model): 
-    attention = models.CharField(User, verbose_name="user_name") # 收件人
+    # attention = models.CharField(User, verbose_name="user_name") # 收件人
     address = models.CharField(max_length=150, verbose_name="Nearest Location") # 收件地址
     zip = models.CharField(max_length=150, verbose_name="City") # 收件邮编
     tel = models.CharField(max_length=150, verbose_name="State") # 收件电话
@@ -29,29 +29,29 @@ class JfSPU(models.Model):
     
 # 商品SkU表
 class JfSKU(models.Model):
-    spu = models.ForeignKey(JfSPU, verbose_name="user_name",on_delete=models.CASCADE) # SPU 外键
-    JfSKU = models.ForeignKey(JfSKU, verbose_name="user_name", on_delete=models.CASCADE) # SKU
+    # spu = models.ForeignKey(JfSPU, verbose_name="user_name",on_delete=models.CASCADE) # SPU 外键
+    # JfSKU = models.ForeignKey(JfSKU, verbose_name="user_name", on_delete=models.CASCADE) # SKU
     listing = models.CharField(max_length=150, verbose_name="listing") # listing
     # 以下是抄的
-    title = models.CharField(max_length=150, verbose_name="Product Title")
-    slug = models.SlugField(max_length=160, verbose_name="Product Slug")
-    sku = models.CharField(max_length=255, unique=True, verbose_name="Unique Product ID (SKU)")
-    short_description = models.TextField(verbose_name="Short Description")
-    detail_description = models.TextField(blank=True, null=True, verbose_name="Detail Description")
-    product_image = models.ImageField(upload_to='product', blank=True, null=True, verbose_name="Product Image")
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    category = models.ForeignKey(Category, verbose_name="Product Categoy", on_delete=models.CASCADE)
-    is_active = models.BooleanField(verbose_name="Is Active?")
-    is_featured = models.BooleanField(verbose_name="Is Featured?")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
+    # title = models.CharField(max_length=150, verbose_name="Product Title")
+    # slug = models.SlugField(max_length=160, verbose_name="Product Slug")
+    # sku = models.CharField(max_length=255, unique=True, verbose_name="Unique Product ID (SKU)")
+    # short_description = models.TextField(verbose_name="Short Description")
+    # detail_description = models.TextField(blank=True, null=True, verbose_name="Detail Description")
+    # product_image = models.ImageField(upload_to='product', blank=True, null=True, verbose_name="Product Image")
+    # price = models.DecimalField(max_digits=8, decimal_places=2)
+    # category = models.ForeignKey(Category, verbose_name="Product Categoy", on_delete=models.CASCADE)
+    # is_active = models.BooleanField(verbose_name="Is Active?")
+    # is_featured = models.BooleanField(verbose_name="Is Featured?")
+    # created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    # updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
     
-    class Meta:
-        verbose_name_plural = 'Products'
-        ordering = ('-created_at', )
+    # class Meta:
+    #     verbose_name_plural = 'Products'
+    #     ordering = ('-created_at', )
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
     
     
     # title: 产品标题，类型为CharField，最大长度为150个字符。

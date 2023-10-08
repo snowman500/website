@@ -74,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-
+#-----------------------------这里是数据库部分--------------------------------------------------------------
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -85,32 +85,45 @@ WSGI_APPLICATION = 'website.wsgi.application'
 #     }
 # }
 
-#本机数据库地址
+#本机数据库地址 这里有两个数据库,一个是jf_db,一个是jf_web
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'jf_db',
+#         'USER': 'qiaomin',
+#         'PASSWORD': '123456',
+#         'HOST': '10.0.0.108',
+#         'PORT': '3306',
+#     },
+#         'bom': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'jf_web',
+#         'USER': 'qiaomin',
+#         'PASSWORD': '123456',
+#         'HOST': '10.0.0.108',
+#         'PORT': '3306',
+#     }
+# }
+
+
+# DATABASES_APPS_MAPPING = {
+#     'bom': 'bom',  # 数据库与APP应用一一对应
+#     'home': 'default',  # 数据库与APP应用一一对应
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'web_db',
+        'NAME': 'jf_db',
         'USER': 'qiaomin',
         'PASSWORD': '123456',
-        'HOST': '10.0.0.168',
-        'PORT': '3306',
-    },
-        'bom': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jf_bom_db',
-        'USER': 'qiaomin',
-        'PASSWORD': '123456',
-        'HOST': '10.0.0.168',
+        'HOST': '10.0.0.108',
         'PORT': '3306',
     }
 }
 
-
-DATABASES_APPS_MAPPING = {
-    'bom': 'bom',  # 数据库与APP应用一一对应
-    'home': 'default',  # 数据库与APP应用一一对应
-}
+#----------------------------------------------------------------------------------------
 
 
 
@@ -148,7 +161,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-
+#------------------------------------这里是静态文件加载部分----------------------------------------------------
 STATIC_URL = '/static/'
 
 
@@ -158,6 +171,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # Settings for Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#----------------------------------------------------------------------------------------
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
