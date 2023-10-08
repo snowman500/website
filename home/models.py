@@ -4,23 +4,37 @@ from datetime import datetime
 
 
 
-# 产品总表
+# 物料类别
 class ItemType(models.Model): 
     is_active = models.BooleanField(default=True, null=True, blank=True,verbose_name="是否可用")
-    product = models.CharField(max_length=150, verbose_name="产品") 
+    item = models.CharField(max_length=150, verbose_name="产品") 
     office_supplies = models.CharField(max_length=150, verbose_name="办公用品")
     production_supplies = models.CharField(max_length=150, verbose_name="生产用品")
     def __str__(self):
         return self.name
     
-# 产品
+# 物料来源
 class Item(models.Model): 
     is_active = models.BooleanField(default=True, null=True, blank=True,verbose_name="是否可用")
-    materia = models.CharField(max_length=150, verbose_name="产品") 
-    self_control = models.CharField(max_length=150, verbose_name="自制")
+    sourcing = models.CharField(max_length=150, verbose_name="采购") 
+    self_produced = models.CharField(max_length=150, verbose_name="自制")
     subcontract = models.CharField(max_length=150, verbose_name="委外加工")
+    oem = models.CharField(max_length=150, verbose_name="代加工")
+
+
     def __str__(self):
         return self.name
+    
+    # 约束
+    # - to是与哪张表关联
+    # -to_field,表中的哪一列关联
+    # 当外键删除时,此数据对应的外键置空
+    depart = models.ForeignKey(to="ItemType", to_field="product",  null=True, blank=True, on_delete=models.SET_NULL)
+
+
+
+
+
 
 # 原物料表
 # class Material(models.Model): 
