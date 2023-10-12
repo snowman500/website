@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'home.apps.HomeConfig',
+    'home.apps.HomeConfig',
     
 ]
 
@@ -73,43 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-#-----------------------------这里是数据库部分--------------------------------------------------------------
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-#本机数据库地址 这里有两个数据库,一个是jf_db,一个是jf_web
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'jf_db',
-#         'USER': 'qiaomin',
-#         'PASSWORD': '123456',
-#         'HOST': '10.0.0.108',
-#         'PORT': '3306',
-#     },
-#         'bom': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'jf_web',
-#         'USER': 'qiaomin',
-#         'PASSWORD': '123456',
-#         'HOST': '10.0.0.108',
-#         'PORT': '3306',
-#     }
-# }
-
-
-# DATABASES_APPS_MAPPING = {
-#     'bom': 'bom',  # 数据库与APP应用一一对应
-#     'home': 'default',  # 数据库与APP应用一一对应
-# }
 
 DATABASES = {
     'default': {
@@ -122,7 +88,6 @@ DATABASES = {
     }
 }
 
-#----------------------------------------------------------------------------------------
 
 
 
@@ -160,7 +125,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-#------------------------------------这里是静态文件加载部分----------------------------------------------------
 STATIC_URL = '/static/'
 
 
@@ -171,7 +135,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#----------------------------------------------------------------------------------------
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
