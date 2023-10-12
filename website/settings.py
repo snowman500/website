@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'goods.apps.GoodsConfig',
+    'bom.apps.BomConfig',
     
 ]
 

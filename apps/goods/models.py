@@ -1,67 +1,82 @@
-# coding=utf-8
-from django.db import models
-from django.contrib.auth.models import User
-from datetime import datetime
+from extensions.models import *
 from extensions.common.base_model import BaseModel
 
+
+
 # Create your models here.
-
-
-# '商品种类'
-class GoodsType(BaseModel):
-    '''商品类型模型类'''
-    name = models.CharField(max_length=20, verbose_name='种类名称')  # 比如：猪牛羊肉
-    logo = models.CharField(max_length=20, verbose_name='标识')  # meta
-    image = models.ImageField(upload_to='type', verbose_name='商品类型图片')  # 调用FastDfs类获得url
+class GoodsCategory(BaseModel):
+    """商品类别"""
+    name = CharField(max_length=10, verbose_name='名称')
+    parent = ForeignKey('self', related_name='subs', null=True, blank=True, on_delete=CASCADE, verbose_name='父类别')
 
     class Meta:
-        db_table = 'df_goods_type'
-        verbose_name = '商品种类'
-        verbose_name_plural = verbose_name
-
-    # __str__就是遍历显示：猪牛羊肉、新鲜水果等
-    def __str__(self):
-        return self.name
-
-
-# 商品SKU模型类
-class GoodsSKU(BaseModel):
-    '''商品SKU模型类'''
-    status_choices = (
-        (0, '下线'),
-        (1, '上线'),
-    )
-    type = models.ForeignKey('GoodsType', on_delete=models.CASCADE, verbose_name='商品种类')  # 其实是存的GoodsType的id
-    goods = models.ForeignKey('Goods', on_delete=models.CASCADE, verbose_name='商品SPU')  # 其实是存的Goods的id
-    name = models.CharField(max_length=20, verbose_name='商品名称')
-    desc = models.CharField(max_length=256, verbose_name='商品简介')
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='商品价格')
-    unite = models.CharField(max_length=20, verbose_name='商品单位')
-    image = models.ImageField(upload_to='goods', verbose_name='商品图片')
-    stock = models.IntegerField(default=1, verbose_name='商品库存')
-    sales = models.IntegerField(default=0, verbose_name='商品销量')
-    status = models.SmallIntegerField(default=1, choices=status_choices, verbose_name='商品状态')
-
-    class Meta:
-        db_table = 'df_goods_sku'
-        verbose_name = '商品'
+        db_table = 'tb_goods_category'
+        verbose_name = '商品类别'
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name
 
 
-# 商品SPU模型类
-class Goods(BaseModel):
-    '''商品SPU模型类'''
-    name = models.CharField(max_length=20, verbose_name='商品SPU名称')
-    # 富文本类型:带有格式的文本
-    # detail = HTMLField(blank=True, verbose_name='商品详情')
-    description = models.TextField(blank=True, verbose_name="产品详情")
-
+class GoodsChannelGroup(BaseModel):
+    """商品频道组"""
+    name = CharField(max_length=20, verbose_name='频道组名')
 
     class Meta:
-        db_table = 'df_goods'
+        db_table = 'tb_channel_group'
+        verbose_name = '商品频道组'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
+class GoodsChannel(BaseModel):
+    """商品频道"""
+    group = ForeignKey(GoodsChannelGroup, on_delete=CASCADE, verbose_name='频道组名')
+    category = ForeignKey(GoodsCategory, on_delete=CASCADE, verbose_name='顶级商品类别')
+    url = CharField(max_length=50, verbose_name='频道页面链接')
+    sequence = IntegerField(verbose_name='组内顺序')
+
+    class Meta:
+        db_table = 'tb_goods_channel'
+        verbose_name = '商品频道'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.category.name
+
+
+class Brand(BaseModel):
+    """品牌"""
+    name = CharField(max_length=20, verbose_name='名称')
+    logo = ImageField(verbose_name='Logo图片')
+    first_letter = CharField(max_length=1, verbose_name='品牌首字母')
+
+    class Meta:
+        db_table = 'tb_brand'
+        verbose_name = '品牌'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
+class SPU(BaseModel):
+    """商品SPU"""
+    name = CharField(max_length=50, verbose_name='名称')
+    brand = ForeignKey(Brand, on_delete=PROTECT, verbose_name='品牌')
+    category1 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat1_spu', verbose_name='一级类别')
+    category2 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat2_spu', verbose_name='二级类别')
+    category3 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat3_spu', verbose_name='三级类别')
+    sales = IntegerField(default=0, verbose_name='销量')
+    comments = IntegerField(default=0, verbose_name='评价数')
+    desc_detail = TextField(default='', verbose_name='详细介绍')
+    desc_pack = TextField(default='', verbose_name='包装信息')
+    desc_service = TextField(default='', verbose_name='售后服务')
+
+    class Meta:
+        db_table = 'tb_spu'
         verbose_name = '商品SPU'
         verbose_name_plural = verbose_name
 
@@ -69,67 +84,83 @@ class Goods(BaseModel):
         return self.name
 
 
-class GoodsImage(BaseModel):
-    '''商品图片模型类'''
-    sku = models.ForeignKey('GoodsSKU', on_delete=models.CASCADE, verbose_name='商品')  # 其实是存的sku的id
-    image = models.ImageField(upload_to='goods', verbose_name='图片路径')
+class SKU(BaseModel):
+    """商品SKU"""
+    name = CharField(max_length=50, verbose_name='名称')
+    caption = CharField(max_length=100, verbose_name='副标题')
+    spu = ForeignKey(SPU, on_delete=CASCADE, verbose_name='商品')
+    category = ForeignKey(GoodsCategory, on_delete=PROTECT, verbose_name='从属类别')
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')
+    cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+    market_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='市场价')
+    stock = IntegerField(default=0, verbose_name='库存')
+    sales = IntegerField(default=0, verbose_name='销量')
+    comments = IntegerField(default=0, verbose_name='评价数')
+    is_launched = BooleanField(default=True, verbose_name='是否上架销售')
+    default_image_url = ImageField(max_length=200, default='', null=True, blank=True, verbose_name='默认图片')
 
     class Meta:
-        db_table = 'df_goods_image'
-        verbose_name = '商品图片'
-        verbose_name_plural = verbose_name
-
-
-# '首页轮播商品'
-class IndexGoodsBanner(BaseModel):
-    '''首页轮播商品展示模型类'''
-    sku = models.ForeignKey('GoodsSKU', on_delete=models.CASCADE, verbose_name='商品')  # 其实是存的sku的id
-    image = models.ImageField(upload_to='banner', verbose_name='图片')
-    index = models.SmallIntegerField(default=0, verbose_name='展示顺序')  # 0 1 2 3
-
-    class Meta:
-        db_table = 'df_index_banner'
-        verbose_name = '首页轮播商品'
+        db_table = 'tb_sku'
+        verbose_name = '商品SKU'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.sku.name
+        return '%s: %s' % (self.id, self.name)
 
 
-# "主页分类展示商品"
-class IndexTypeGoodsBanner(BaseModel):
-    '''首页分类商品展示模型类'''
-    DISPLAY_TYPE_CHOICES = (
-        (0, "标题"),
-        (1, "图片")
-    )
-
-    type = models.ForeignKey('GoodsType', on_delete=models.CASCADE, verbose_name='商品类型')  # 其实是存的GoodsType的id
-    sku = models.ForeignKey('GoodsSKU', on_delete=models.CASCADE, verbose_name='商品SKU')  # 其实是存的GoodsSKU的id
-    display_type = models.SmallIntegerField(default=1, choices=DISPLAY_TYPE_CHOICES, verbose_name='展示类型')
-    index = models.SmallIntegerField(default=0, verbose_name='展示顺序')
+class SKUImage(BaseModel):
+    """SKU图片"""
+    sku = ForeignKey(SKU, on_delete=CASCADE, verbose_name='sku')
+    image = ImageField(verbose_name='图片')
 
     class Meta:
-        db_table = 'df_index_type_goods'
-        verbose_name = "主页分类展示商品"
+        db_table = 'tb_sku_image'
+        verbose_name = 'SKU图片'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return '%s - %s' % (self.type.name, self.sku.name)
+        return '%s %s' % (self.sku.name, self.id)
 
 
-# "主页促销活动"
-class IndexPromotionBanner(BaseModel):
-    '''首页促销活动模型类'''
-    name = models.CharField(max_length=20, verbose_name='活动名称')
-    url = models.CharField(max_length=256, verbose_name='活动链接')
-    image = models.ImageField(upload_to='banner', verbose_name='活动图片')  # 去调用FastDfs存储图片
-    index = models.SmallIntegerField(default=0, verbose_name='展示顺序')
+class SPUSpecification(BaseModel):
+    """商品SPU规格"""
+    spu = ForeignKey(SPU, on_delete=CASCADE, related_name='specs', verbose_name='商品SPU')
+    name = CharField(max_length=20, verbose_name='规格名称')
 
     class Meta:
-        db_table = 'df_index_promotion'
-        verbose_name = "主页促销活动"
+        db_table = 'tb_spu_specification'
+        verbose_name = '商品SPU规格'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return '%s: %s' % (self.spu.name, self.name)
+
+
+class SpecificationOption(BaseModel):
+    """规格选项"""
+    spec = ForeignKey(SPUSpecification, related_name='options', on_delete=CASCADE, verbose_name='规格')
+    value = CharField(max_length=20, verbose_name='选项值')
+
+    class Meta:
+        db_table = 'tb_specification_option'
+        verbose_name = '规格选项'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '%s - %s' % (self.spec, self.value)
+
+
+class SKUSpecification(BaseModel):
+    """SKU具体规格"""
+    sku = ForeignKey(SKU, related_name='specs', on_delete=CASCADE, verbose_name='sku')
+    spec = ForeignKey(SPUSpecification, on_delete=PROTECT, verbose_name='规格名称')
+    option = ForeignKey(SpecificationOption, on_delete=PROTECT, verbose_name='规格值')
+
+    class Meta:
+        db_table = 'tb_sku_specification'
+        verbose_name = 'SKU规格'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '%s: %s - %s' % (self.sku, self.spec.name, self.option.value)
+
