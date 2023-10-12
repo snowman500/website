@@ -65,14 +65,14 @@ class Brand(BaseModel):
 
 class SPU(BaseModel):
     """商品SPU"""
-    name = CharField(max_length=50, verbose_name='产品型号:JF-D-012')
+    name = CharField(max_length=50, verbose_name='产品型号:JF-D-012')            # 右侧详情页需要显示的
 
-    rating = DecimalField(max_digits=1, decimal_places=1, verbose_name='评分')
-    comments = IntegerField(default=0, verbose_name='评价数')
-    sales = IntegerField(default=0, verbose_name='销量')
-    comments_detail = TextField(default='', verbose_name='评价详情')
-    brand = ForeignKey(Brand, on_delete=PROTECT, verbose_name='品牌')
-    Description = TextField(default='', verbose_name='产品listing')
+    rating = DecimalField(max_digits=1, decimal_places=1, verbose_name='评分')   # 右侧详情页需要显示的
+    comments = IntegerField(default=0, verbose_name='评价数')                    # 右侧详情页需要显示的
+    brand = ForeignKey(Brand, on_delete=PROTECT, verbose_name='品牌')            # 右侧详情页需要显示的
+    Description = TextField(default='', verbose_name='产品listing')              # 右侧详情页需要显示的
+    sales = IntegerField(default=0, verbose_name='销量')                         # 右侧详情页需要显示的
+    comments_detail = TextField(default='', verbose_name='评价详情')             # 右侧详情页需要显示的
     category1 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat1_spu', verbose_name='一级类别')
     category2 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat2_spu', verbose_name='二级类别')
     category3 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat3_spu', verbose_name='三级类别')
@@ -90,8 +90,17 @@ class SPU(BaseModel):
 
 
 class SKU(BaseModel):
+
     """商品SKU"""
-    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')
+
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')                 # 右侧详情页需要显示的
+    power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')                 # 右侧详情页需要显示的
+    warranty = DecimalField(max_digits=10, decimal_places=2, verbose_name='保修期')             # 右侧详情页需要显示的
+    warranty = DecimalField(max_digits=10, decimal_places=2, verbose_name='应用范围')           # 右侧详情页需要显示的
+    emitting_color = DecimalField(max_digits=10, decimal_places=2, verbose_name='灯光颜色')     # 右侧详情页需要显示的
+    transport_package = DecimalField(max_digits=10, decimal_places=2, verbose_name='灯光颜色')
+    Origin = DecimalField(max_digits=10, decimal_places=2, verbose_name='灯光颜色')
+
 
     name = CharField(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
     caption = CharField(max_length=100, verbose_name='副标题')
