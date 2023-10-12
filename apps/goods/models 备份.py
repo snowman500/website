@@ -1,4 +1,4 @@
-# goods models
+# goods models 备份
 from extensions.models import *
 from extensions.common.base_model import BaseModel
 

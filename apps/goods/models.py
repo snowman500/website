@@ -1,3 +1,4 @@
+# goods models 
 from extensions.models import *
 from extensions.common.base_model import BaseModel
 
@@ -64,16 +65,20 @@ class Brand(BaseModel):
 
 class SPU(BaseModel):
     """商品SPU"""
-    name = CharField(max_length=50, verbose_name='名称')
+    name = CharField(max_length=50, verbose_name='产品型号:JF-D-012')
+
+    rating = DecimalField(max_digits=1, decimal_places=1, verbose_name='评分')
+    comments = IntegerField(default=0, verbose_name='评价数')
+    sales = IntegerField(default=0, verbose_name='销量')
+    comments_detail = TextField(default='', verbose_name='评价详情')
     brand = ForeignKey(Brand, on_delete=PROTECT, verbose_name='品牌')
+    Description = TextField(default='', verbose_name='产品listing')
     category1 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat1_spu', verbose_name='一级类别')
     category2 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat2_spu', verbose_name='二级类别')
     category3 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat3_spu', verbose_name='三级类别')
-    sales = IntegerField(default=0, verbose_name='销量')
-    comments = IntegerField(default=0, verbose_name='评价数')
     desc_detail = TextField(default='', verbose_name='详细介绍')
     desc_pack = TextField(default='', verbose_name='包装信息')
-    desc_service = TextField(default='', verbose_name='售后服务')
+    # desc_service = TextField(default='', verbose_name='售后服务')
 
     class Meta:
         db_table = 'tb_spu'
@@ -86,16 +91,17 @@ class SPU(BaseModel):
 
 class SKU(BaseModel):
     """商品SKU"""
-    name = CharField(max_length=50, verbose_name='名称')
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')
+
+    name = CharField(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
     caption = CharField(max_length=100, verbose_name='副标题')
     spu = ForeignKey(SPU, on_delete=CASCADE, verbose_name='商品')
     category = ForeignKey(GoodsCategory, on_delete=PROTECT, verbose_name='从属类别')
-    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')
     cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
     market_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='市场价')
+    desc_detail = TextField(default='', verbose_name='详细介绍')
     stock = IntegerField(default=0, verbose_name='库存')
     sales = IntegerField(default=0, verbose_name='销量')
-    comments = IntegerField(default=0, verbose_name='评价数')
     is_launched = BooleanField(default=True, verbose_name='是否上架销售')
     default_image_url = ImageField(max_length=200, default='', null=True, blank=True, verbose_name='默认图片')
 
@@ -111,7 +117,17 @@ class SKU(BaseModel):
 class SKUImage(BaseModel):
     """SKU图片"""
     sku = ForeignKey(SKU, on_delete=CASCADE, verbose_name='sku')
-    image = ImageField(verbose_name='图片')
+    image = ImageField(verbose_name='产品主图')
+    image_son1 = ImageField(verbose_name='产品辅图1')
+    image_son2 = ImageField(verbose_name='产品辅图2')
+    image_son3 = ImageField(verbose_name='产品辅图3')
+    image_son4 = ImageField(verbose_name='产品辅图4')
+    image_son5 = ImageField(verbose_name='产品辅图5')
+    image_son6 = ImageField(verbose_name='产品辅图6')
+    image_son7 = ImageField(verbose_name='产品辅图7')
+    image_son8 = ImageField(verbose_name='产品辅图8')
+    image_son9 = ImageField(verbose_name='产品辅图9')
+
 
     class Meta:
         db_table = 'tb_sku_image'
