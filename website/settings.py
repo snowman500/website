@@ -43,8 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
-    'goods.apps.GoodsConfig',
-    'bom.apps.BomConfig',
+    'shop.apps.ShopConfig',
+    'system.apps.SystemConfig',
+    'item.apps.ItemConfig',
+    'user.apps.UserConfig',
     
 ]
 
