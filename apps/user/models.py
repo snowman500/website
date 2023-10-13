@@ -46,7 +46,7 @@ class CustomerInfo(BaseModel):
         self.password = make_password(raw_password)
 
     class Meta:
-        db_table = 'user_customer_login' # 定义属性表名字
+        db_table = 'user_customer_info' # 定义属性表名字
         verbose_name = '用户登录表'
         verbose_name_plural = verbose_name
 
@@ -76,7 +76,7 @@ class CustomerAddress(BaseModel):
     province = CharField(max_length=50, verbose_name='州')
     city = CharField(max_length=50, verbose_name='城市')
     district = CharField(max_length=50, verbose_name='区')
-    address = CharField(max_length=200, verbose_name='区')
+    address = CharField(max_length=200, verbose_name='详细地址')
     password = models.CharField(max_length=128, verbose_name='用户登录密码')
     update_time = models.DateTimeField(auto_now=True, verbose_name='最后修改时间')
     is_default = BooleanField(default=True, verbose_name='是否默认地址') 

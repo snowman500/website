@@ -3,7 +3,7 @@ from extensions.models import *
 from extensions.common.base_model import BaseModel
 from item.models import *
 from user.models import *
-
+from datetime import datetime
 
 # Create your models here.
 
@@ -116,20 +116,15 @@ class ImageInfo(BaseModel):
 class GoodsComment(BaseModel):
     """商品评论表"""
     is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
-    item_id = ForeignKey('SPU', on_delete=CASCADE, verbose_name='商品')  # 其实是存的spu的id
-    order_id = ForeignKey('order_master', on_delete=CASCADE, verbose_name='商品')  # 订单的id
-    customer_id = ForeignKey('CustomerInfo', on_delete=CASCADE, verbose_name='商品')
+    item_id = ForeignKey('ItemSKU', on_delete=CASCADE, verbose_name='商品ID')  # 物料编码ID
+    order_id = ForeignKey('order_master', on_delete=CASCADE, verbose_name='订单iD')  # 订单的id
+    customer_id = ForeignKey('CustomerLogin', on_delete=CASCADE, verbose_name='用户登陆ID')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_image')
-    image_son1 = ImageField(verbose_name='产品辅图路径1')
-    image_son2 = ImageField(verbose_name='产品辅图路径2')
-    image_son3 = ImageField(verbose_name='产品辅图路径3')
-    image_son4 = ImageField(verbose_name='产品辅图路径4')
-    image_son5 = ImageField(verbose_name='产品辅图路径5')
-    image_son6 = ImageField(verbose_name='产品辅图路径6')
-    image_son7 = ImageField(verbose_name='产品辅图路径7')
-    image_son8 = ImageField(verbose_name='产品辅图路径8')
-    image_son9 = ImageField(verbose_name='产品辅图路径9')
-
+    title = CharField(max_length=100, verbose_name='评论标题')
+    content = CharField(max_length=300, verbose_name='评论内容')
+    audit_status = BooleanField(default=False, verbose_name='审核状态') # 默认未审核
+    audit_time = DateTimeField(auto_now_add=True, verbose_name='评论创建时间')
+    audit_update_time = DateTimeField(auto_now=True, verbose_name='评论修改时间')
 
     class Meta:
         db_table = 'shop_image_info'
@@ -139,30 +134,37 @@ class GoodsComment(BaseModel):
     def __str__(self):
         return '%s %s' % (self.sku.name, self.id)
 
-
-商品评论表（product_comment）
-CREATE TABLE product_comment(
-  comment_id INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '评论ID',
-  product_id INT UNSIGNED NOT NULL COMMENT '商品ID',
-  order_id BIGINT UNSIGNED NOT NULL COMMENT '订单ID',
-  customer_id INT UNSIGNED NOT NULL COMMENT '用户ID',
-  title VARCHAR(50) NOT NULL COMMENT '评论标题',
-  content VARCHAR(300) NOT NULL COMMENT '评论内容',
-  audit_status TINYINT NOT NULL COMMENT '审核状态：0未审核，1已审核',
-  audit_time TIMESTAMP NOT NULL COMMENT '评论时间',
-  modified_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-  PRIMARY KEY pk_commentid(comment_id)
-) ENGINE = innodb COMMENT '商品评论表';
 
 
 class OrderMaster(BaseModel):
     """订单主表"""
-    order_sn = DecimalField(max_digits=10, decimal_places=2, verbose_name='订单编号')
-    customer_id = ForeignKey('SPU', on_delete=CASCADE, verbose_name='商品')  # 其实是存的spu的id
-    is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
-    order_sn = ForeignKey('SPU', on_delete=CASCADE, verbose_name='商品')  # 其实是存的spu的id
-
-
+    is_active = BooleanField(default=True, verbose_name='订单状态') # 已完成,未完成
+    order_sn = CharField(max_length=20, unique=True, editable=False, verbose_name='订单编号') # 订单编号可以自己生成且格式为YYYYMMDDnnnnn
+    customer_id = ForeignKey('CustomerInfo', on_delete=CASCADE, verbose_name='下单人ID')  # 其实是存的用户登陆的id
+    shipping_user = CharField(max_length=20, unique=True, editable=False, verbose_name='订单编号')
+    country = CharField(max_length=50, default='', verbose_name='国家')  #这里的默认信息从客户账户那里拿到
+    province = CharField(max_length=50, default='', verbose_name='州')   #这里的默认信息从客户账户那里拿到
+    city = CharField(max_length=50, default='', verbose_name='城市')     #这里的默认信息从客户账户那里拿到
+    district = CharField(max_length=50, default='', verbose_name='区')   #这里的默认信息从客户账户那里拿到
+    address = CharField(max_length=200, default='', verbose_name='详细地址')  #这里的默认信息从客户账户那里拿到
+    payment_chioces= (
+        ('1', 'paypal'),
+        ('2', 'card'),
+        ('3', '**'),
+        ('4', 'TT'),
+        )
+    order_money = DecimalField(max_digits=10, decimal_places=2, verbose_name='订单金额')    
+    district_money = DecimalField(max_digits=10, decimal_places=2, verbose_name='优惠金额')    
+    shipping_money = DecimalField(max_digits=10, decimal_places=2, verbose_name='运费金额')    
+    payment_money = DecimalField(max_digits=10, decimal_places=2, verbose_name='支付金额')    
+    shipping_comp_name = CharField(max_length=200, default='', verbose_name='快递公司名称')
+    create_time = DateTimeField(auto_now_add=True, verbose_name='下单时间')
+    shipping_time = DateTimeField(auto_now_add=True, verbose_name='发货时间')
+    payment_time = DateTimeField(auto_now_add=True, verbose_name='发货时间')
+    receive_time = DateTimeField(auto_now_add=True, verbose_name='收货时间')
+    order_point = CharField(max_length=200, default='', verbose_name='订单积分')
+    
+    
     class Meta:
         db_table = 'shop_image_info'
         verbose_name = '图片信息表'
@@ -171,60 +173,27 @@ class OrderMaster(BaseModel):
     def __str__(self):
         return '%s %s' % (self.sku.name, self.id)
     
-
-订单主表（order_master）
-CREATE TABLE order_master(
-  order_id INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单ID',
-  order_sn BIGINT UNSIGNED NOT NULL COMMENT '订单编号 yyyymmddnnnnnnnn',
-  customer_id INT UNSIGNED NOT NULL COMMENT '下单人ID',
-  shipping_user VARCHAR(10) NOT NULL COMMENT '收货人姓名',
-  province SMALLINT NOT NULL COMMENT '省',
-  city SMALLINT NOT NULL COMMENT '市',
-  district SMALLINT NOT NULL COMMENT '区',
-  address VARCHAR(100) NOT NULL COMMENT '地址',
-  payment_method TINYINT NOT NULL COMMENT '支付方式：1现金，2余额，3网银，4支付宝，5微信',
-  order_money DECIMAL(8,2) NOT NULL COMMENT '订单金额',
-  district_money DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '优惠金额',
-  shipping_money DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '运费金额',
-  payment_money DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '支付金额',
-  shipping_comp_name VARCHAR(10) COMMENT '快递公司名称',
-  shipping_sn VARCHAR(50) COMMENT '快递单号',
-  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '下单时间',
-  shipping_time DATETIME COMMENT '发货时间',
-  pay_time DATETIME COMMENT '支付时间',
-  receive_time DATETIME COMMENT '收货时间',
-  order_status TINYINT NOT NULL DEFAULT 0 COMMENT '订单状态',
-  order_point INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单积分',
-  invoice_time VARCHAR(100) COMMENT '发票抬头',
-  modified_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-  PRIMARY KEY pk_orderid(order_id)
-)ENGINE = innodb COMMENT '订单主表';
-
-订单详情表（order_detail）
-CREATE TABLE order_detail(
-  order_detail_id INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单详情表ID',
-  order_id INT UNSIGNED NOT NULL COMMENT '订单表ID',
-  product_id INT UNSIGNED NOT NULL COMMENT '订单商品ID',
-  product_name VARCHAR(50) NOT NULL COMMENT '商品名称',
-  product_cnt INT NOT NULL DEFAULT 1 COMMENT '购买商品数量',
-  product_price DECIMAL(8,2) NOT NULL COMMENT '购买商品单价',
-  average_cost DECIMAL(8,2) NOT NULL COMMENT '平均成本价格',
-  weight FLOAT COMMENT '商品重量',
-  fee_money DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '优惠分摊金额',
-  w_id INT UNSIGNED NOT NULL COMMENT '仓库ID',
-    modified_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-  PRIMARY KEY pk_orderdetailid(order_detail_id)
-)ENGINE = innodb COMMENT '订单详情表'
-
-购物车表（order_cart）
-CREATE TABLE order_cart(
-  cart_id INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '购物车ID',
-  customer_id INT UNSIGNED NOT NULL COMMENT '用户ID',
-  product_id INT UNSIGNED NOT NULL COMMENT '商品ID',
-  product_amount INT NOT NULL COMMENT '加入购物车商品数量',
-  price DECIMAL(8,2) NOT NULL COMMENT '商品价格',
-  add_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '加入购物车时间',
-      modified_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-  PRIMARY KEY pk_cartid(cart_id)
-) ENGINE = innodb COMMENT '购物车表';
     
+class OrderDetail(BaseModel):
+    """订单详情表"""
+    order_id = IntegerField( verbose_name='订单表ID')
+    product_id = ForeignKey('CustomerInfo', on_delete=CASCADE, verbose_name='下单人ID')
+    product_name = ForeignKey('CustomerInfo', on_delete=CASCADE, verbose_name='下单人ID')
+    product_cnt = IntegerField(default=0, verbose_name='购买商品数量')
+    product_price = ForeignKey('CustomerInfo', on_delete=CASCADE, verbose_name='商品价格')
+    weight = CharField(max_length=200, default='', verbose_name='商品重量')
+    fee_money = CharField(max_length=200, default='', verbose_name='优惠分摊金额')
+    w_id = CharField(max_length=200, default='', verbose_name='仓库ID')
+    modified_time = CharField(max_length=200, default='', verbose_name='订单积分')
+    
+
+
+class OrderCart(BaseModel):
+    """购物车表"""
+    order_id = IntegerField( verbose_name='订单表ID')
+    customer_id = ForeignKey('CustomerInfo', on_delete=CASCADE, verbose_name='用户ID')  # 其实是存的用户登陆的id
+    product_id = ForeignKey('CustomerInfo', on_delete=CASCADE, verbose_name='物料编码')
+    product_amount = IntegerField( verbose_name='加入购物车的数量')
+    product_price = ForeignKey('SPU', on_delete=CASCADE, verbose_name='商品价格')
+    create_time = DateTimeField(auto_now_add=True, verbose_name='加入购物车时间')
+    update_time = models.DateTimeField(auto_now=True, verbose_name='最后修改时间')
