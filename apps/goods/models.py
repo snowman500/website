@@ -7,7 +7,7 @@ from extensions.common.base_model import BaseModel
 # Create your models here.
 class GoodsCategory(BaseModel):
     """商品类别"""
-    name = CharField(max_length=10, verbose_name='名称')
+    name = CharField(max_length=10, verbose_name='名称') # 灯条,膜片,机壳,套料,万用表
     parent = ForeignKey('self', related_name='subs', null=True, blank=True, on_delete=CASCADE, verbose_name='父类别')
 
     class Meta:
@@ -19,17 +19,17 @@ class GoodsCategory(BaseModel):
         return self.name
 
 
-class GoodsChannelGroup(BaseModel):
-    """商品频道组"""
-    name = CharField(max_length=20, verbose_name='频道组名')
+# class GoodsChannelGroup(BaseModel):
+#     """商品频道组"""
+#     name = CharField(max_length=20, verbose_name='频道组名') # 直下式,侧入式
 
-    class Meta:
-        db_table = 'tb_channel_group'
-        verbose_name = '商品频道组'
-        verbose_name_plural = verbose_name
+#     class Meta:
+#         db_table = 'tb_channel_group'
+#         verbose_name = '商品频道组'
+#         verbose_name_plural = verbose_name
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class GoodsChannel(BaseModel):
@@ -63,36 +63,12 @@ class Brand(BaseModel):
         return self.name
 
 
-class SPU(BaseModel):
-    """商品SPU"""
-    name = CharField(max_length=50, verbose_name='产品型号:JF-D-012')            # 右侧详情页需要显示的
-
-    rating = DecimalField(max_digits=1, decimal_places=1, verbose_name='评分')   # 右侧详情页需要显示的
-    comments = IntegerField(default=0, verbose_name='评价数')                    # 右侧详情页需要显示的
-    brand = ForeignKey(Brand, on_delete=PROTECT, verbose_name='品牌')            # 右侧详情页需要显示的
-    Description = TextField(default='', verbose_name='产品listing')              # 右侧详情页需要显示的
-    sales = IntegerField(default=0, verbose_name='销量')                         # 右侧详情页需要显示的
-    comments_detail = TextField(default='', verbose_name='评价详情')             # 右侧详情页需要显示的
-    category1 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat1_spu', verbose_name='一级类别')
-    category2 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat2_spu', verbose_name='二级类别')
-    category3 = ForeignKey(GoodsCategory, on_delete=PROTECT, related_name='cat3_spu', verbose_name='三级类别')
-    desc_detail = TextField(default='', verbose_name='详细介绍')
-    desc_pack = TextField(default='', verbose_name='包装信息')
-    # desc_service = TextField(default='', verbose_name='售后服务')
-
-    class Meta:
-        db_table = 'tb_spu'
-        verbose_name = '商品SPU'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return self.name
 
 
 class SKU(BaseModel):
 
     """商品SKU"""
-
+    is_launched = BooleanField(default=True, verbose_name='是否上架销售')
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')                 # 右侧详情页需要显示的
     power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')                 # 右侧详情页需要显示的
     warranty = DecimalField(max_digits=10, decimal_places=2, verbose_name='保修期')             # 右侧详情页需要显示的
@@ -111,7 +87,7 @@ class SKU(BaseModel):
     desc_detail = TextField(default='', verbose_name='详细介绍')
     stock = IntegerField(default=0, verbose_name='库存')
     sales = IntegerField(default=0, verbose_name='销量')
-    is_launched = BooleanField(default=True, verbose_name='是否上架销售')
+    likes = IntegerField(default=0, verbose_name='收藏')
     default_image_url = ImageField(max_length=200, default='', null=True, blank=True, verbose_name='默认图片')
 
     class Meta:
