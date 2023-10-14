@@ -68,7 +68,7 @@ class SPU(BaseModel):
     name = CharField(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
     caption = CharField(max_length=100, verbose_name='副标题')
  #   spu = ForeignKey(SPU, on_delete=CASCADE, verbose_name='商品')
-    category = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='从属类别')
+    category = ForeignKey(to="ItemCategory",to_field="", on_delete=PROTECT, verbose_name='从属类别')
     cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
     market_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='市场价')
     desc_detail = TextField(default='', verbose_name='详细介绍')

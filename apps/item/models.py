@@ -60,7 +60,7 @@ class WarehouseInfo(BaseModel):
     city = CharField(max_length=50, verbose_name='市')
     distrct = CharField(max_length=50, verbose_name='区')
     address = CharField(max_length=50, verbose_name='仓库地址')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouse_info')
+#   team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouse_info')
 
     class Meta:
         db_table = 'item_warehouse_info' # 定义属性表名字
@@ -72,12 +72,12 @@ class WarehouseItem(BaseModel):
     """物料库存表"""
     is_active = BooleanField(default=True, verbose_name='启用状态')     # 默认启用
     product_id = CharField(max_length=50, verbose_name='物料ID')
-    w_id = CharField(max_length=50, verbose_name='仓库ID')
+    w_id = ForeignKey('WarehouseInfo', on_delete=PROTECT,verbose_name='仓库ID', related_name='warehouse_info')
     current_cnt = CharField(max_length=256, verbose_name='库存数量')
     lock_cnt = CharField(max_length=50, verbose_name='锁库数量')
     in_transit_cnt = CharField(max_length=50, verbose_name='在途数量')
-    average_cost = CharField(max_length=50, verbose_name='移动加权成本')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouse_item')
+#   average_cost = CharField(max_length=50, verbose_name='移动加权成本')
+#   team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouse_item')
 
     class Meta:
         db_table = 'item_warehouse_item' # 定义属性表名字
@@ -111,7 +111,7 @@ class Supplier(BaseModel):
     bank_name = CharField(max_length=50, verbose_name='供应商开户银行名称')
     bank_account = CharField(max_length=50, verbose_name='银行账号')
     address = CharField(max_length=50, verbose_name='供应商地址')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='supplier')
+#    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='supplier')
     
     """ 定义了一个save的方法,用于保存模型实例。当保存新的供应商时，
     这个方法会检查是否存在已有的供应商编码。如果存在，则会将新的供应商编码设置为上一个供应商编码加1。
@@ -144,8 +144,8 @@ class ItemCategory(BaseModel):
     # 二级--四级: 00-99
     item_id = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], verbose_name='物料分类代码')
     item = CharField(max_length=10, verbose_name='物料名称') 
-    parent = ForeignKey('self', related_name='subs', null=True, blank=True, on_delete=CASCADE, verbose_name='父类别')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_category')
+    parent = ForeignKey('self', null=True, blank=True, on_delete=CASCADE, related_name='subs', verbose_name='父类别')
+#    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_category')
     class Meta:
         db_table = 'item_item_category'
         verbose_name = '物料类别'
@@ -159,9 +159,9 @@ class ItemSpecification(BaseModel):
     is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='物料价格')
     product_specification = BooleanField(default=False, verbose_name='规格书是否已经上传') # 默认未上传
-    supplier = ForeignKey('Supplier', on_delete=CASCADE, verbose_name='供应商名称') # 供应商外键
+    supplier = ForeignKey('Supplier', on_delete=PROTECT,verbose_name='供应商名称', related_name='item_specification') # 供应商外键
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='备注')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_specification')
+#    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_specification')
     spec_1 = CharField(max_length=64, verbose_name='自定义规格1')
     spec_2 = CharField(max_length=64, verbose_name='自定义规格2')
     spec_3 = CharField(max_length=64, verbose_name='自定义规格3')
@@ -197,10 +197,10 @@ class ItemUnit(Model):
 
     name = CharField(max_length=64, verbose_name='名称')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='备注')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_unit')
+    #team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_unit')
 
-    class Meta:
-        unique_together = [('name', 'team')]
+    # class Meta:
+    #     unique_together = [('name', 'team')]
 
 
 
@@ -221,7 +221,7 @@ class ItemSKU(BaseModel):
     brand = DecimalField(max_digits=10, decimal_places=2, verbose_name='灯条品牌')
     set = DecimalField(max_digits=10, decimal_places=2, verbose_name='一套几条')
     enable_inventory_warning = BooleanField(default=False, verbose_name='启用库存警告')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_sku')
+    #team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_sku')
     
     @classmethod
     def get_number(cls, team):
@@ -243,11 +243,11 @@ class ItemSKU(BaseModel):
 
         return prefix + next_number + suffix
     
-    class Meta:
-        unique_together = [('item_id', 'team')]
-        db_table = 'item_item_sku'
-        verbose_name = '物料'
-        verbose_name_plural = verbose_name
+    # class Meta:
+    #     unique_together = [('item_id', 'team')]
+    #     db_table = 'item_item_sku'
+    #     verbose_name = '物料'
+    #     verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name
