@@ -42,9 +42,6 @@ class CustomerInfo(BaseModel):
     birthday = CharField(max_length=50, verbose_name='会员生日')   
     user_money = DecimalField(max_digits=10, decimal_places=0, verbose_name='账户余额')
 
-    def set_password(self, raw_password):
-        self.password = make_password(raw_password)
-
     class Meta:
         db_table = 'user_customer_info' # 定义属性表名字
         verbose_name = '用户登录表'
@@ -83,7 +80,7 @@ class CustomerAddress(BaseModel):
 
 
     class Meta:
-        db_table = 'user_customer_level_info' # 定义属性表名字
+        db_table = 'user_customer_address' # 定义属性表名字
         verbose_name = '用户地址表'
         verbose_name_plural = verbose_name
 
@@ -112,7 +109,7 @@ class CustomerPointLog(BaseModel):
 
 
     class Meta:
-        db_table = 'user_customer_level_info' # 定义属性表名字
+        db_table = 'user_customer_point_info' # 定义属性表名字
         verbose_name = '用户积分日志表'
         verbose_name_plural = verbose_name
 
@@ -151,7 +148,7 @@ class CustomerLoginLog(BaseModel):
 
 
     class Meta:
-        db_table = 'user_customer_balance_log' # 定义属性表名字
+        db_table = 'user_customer_login_log' # 定义属性表名字
         verbose_name = '用户登录日志表'
         verbose_name_plural = verbose_name
 

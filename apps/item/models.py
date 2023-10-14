@@ -72,7 +72,7 @@ class WarehouseItem(BaseModel):
     """物料库存表"""
     is_active = BooleanField(default=True, verbose_name='启用状态')     # 默认启用
     product_id = CharField(max_length=50, verbose_name='物料ID')
-    w_id = ForeignKey('WarehouseInfo', on_delete=PROTECT,verbose_name='仓库ID', related_name='warehouse_info')
+    w_id = ForeignKey('WarehouseInfo', on_delete=PROTECT,verbose_name='仓库ID', related_name='warehouse_item')
     current_cnt = CharField(max_length=256, verbose_name='库存数量')
     lock_cnt = CharField(max_length=50, verbose_name='锁库数量')
     in_transit_cnt = CharField(max_length=50, verbose_name='在途数量')
@@ -133,8 +133,6 @@ class Supplier(BaseModel):
         verbose_name = '供应商信息表'
         verbose_name_plural = verbose_name
 
-    def __str__(self):
-        return '%s: %s - %s' % (self.sku, self.spec.name, self.option.value)
 
 
 # Create your models here.
@@ -144,16 +142,13 @@ class ItemCategory(BaseModel):
     # 二级--四级: 00-99
     item_id = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], verbose_name='物料分类代码')
     item = CharField(max_length=10, verbose_name='物料名称') 
-    parent = ForeignKey('self', null=True, blank=True, on_delete=CASCADE, related_name='subs', verbose_name='父类别')
+    parent = ForeignKey('self', null=True, blank=True, on_delete=CASCADE, related_name='item_category', verbose_name='父类别')
 #    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_category')
     class Meta:
         db_table = 'item_item_category'
         verbose_name = '物料类别'
         verbose_name_plural = verbose_name
 
-    def __str__(self):
-        return self.name
-    
 class ItemSpecification(BaseModel):
     """物料属性表"""
     is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
@@ -188,9 +183,6 @@ class ItemSpecification(BaseModel):
         verbose_name = '物料属性表'
         verbose_name_plural = verbose_name
 
-    def __str__(self):
-        return '%s: %s - %s' % (self.sku, self.spec.name, self.option.value)  
-
 
 class ItemUnit(Model):
     """产品单位"""
@@ -208,7 +200,7 @@ class ItemSKU(BaseModel):
     '''物料表'''
     is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
     is_launched = BooleanField(default=True, verbose_name='是否上架销售') # 默认上架
-    type = ForeignKey('ItemCategory', on_delete=CASCADE, verbose_name='物料类型编码')  # 其实是存的GoodsType的id
+    type = ForeignKey(ItemCategory, on_delete=CASCADE, verbose_name='物料类型编码', related_name='item_sku')  # 其实是存的GoodsType的id
     goods =CharField(max_length=64, verbose_name='物料型号:JF-D-002')  # 
     item_id = CharField(max_length=20, verbose_name='物料编码:F2.2.09.30.00000')    
     name = CharField(max_length=20, verbose_name='物料名称')
@@ -248,9 +240,6 @@ class ItemSKU(BaseModel):
     #     db_table = 'item_item_sku'
     #     verbose_name = '物料'
     #     verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return self.name
 
 
 
