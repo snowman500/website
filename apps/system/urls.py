@@ -25,7 +25,7 @@ urlpatterns = [
     path('single/', views.single, name="single"),
     path('contact/', views.contact, name="contact"),
     path('faqs/', views.faqs, name="faqs"),
-    path('item/', views.item, name="item"),
+    #path('item/', views.item, name="item"),
     # URL for Cart and Checkout
 
 ]

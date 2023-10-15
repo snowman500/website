@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'system.apps.SystemConfig',
     'item.apps.ItemConfig',
     'user.apps.UserConfig',
+    'app01.apps.App01Config',
     
 ]
 

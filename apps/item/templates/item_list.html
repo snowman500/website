@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'store/head.html' %}
+    <title>LED TV backlight strip</title>
+<body>
+    {% include 'store/navbar.html' %}
+
+    <!-- Banner -->
+    <section class="bg-success py-5">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-md-8 text-white">
+                    <h1>33225</h1>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>创建时间 </th>
+                                <th>更新时间</th>
+                                <th>是否激活</th>
+                                <th>仓库编码</th>
+                                <th>仓库名称</th>
+                                <th>仓库联系人</th>
+                                <th>仓库联系人电话</th>
+                                <th>省</th>
+                                <th>市</th>
+                                <th>区</th>
+                                <th>仓库地址</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in item_list %}    
+                            <tr>
+                                <td>{{ item.id}}</td>
+                                <td>{{ item.create_time}}</td>
+                                <td>{{ item.update_time}}</td>
+                                <td>{{ item.is_activate}}</td>
+                                <td>{{ item.warehouse_code}}</td>
+                                <td>{{ item.warehouse_name}}</td>
+                                <td>{{ item.link_man}}</td>
+                                <td>{{ item.phone_number}}</td>
+                                <td>{{ item.province}}</td>
+                                <td>{{ item.city}}</td>
+                                <td>{{ item.distrct}}</td>
+                                <td>{{ item.address}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                   </table>
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'img/about-hero.svg' %}" alt="About Hero">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Close Banner -->
+
+
+    {% include 'store/footer.html' %}
+    {% include 'store/scripts.html' %}
+
+</body>
+
+</html>

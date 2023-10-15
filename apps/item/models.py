@@ -1,7 +1,7 @@
 # bom models
 from extensions.models import *
 from extensions.common.base_model import *
-from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, MaxLengthValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 
@@ -52,7 +52,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator, RegexVa
 
 class WarehouseInfo(BaseModel):
     """仓库信息表"""
-    is_active = BooleanField(default=True, verbose_name='启用状态')     # 默认不启用
     warehouse_code = CharField(max_length=50, verbose_name='仓库编码')
     warehouse_name = CharField(max_length=50, verbose_name='仓库名称')
     link_man = CharField(max_length=256, verbose_name='仓库联系人')
@@ -63,10 +62,10 @@ class WarehouseInfo(BaseModel):
     address = CharField(max_length=50, verbose_name='仓库地址')
 #   team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouse_info')
 
-    class Meta:
-        db_table = 'item_warehouse_info' # 定义属性表名字
-        verbose_name = '仓库信息表'
-        verbose_name_plural = verbose_name
+    # class Meta:
+    #     db_table = 'item_warehouse_info' # 定义属性表名字
+    #     verbose_name = '仓库信息表'
+    #     verbose_name_plural = verbose_name
         
     # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
     # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
@@ -76,7 +75,7 @@ class WarehouseInfo(BaseModel):
 
 class WarehouseItem(BaseModel):
     """物料库存表"""
-    is_active = BooleanField(default=True, verbose_name='启用状态')     # 默认启用
+  
     product_id = CharField(max_length=50, verbose_name='物料ID')
     w_id = ForeignKey('WarehouseInfo', on_delete=PROTECT,verbose_name='仓库ID', related_name='warehouse_item')
     current_cnt = CharField(max_length=256, verbose_name='库存数量')
@@ -93,7 +92,6 @@ class WarehouseItem(BaseModel):
 
 class ShippingInfo(BaseModel):
     """物流公司信息表"""
-    is_active = BooleanField(default=True, verbose_name='启用状态')     # 默认启用
     ship_name = CharField(max_length=50, verbose_name='物流公司名称')
     link_man = CharField(max_length=256, verbose_name='物流公司联系人')
     phone_number = CharField(max_length=50, verbose_name='物流公司联系人电话')
@@ -109,7 +107,6 @@ class ShippingInfo(BaseModel):
 
 class Supplier(BaseModel):
     """供应商信息表"""
-    is_active = BooleanField(default=False, verbose_name='启用状态')     # 默认不启用
     supplier_code = CharField(max_length=10, default='JF0000', verbose_name='启用状态')
     supplier_name = CharField(max_length=50, verbose_name='供应商名称')
     link_man = CharField(max_length=256, verbose_name='联系人')
@@ -157,7 +154,6 @@ class ItemCategory(BaseModel):
 
 class ItemSpecification(BaseModel):
     """物料属性表"""
-    is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='物料价格')
     product_specification = BooleanField(default=False, verbose_name='规格书是否已经上传') # 默认未上传
     supplier = ForeignKey('Supplier', on_delete=PROTECT,verbose_name='供应商名称', related_name='item_specification') # 供应商外键
@@ -204,7 +200,6 @@ class ItemUnit(Model):
 
 class ItemSKU(BaseModel):
     '''物料表'''
-    is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
     is_launched = BooleanField(default=True, verbose_name='是否上架销售') # 默认上架
     type = ForeignKey(ItemCategory, on_delete=CASCADE, verbose_name='物料类型编码', related_name='item_sku')  # 其实是存的GoodsType的id
     goods =CharField(max_length=64, verbose_name='物料型号:JF-D-002')  # 

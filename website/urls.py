@@ -16,11 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from apps.item import views
 
 urlpatterns = [
     path('jf/admin/', admin.site.urls),
     path('', include('system.urls')),
+#    path('info/list/', views.info_list),
+#    path('info/add/', views.info_add),
+    path('item/', views.item),
+    path('item/list/', views.item_list, name="item_list"),
 
 
 ]
