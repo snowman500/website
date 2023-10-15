@@ -4,6 +4,7 @@ from extensions.common.base_model import *
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, MaxLengthValidator
 
 
+
     # # PCB属性
     # pcb1_length = DecimalField(max_digits=10, decimal_places=2, verbose_name='PCB长')  
     # pcb1_width = DecimalField(max_digits=10, decimal_places=2, verbose_name='PCB宽')
@@ -66,6 +67,11 @@ class WarehouseInfo(BaseModel):
         db_table = 'item_warehouse_info' # 定义属性表名字
         verbose_name = '仓库信息表'
         verbose_name_plural = verbose_name
+        
+    # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
+    # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
+    # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
+    # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
 
 
 class WarehouseItem(BaseModel):

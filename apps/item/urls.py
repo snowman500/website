@@ -1,5 +1,5 @@
 """
-URL configuration for website project.
+URL configuration for officeshop project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,12 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from . import views
 
 urlpatterns = [
-    path('jf/admin/', admin.site.urls),
-    path('item/', include('item.urls')),
-    path('', include('system.urls')),
-
+    path('item/', views.item, name="item"),
+    # URL for Cart and Checkout
 
 ]
