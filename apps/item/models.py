@@ -52,7 +52,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator, RegexVa
 
 class WarehouseInfo(BaseModel):
     """仓库信息表"""
-    is_active = BooleanField(default=False, verbose_name='启用状态')     # 默认不启用
+    is_active = BooleanField(default=True, verbose_name='启用状态')     # 默认不启用
     warehouse_code = CharField(max_length=50, verbose_name='仓库编码')
     warehouse_name = CharField(max_length=50, verbose_name='仓库名称')
     link_man = CharField(max_length=256, verbose_name='仓库联系人')

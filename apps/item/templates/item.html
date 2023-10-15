@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'store/head.html' %}
+    <title>LED TV backlight strip</title>
+<body>
+    {% include 'store/navbar.html' %}
+
+    <!-- Banner -->
+    <section class="bg-success py-5">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-md-8 text-white">
+                    <h1>FAQs</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="text" name="warehouse_code" placeholder="仓库编码">
+                        <input type="text" name="warehouse_name" placeholder="仓库名称">
+                        <input type="text" name="link_man" placeholder="仓库联系人">
+                        <input type="text" name="phone_number" placeholder="仓库联系人电话">
+                        <input type="text" name="province" placeholder="省">
+                        <input type="text" name="city" placeholder="市">
+                        <input type="text" name="distrct" placeholder="区">
+                        <input type="text" name="address" placeholder="详细地址">
+                        <input type="submit" value="提交" >
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'img/about-hero.svg' %}" alt="About Hero">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Close Banner -->
+
+
+    {% include 'store/footer.html' %}
+    {% include 'store/scripts.html' %}
+
+</body>
+
+</html>
