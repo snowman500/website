@@ -147,3 +147,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# 分页配置
+
+PAGE_SIZE=12
+ORPHANS=5
+RANGE_LIST_SIZE=9
+
+
+

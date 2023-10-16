@@ -50,7 +50,7 @@ class ShopBrand(BaseModel):
 class ShopSPU(BaseModel):
 
     """商品SPU"""
-    goods = CharField(max_length=10, verbose_name='物料型号:JF-D-002')  # 
+    goods_name = CharField(max_length=10, verbose_name='物料型号:JF-D-002')  # 
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')                 # 右侧详情页需要显示的
     power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')                 # 右侧详情页需要显示的
     warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
