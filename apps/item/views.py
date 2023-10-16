@@ -34,3 +34,9 @@ def item(request):
                                 address=address)
     
     return HttpResponse("添加成功")
+
+
+def delete(request):
+    nid = request.GET.get("nid")
+    WarehouseInfo.objects.filter(id=nid).delete()
+    return redirect("/item/list/")

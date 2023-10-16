@@ -24,6 +24,7 @@ urlpatterns = [
 #    path('info/list/', views.info_list),
 #    path('info/add/', views.info_add),
     path('item/', views.item),
+    path('delete/', views.delete, name="item_delete"),
     path('item/list/', views.item_list, name="item_list"),
 
 
