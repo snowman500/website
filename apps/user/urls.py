@@ -1,5 +1,5 @@
 """
-URL configuration for website project.
+URL configuration for officeshop project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,15 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.system import views
-
+from user import views
 
 urlpatterns = [
-    path('jf/admin/', admin.site.urls),
-    path('', views.home, name="home"),
-    path('about/', views.about, name="about"),
-    path('contact/', views.contact, name="contact"),
-    path('faqs/', views.faqs, name="faqs"),
-    path('shop/',include('shop.urls')),
-    path('user/',include('user.urls')),
+    path('', views.user, name="user"),
+
 ]

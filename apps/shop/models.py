@@ -50,19 +50,19 @@ class ShopBrand(BaseModel):
 class ShopSPU(BaseModel):
 
     """商品SPU"""
-    is_launched = BooleanField(default=True, verbose_name='是否上架销售')
+    goods = CharField(max_length=10, verbose_name='物料型号:JF-D-002')  # 
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')                 # 右侧详情页需要显示的
     power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')                 # 右侧详情页需要显示的
-    warranty = DecimalField(max_digits=10, decimal_places=2, verbose_name='保修期')             # 右侧详情页需要显示的
-    warranty = DecimalField(max_digits=10, decimal_places=2, verbose_name='应用范围')           # 右侧详情页需要显示的
-    emitting_color = DecimalField(max_digits=10, decimal_places=2, verbose_name='灯光颜色')     # 右侧详情页需要显示的
-    transport_package = DecimalField(max_digits=10, decimal_places=2, verbose_name='包装方式')
-    name = CharField(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
-    caption = CharField(max_length=100, verbose_name='副标题')
-    category = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='从属类别',related_name='shop_spu')
-    cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+    warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
+    apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
+    emitting_color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
+    transport_package = CharField(max_length=64, verbose_name='包装方式') 
+#    name = ForeignKey(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
+ #   caption = CharField(max_length=100, verbose_name='副标题')
+ #   category = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='从属类别',related_name='shop_spu')
+ #   cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
     market_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='市场价')
-    desc_detail = TextField(default='', verbose_name='详细介绍')
+    desc_detail = CharField(max_length=16, verbose_name='详细介绍')  # 这里要用TextField
     stock = IntegerField(default=0, verbose_name='库存')
     sales = IntegerField(default=0, verbose_name='销量')
     likes = IntegerField(default=0, verbose_name='收藏')
@@ -76,7 +76,6 @@ class ShopSPU(BaseModel):
 
 class ShopImageInfo(BaseModel):
     """图片信息表"""
-    is_active = BooleanField(default=True, verbose_name='激活状态') # 默认激活
     sku = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='商品', related_name='shop_image_info')  # 其实是存的sku的id
     image_desc = CharField(max_length=100, verbose_name='图片描述')
     image = ImageField(upload_to='goods', verbose_name='主图路径')
@@ -101,7 +100,6 @@ class ShopImageInfo(BaseModel):
 
 class OrderMaster(BaseModel):
     """订单主表"""
-    is_active = BooleanField(default=True, verbose_name='订单状态') # 已完成,未完成
     order_sn = CharField(max_length=20, unique=True, editable=False, verbose_name='订单编号') # 订单编号可以自己生成且格式为YYYYMMDDnnnnn
     customer_id = ForeignKey(CustomerInfo, on_delete=CASCADE, verbose_name='下单人ID', related_name='order_master')  # 其实是存的用户登陆的id
     shipping_user = CharField(max_length=20, unique=True, editable=False, verbose_name='订单编号')
