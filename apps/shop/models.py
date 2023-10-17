@@ -62,54 +62,56 @@ class ShopSPU(BaseModel):
 
     """商品SPU"""
     goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
-    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')                 # 右侧详情页需要显示的
-    power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')                 # 右侧详情页需要显示的
+    brand = ForeignKey(ShopBrand, on_delete=CASCADE, related_name='brand')  # 右侧详情页需要显示的
+    listing = TextField(verbose_name='listing')  # 这里要用TextField
     warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
-    apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
-    color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
+    application = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
+    Emitting_Color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
     transport_package = CharField(max_length=64, verbose_name='包装方式') 
-#   item_id = ForeignKey(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
-#   caption = CharField(max_length=100, verbose_name='副标题')
-#    = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='从属类别',related_name='shop_spu')
-#   cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
-#   cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
-    listing = CharField(max_length=250, verbose_name='详细介绍')  # 这里要用TextField
-    stock = IntegerField(default=0, verbose_name='库存')
-    sales = IntegerField(default=0, verbose_name='销量')
-    likes = IntegerField(default=0, verbose_name='收藏')
-    default_image_url = ImageField(max_length=200, upload_to="product/", default='', null=True, blank=True, verbose_name='默认图片')
+    sales_num = IntegerField(default=0, verbose_name='销量')
+    likes_num = IntegerField(default=0, verbose_name='收藏')
+    
 
     class Meta:
         db_table = 'shop_spu'
         verbose_name = '商品SPU'
         verbose_name_plural = verbose_name
 
-# class ShopImageInfo(BaseModel):
-#     """图片信息表"""
-#     sku = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='商品', related_name='shop_image_info')  # 其实是存的sku的id
-#     image_desc = CharField(max_length=100, verbose_name='图片描述')
-#     image = ImageField(upload_to='goods', verbose_name='主图路径')
-#     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='shop_image_info')
-#     image_son1 = ImageField(verbose_name='产品辅图路径1')
-#     image_son2 = ImageField(verbose_name='产品辅图路径2')
-#     image_son3 = ImageField(verbose_name='产品辅图路径3')
-#     image_son4 = ImageField(verbose_name='产品辅图路径4')
-#     image_son5 = ImageField(verbose_name='产品辅图路径5')
-#     image_son6 = ImageField(verbose_name='产品辅图路径6')
-#     image_son7 = ImageField(verbose_name='产品辅图路径7')
-#     image_son8 = ImageField(verbose_name='产品辅图路径8')
-#     image_son9 = ImageField(verbose_name='产品辅图路径9')
+class ShopSKU(BaseModel):
 
+    """商品SKU"""
+    goods_name = ForeignKey(ShopSPU, on_delete=CASCADE, related_name='spusku')  # 
+    brand = ForeignKey(ShopBrand, on_delete=CASCADE, related_name='shopspu_shopbrand')  # 右侧详情页需要显示的
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # 右侧详情页需要显示的
+    power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')   # 1W/2W
+    warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
+    apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
+    color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
+    transport_package = CharField(max_length=64, verbose_name='包装方式') 
+    #   caption = CharField(max_length=100, verbose_name='副标题')
+#   ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='从属类别',related_name='shop_spu')
+#   cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+#   cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+    original_code = TextField(verbose_name='原厂代码')  
+    stock = IntegerField(default=0, verbose_name='库存')
+    sales = IntegerField(default=0, verbose_name='销量')
+    tv_model = TextField(verbose_name='适用电视机型号')
+    likes = IntegerField(default=0, verbose_name='收藏')
+    default_image_url = ImageField(max_length=200, upload_to="product/", default='', null=True, blank=True, verbose_name='默认图片')
+    image_son1 = ImageField(verbose_name='产品辅图路径1')
+    image_son2 = ImageField(verbose_name='产品辅图路径2')
+    image_son3 = ImageField(verbose_name='产品辅图路径3')
+    image_son4 = ImageField(verbose_name='产品辅图路径4')
+    image_son5 = ImageField(verbose_name='产品辅图路径5')
+    image_son6 = ImageField(verbose_name='产品辅图路径6')
+    image_son7 = ImageField(verbose_name='产品辅图路径7')
+    image_son8 = ImageField(verbose_name='产品辅图路径8')
+    image_son9 = ImageField(verbose_name='产品辅图路径9')
 
-    # class Meta:
-    #     db_table = 'shop_image_info'
-    #     verbose_name = '图片信息表'
-    #     verbose_name_plural = verbose_name
-    # def __str__(self):
-    #     return self.image_desc
-
-
-
+    class Meta:
+        db_table = 'shop_sku'
+        verbose_name = '商品SPU'
+        verbose_name_plural = verbose_name
 
 
 class OrderMaster(BaseModel):
@@ -133,7 +135,6 @@ class OrderMaster(BaseModel):
     shipping_money = DecimalField(max_digits=10, decimal_places=2, verbose_name='运费金额')    
     payment_money = DecimalField(max_digits=10, decimal_places=2, verbose_name='支付金额')    
     shipping_comp_name = CharField(max_length=200, default='', verbose_name='快递公司名称')
-    create_time = DateTimeField(auto_now_add=True, verbose_name='下单时间')
     shipping_time = DateTimeField(auto_now_add=True, verbose_name='发货时间')
     payment_time = DateTimeField(auto_now_add=True, verbose_name='发货时间')
     receive_time = DateTimeField(auto_now_add=True, verbose_name='收货时间')
@@ -180,8 +181,7 @@ class OrderCart(BaseModel):
     product_id = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='物料编码', related_name='order_cart')
     product_amount = IntegerField( verbose_name='加入购物车的数量')
     product_price = ForeignKey(ShopSPU, on_delete=CASCADE, verbose_name='商品价格', related_name='order_cart')
-    create_time = DateTimeField(auto_now_add=True, verbose_name='加入购物车时间')
-    update_time = models.DateTimeField(auto_now=True, verbose_name='最后修改时间')
+
 
     
     class Meta:
@@ -200,12 +200,9 @@ class ShopComment(BaseModel):
     item_id = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='商品ID', related_name='shop_comment')  # 物料编码ID
     order_id = ForeignKey(OrderMaster, on_delete=CASCADE, verbose_name='订单iD', related_name='shop_comment')  # 订单的id
     customer_id = ForeignKey(CustomerLogin, on_delete=CASCADE, verbose_name='用户登陆ID', related_name='shop_comment')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='shop_comment')
     title = CharField(max_length=100, verbose_name='评论标题')
     content = CharField(max_length=300, verbose_name='评论内容')
     audit_status = BooleanField(default=False, verbose_name='审核状态') # 默认未审核
-    audit_time = DateTimeField(auto_now_add=True, verbose_name='评论创建时间')
-    audit_update_time = DateTimeField(auto_now=True, verbose_name='评论修改时间')
 
     class Meta:
         db_table = 'shop_comment'

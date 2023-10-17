@@ -96,7 +96,6 @@ class ShippingInfo(BaseModel):
     link_man = CharField(max_length=256, verbose_name='物流公司联系人')
     phone_number = CharField(max_length=50, verbose_name='物流公司联系人电话')
     price  = CharField(max_length=50, verbose_name='价格')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='shipping_info')
 
     class Meta:
         db_table = 'item_ShippingInfo' # 定义属性表名字

@@ -6,7 +6,7 @@ from .models import *
 
 # 让对应的数据库显示自定义的属性
 class ShopSPUAdmin(admin.ModelAdmin):
-    list_display = ('id', 'goods_name', 'price', 'listing', 'default_image_url')
+    list_display = ('id', 'goods_name', 'brand', 'listing', 'sales_num','likes_num')
     
     
 
