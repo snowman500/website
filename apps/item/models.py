@@ -62,10 +62,10 @@ class WarehouseInfo(BaseModel):
     address = CharField(max_length=50, verbose_name='仓库地址')
 #   team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouse_info')
 
-    # class Meta:
-    #     db_table = 'item_warehouse_info' # 定义属性表名字
-    #     verbose_name = '仓库信息表'
-    #     verbose_name_plural = verbose_name
+    class Meta:
+        db_table = 'item_warehouse_info' # 定义属性表名字
+        verbose_name = '仓库信息表'
+        verbose_name_plural = verbose_name
         
     # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
     # WarehouseInfo.objects.create(is_active="1", warehouse_code="001", warehouse_name="深圳仓库", link_man="深圳仓库联系人", phone_number="18806668995", province="广东省",city="深圳市", distrct="宝安区", address="水田社区108工业区")
@@ -195,6 +195,12 @@ class ItemUnit(Model):
 
     # class Meta:
     #     unique_together = [('name', 'team')]
+    
+    class Meta:
+        db_table = 'item_item_unit'
+        verbose_name = '产品单位表'
+        verbose_name_plural = verbose_name
+
 
 
 
@@ -236,11 +242,11 @@ class ItemSKU(BaseModel):
 
         return prefix + next_number + suffix
     
-    # class Meta:
-    #     unique_together = [('item_id', 'team')]
-    #     db_table = 'item_item_sku'
-    #     verbose_name = '物料'
-    #     verbose_name_plural = verbose_name
+    class Meta:
+        unique_together = [('item_id')]
+        db_table = 'item_item_sku'
+        verbose_name = '物料表'
+        verbose_name_plural = verbose_name
 
 
 

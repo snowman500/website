@@ -14,7 +14,11 @@ class ShopChannelGroup(BaseModel):
     class Meta:
         db_table = 'shop_channel_group'
         verbose_name = '商品频道组'
- 
+        verbose_name_plural = verbose_name
+        
+    def __str__(self):
+        return self.name
+
 
 
 
@@ -28,6 +32,9 @@ class ShopChannel(BaseModel):
     class Meta:
         db_table = 'shop_channel'
         verbose_name = '商品频道'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.category
 
 
 
@@ -41,6 +48,9 @@ class ShopBrand(BaseModel):
     class Meta:
         db_table = 'shop_brand'
         verbose_name = '品牌'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.name
 
 
 
@@ -50,7 +60,7 @@ class ShopBrand(BaseModel):
 class ShopSPU(BaseModel):
 
     """商品SPU"""
-    goods_name = CharField(max_length=10, verbose_name='物料型号:JF-D-002')  # 
+    goods_name = CharField(max_length=10, verbose_name='物料型号:(JF-D-***)')  # 
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')                 # 右侧详情页需要显示的
     power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')                 # 右侧详情页需要显示的
     warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
@@ -66,13 +76,12 @@ class ShopSPU(BaseModel):
     stock = IntegerField(default=0, verbose_name='库存')
     sales = IntegerField(default=0, verbose_name='销量')
     likes = IntegerField(default=0, verbose_name='收藏')
-    default_image_url = ImageField(max_length=200, default='', null=True, blank=True, verbose_name='默认图片')
+    default_image_url = ImageField(max_length=200, upload_to="product/", default='', null=True, blank=True, verbose_name='默认图片')
 
     class Meta:
         db_table = 'shop_spu'
         verbose_name = '商品SPU'
-    def __str__(self):
-        return '%s - %s' % (self.type.name, self.sku.name)
+        verbose_name_plural = verbose_name
 
 class ShopImageInfo(BaseModel):
     """图片信息表"""
@@ -94,6 +103,10 @@ class ShopImageInfo(BaseModel):
     class Meta:
         db_table = 'shop_image_info'
         verbose_name = '图片信息表'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.image_desc
+
 
 
 
@@ -129,6 +142,9 @@ class OrderMaster(BaseModel):
     class Meta:
         db_table = 'order_master'
         verbose_name = '订单主表'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.order_sn
 
 
     
@@ -148,6 +164,9 @@ class OrderDetail(BaseModel):
     class Meta:
         db_table = 'order_detail'
         verbose_name = '订单详情表'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.order_id
 
 
 
@@ -167,6 +186,9 @@ class OrderCart(BaseModel):
     class Meta:
         db_table = 'order_cart'
         verbose_name = '购物车表'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.order_id
 
 
 
@@ -187,4 +209,7 @@ class ShopComment(BaseModel):
     class Meta:
         db_table = 'shop_comment'
         verbose_name = '商品评论表'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.item_id
 
