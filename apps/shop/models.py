@@ -49,6 +49,7 @@ class ShopBrand(BaseModel):
         db_table = 'shop_brand'
         verbose_name = '品牌'
         verbose_name_plural = verbose_name
+
     def __str__(self):
         return self.name
 
@@ -60,19 +61,19 @@ class ShopBrand(BaseModel):
 class ShopSPU(BaseModel):
 
     """商品SPU"""
-    goods_name = CharField(max_length=10, verbose_name='物料型号:(JF-D-***)')  # 
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')                 # 右侧详情页需要显示的
     power = DecimalField(max_digits=10, decimal_places=2, verbose_name='功率')                 # 右侧详情页需要显示的
     warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
     apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
-    emitting_color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
+    color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
     transport_package = CharField(max_length=64, verbose_name='包装方式') 
-#    name = ForeignKey(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
- #   caption = CharField(max_length=100, verbose_name='副标题')
- #   category = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='从属类别',related_name='shop_spu')
- #   cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
-    market_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='市场价')
-    desc_detail = CharField(max_length=16, verbose_name='详细介绍')  # 这里要用TextField
+#   item_id = ForeignKey(max_length=50, verbose_name='产品编码:F2.2.09.30.00000')
+#   caption = CharField(max_length=100, verbose_name='副标题')
+#    = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='从属类别',related_name='shop_spu')
+#   cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+#   cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+    listing = CharField(max_length=250, verbose_name='详细介绍')  # 这里要用TextField
     stock = IntegerField(default=0, verbose_name='库存')
     sales = IntegerField(default=0, verbose_name='销量')
     likes = IntegerField(default=0, verbose_name='收藏')
@@ -83,29 +84,29 @@ class ShopSPU(BaseModel):
         verbose_name = '商品SPU'
         verbose_name_plural = verbose_name
 
-class ShopImageInfo(BaseModel):
-    """图片信息表"""
-    sku = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='商品', related_name='shop_image_info')  # 其实是存的sku的id
-    image_desc = CharField(max_length=100, verbose_name='图片描述')
-    image = ImageField(upload_to='goods', verbose_name='主图路径')
-    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='shop_image_info')
-    image_son1 = ImageField(verbose_name='产品辅图路径1')
-    image_son2 = ImageField(verbose_name='产品辅图路径2')
-    image_son3 = ImageField(verbose_name='产品辅图路径3')
-    image_son4 = ImageField(verbose_name='产品辅图路径4')
-    image_son5 = ImageField(verbose_name='产品辅图路径5')
-    image_son6 = ImageField(verbose_name='产品辅图路径6')
-    image_son7 = ImageField(verbose_name='产品辅图路径7')
-    image_son8 = ImageField(verbose_name='产品辅图路径8')
-    image_son9 = ImageField(verbose_name='产品辅图路径9')
+# class ShopImageInfo(BaseModel):
+#     """图片信息表"""
+#     sku = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='商品', related_name='shop_image_info')  # 其实是存的sku的id
+#     image_desc = CharField(max_length=100, verbose_name='图片描述')
+#     image = ImageField(upload_to='goods', verbose_name='主图路径')
+#     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='shop_image_info')
+#     image_son1 = ImageField(verbose_name='产品辅图路径1')
+#     image_son2 = ImageField(verbose_name='产品辅图路径2')
+#     image_son3 = ImageField(verbose_name='产品辅图路径3')
+#     image_son4 = ImageField(verbose_name='产品辅图路径4')
+#     image_son5 = ImageField(verbose_name='产品辅图路径5')
+#     image_son6 = ImageField(verbose_name='产品辅图路径6')
+#     image_son7 = ImageField(verbose_name='产品辅图路径7')
+#     image_son8 = ImageField(verbose_name='产品辅图路径8')
+#     image_son9 = ImageField(verbose_name='产品辅图路径9')
 
 
-    class Meta:
-        db_table = 'shop_image_info'
-        verbose_name = '图片信息表'
-        verbose_name_plural = verbose_name
-    def __str__(self):
-        return self.image_desc
+    # class Meta:
+    #     db_table = 'shop_image_info'
+    #     verbose_name = '图片信息表'
+    #     verbose_name_plural = verbose_name
+    # def __str__(self):
+    #     return self.image_desc
 
 
 
