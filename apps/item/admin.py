@@ -25,10 +25,6 @@ class ItemSKUAdmin(admin.ModelAdmin):
 class ItemUnitAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'remark')   
 
-    
-    
-    
-
 # Register your models here.
 admin.site.register(WarehouseInfo,WarehouseInfoAdmin)
 admin.site.register(ShippingInfo,ShippingInfoAdmin)

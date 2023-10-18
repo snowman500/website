@@ -97,16 +97,8 @@ class ItemSpecification(BaseModel):
     spec_8 = CharField(max_length=64, default='属性', verbose_name='自定义规格8')
     spec_9 = CharField(max_length=64, default='属性', verbose_name='自定义规格9')
     spec_10 = CharField(max_length=64, default='属性', verbose_name='自定义规格10')
-    spec_11 = CharField(max_length=64, default='属性', verbose_name='自定义规格11')
-    spec_12 = CharField(max_length=64, default='属性', verbose_name='自定义规格12')
-    spec_13 = CharField(max_length=64, default='属性', verbose_name='自定义规格13')
-    spec_14 = CharField(max_length=64, default='属性', verbose_name='自定义规格14')
-    spec_15 = CharField(max_length=64, default='属性', verbose_name='自定义规格15')
-    spec_16 = CharField(max_length=64, default='属性', verbose_name='自定义规格16')
-    spec_17 = CharField(max_length=64, default='属性', verbose_name='自定义规格17')
-    spec_18 = CharField(max_length=64, default='属性', verbose_name='自定义规格18')
-    spec_19 = CharField(max_length=64, default='属性', verbose_name='自定义规格19')
-    spec_20 = CharField(max_length=64, default='属性', verbose_name='自定义规格20')
+
+
 
     class Meta:
         db_table = 'item_item_specification'
