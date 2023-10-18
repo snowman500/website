@@ -79,7 +79,7 @@ class ShopSKU(BaseModel):
     """商品SKU"""
     goods_name = ForeignKey(ShopSPU, on_delete=CASCADE, related_name='spusku')  # SKU--SPU
     brand = ForeignKey(ShopBrand, on_delete=CASCADE, related_name='shopspu_shopbrand')  # 品牌
-    item_sku = ForeignKey(ItemSKU, on_delete=CASCADE, related_name='shopspu_itemsku')  # 产品物料编码
+    item_sku = OneToOneField(ItemSKU, on_delete=CASCADE, related_name='shopspu_itemsku')  # 产品物料编码
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # 右侧详情页需要显示的
     warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
     apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
@@ -87,8 +87,8 @@ class ShopSKU(BaseModel):
     transport_package = CharField(max_length=64, verbose_name='包装方式') 
 #   cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
 #   cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
-    original_code1 = CharField(default='', null=True, blank=True,verbose_name='原厂代码1')  
-    original_code2 = CharField(verbose_name='原厂代码2')  
+    original_code1 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码1')   
+    original_code2 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码2')  
     original_code3 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码3')  
     original_code4 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码4')  
     original_code5 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码5')  

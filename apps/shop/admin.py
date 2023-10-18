@@ -14,7 +14,7 @@ class ShopBrandAdmin(admin.ModelAdmin):
 class ShopSPUAdmin(admin.ModelAdmin):
     list_display = ('id', 'goods_name', 'brand', 'listing', 'sales_num','likes_num')   
 class ShopSKUAdmin(admin.ModelAdmin):
-    list_display = ('id', 'goods_name', 'brand', 'item_sku', 'price','power')
+    list_display = ('id', 'goods_name', 'brand', 'item_sku', 'price','power_chioces')
 class OrderMasterAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_sn', 'shipping_user', 'country','order_money','district_money','shipping_money','payment_money')
 class OrderDetailAdmin(admin.ModelAdmin):
