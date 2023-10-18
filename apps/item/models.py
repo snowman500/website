@@ -1,7 +1,6 @@
 # bom models
 from extensions.models import *
 from extensions.common.base_model import *
-from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 
@@ -15,7 +14,6 @@ class WarehouseInfo(BaseModel):
     city = CharField(max_length=50, default='深圳市', verbose_name='市')
     distrct = CharField(max_length=50, default='光明区', verbose_name='区')
     address = CharField(max_length=50, default='公明街道丽水湖畔105号', verbose_name='仓库地址')
-#   team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouse_info')
 
     class Meta:
         db_table = 'item_warehouse_info' # 定义属性表名字
@@ -45,7 +43,6 @@ class Supplier(BaseModel):
     bank_name = CharField(max_length=50, default='中国银行深圳分行',  verbose_name='供应商开户银行名称')
     bank_account = CharField(max_length=50, default='6226097558970588',  verbose_name='银行账号')
     address = CharField(max_length=50, default='广东省深圳市宝安区石岩街道65号',  verbose_name='供应商地址')
-#    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='supplier')
     
     """ 定义了一个save的方法,用于保存模型实例。当保存新的供应商时，
     这个方法会检查是否存在已有的供应商编码。如果存在，则会将新的供应商编码设置为上一个供应商编码加1。
@@ -81,7 +78,7 @@ class ItemCategory(BaseModel):
     item_id = CharField(max_length=2, default='1', verbose_name='类别分类代码')
     item = CharField(max_length=10, default='采购', verbose_name='类别名称') 
     parent = ForeignKey('self', null=True, blank=True, on_delete=CASCADE, related_name='item_category', verbose_name='父类别')
-#    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_category')
+
     class Meta:
         db_table = 'item_category'
         verbose_name = '物料类别'
@@ -151,27 +148,27 @@ class ItemSKU(BaseModel):
     spec_7 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义规格7')
     spec_8 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义规格8')
     spec_9 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义规格9')
-    #team = ForeignKey('system.Team', on_delete=CASCADE, related_name='item_sku')
+
     
-    @classmethod
-    def get_number(cls, team):
-        default_number = 'F2.2.09.30.00000'
-        if instance := cls.objects.filter(team=team).last():
-            if result := re.findall('[0-9]+', instance.number):
-                current_number = result[-1]
-                next_number = str(int(current_number) + 1)
+    # @classmethod
+    # def get_number(cls, team):
+    #     default_number = 'F2.2.09.30.00000'
+    #     if instance := cls.objects.filter(team=team).last():
+    #         if result := re.findall('[0-9]+', instance.number):
+    #             current_number = result[-1]
+    #             next_number = str(int(current_number) + 1)
 
-                if len(current_number) > len(next_number):
-                    next_number = next_number.zfill(len(current_number))
-            else:
-                return default_number
-        else:
-            return default_number
+    #             if len(current_number) > len(next_number):
+    #                 next_number = next_number.zfill(len(current_number))
+    #         else:
+    #             return default_number
+    #     else:
+    #         return default_number
         
-        result = re.match(f'^(.*){current_number}(.*?)$', instance.number)
-        prefix, suffix = result.group(1), result.group(2)
+    #     result = re.match(f'^(.*){current_number}(.*?)$', instance.number)
+    #     prefix, suffix = result.group(1), result.group(2)
 
-        return prefix + next_number + suffix
+    #     return prefix + next_number + suffix
     
     class Meta:
         unique_together = [('item_id')]
