@@ -24,7 +24,7 @@ def shop(request):
     # page = request.GET.get('page')
     # 获取Page 对象
     contacts = paginator.get_page(num)
-    return render(request, 'shop.html', {'contacts': contacts}, {'fafa': })
+    return render(request, 'shop.html', {'contacts': contacts},)
 
 
 def single(request):
@@ -33,7 +33,7 @@ def single(request):
     # 去数据库查询对应的产品的所有属性
     sku_list = ShopSPU.objects.filter(id=num).first()
     # 把查到的属性返回给前端
-    return render(request, 'single.html', {'sku_list': sku_list})
+    return render(request, 'single.html', {'sku_list': sku_list},)
 
 
 
@@ -42,7 +42,7 @@ def single(request):
 
 
 
-""" 下面还有点问题 """
+# 下面还有点问题
 # 生成分页数值列表[1,2,3,4,5,6,7,8,9]
 # setting 中设置了几个常量
 # def get_range_list(num,total_page,size=9):
