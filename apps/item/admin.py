@@ -5,9 +5,6 @@ from .models import *
 # 让对应的数据库显示自定义的属性
 class WarehouseInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'warehouse_code', 'warehouse_name', 'link_man', 'phone_number', 'warehouse_name', 'warehouse_name', 'warehouse_name')
-
-class WarehouseItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product_id', 'w_id', 'current_cnt', 'lock_cnt', 'in_transit_cnt')
     
 class ShippingInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'ship_name', 'link_man', 'phone_number', 'price')
@@ -34,7 +31,6 @@ class ItemUnitAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(WarehouseInfo,WarehouseInfoAdmin)
-admin.site.register(WarehouseItem,WarehouseItemAdmin)
 admin.site.register(ShippingInfo,ShippingInfoAdmin)
 admin.site.register(Supplier,SupplierAdmin)
 admin.site.register(ItemCategory,ItemCategoryAdmin)
