@@ -23,8 +23,8 @@ class ShopChannelGroup(BaseModel):
 
 class ShopChannel(BaseModel):
     """商品频道"""
-#    group = ForeignKey(GoodsChannelGroup, on_delete=CASCADE, verbose_name='频道组名')
-    category = ForeignKey(ItemCategory, on_delete=CASCADE, verbose_name='顶级商品类别', related_name='shop_channel')
+#    group = ForeignKey(GoodsChannelGroup, on_delete=PROTECT, verbose_name='频道组名')
+    category = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='顶级商品类别', related_name='shop_channel')
     url = CharField(max_length=50, verbose_name='频道页面链接')
     sequence = IntegerField(verbose_name='组内顺序')
 
@@ -57,14 +57,10 @@ class ShopSPU(BaseModel):
 
     """商品SPU"""
     goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
-    brand = ForeignKey(ShopBrand, on_delete=CASCADE, related_name='brand')  # 右侧详情页需要显示的
     listing = TextField(verbose_name='listing')  # 这里要用TextField
-    warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
-    application = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
-    Emitting_Color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
     transport_package = CharField(max_length=64, verbose_name='包装方式') 
     fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
-    sales_num = IntegerField(default=0, verbose_name='销量')
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # SPU价格
     likes_num = IntegerField(default=0, verbose_name='收藏')
     
 
@@ -77,16 +73,14 @@ class ShopSPU(BaseModel):
 
 class ShopSKU(BaseModel):
     """商品SKU"""
-    goods_name = ForeignKey(ShopSPU, on_delete=CASCADE, related_name='spusku')  # SKU--SPU
-    brand = ForeignKey(ShopBrand, on_delete=CASCADE, related_name='shopspu_shopbrand')  # 品牌
-    item_sku = OneToOneField(ItemSKU, on_delete=CASCADE, related_name='shopspu_itemsku')  # 产品物料编码
+    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spusku')  # SKU--SPU
+    brand = ForeignKey(ShopBrand, on_delete=PROTECT, related_name='shopspu_shopbrand')  # 品牌
+    item_sku = OneToOneField(ItemSKU, on_delete=PROTECT, related_name='shopspu_itemsku')  # 产品物料编码
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # 右侧详情页需要显示的
     warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
     apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
     color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
-    transport_package = CharField(max_length=64, verbose_name='包装方式') 
-#   cost_price = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
-#   cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+    cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
     original_code1 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码1')   
     original_code2 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码2')  
     original_code3 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码3')  
@@ -155,7 +149,7 @@ class ShopSKU(BaseModel):
 class OrderMaster(BaseModel):
     """订单主表"""
     order_sn = CharField(max_length=20, unique=True, editable=False, verbose_name='订单编号') # 订单编号可以自己生成且格式为YYYYMMDDnnnnn
-    customer_id = ForeignKey(CustomerInfo, on_delete=CASCADE, verbose_name='下单人ID', related_name='order_master')  # 其实是存的用户登陆的id
+    customer_id = ForeignKey(CustomerInfo, on_delete=PROTECT, verbose_name='下单人ID', related_name='order_master')  # 其实是存的用户登陆的id
     shipping_user = CharField(max_length=20, unique=True, editable=False, verbose_name='订单编号')
     country = CharField(max_length=50, null=True, blank=True, verbose_name='国家')  #这里的默认信息从客户账户那里拿到
     province = CharField(max_length=50, null=True, blank=True, verbose_name='州')   #这里的默认信息从客户账户那里拿到
@@ -186,8 +180,6 @@ class OrderMaster(BaseModel):
     def __str__(self):
         return self.order_sn
 
-
-    
     
 class OrderDetail(BaseModel):
     """订单详情表"""
@@ -216,10 +208,10 @@ class OrderDetail(BaseModel):
 class OrderCart(BaseModel):
     """购物车表"""
     order_id = IntegerField( verbose_name='订单表ID')
-    customer_id = ForeignKey(CustomerInfo, on_delete=CASCADE, verbose_name='用户ID', related_name='order_cart')  # 其实是存的用户登陆的id
-    product_id = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='物料编码', related_name='order_cart')
+    customer_id = ForeignKey(CustomerInfo, on_delete=PROTECT, verbose_name='用户ID', related_name='order_cart')  # 其实是存的用户登陆的id
+    product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='物料编码', related_name='order_cart')
     product_amount = IntegerField( verbose_name='加入购物车的数量')
-    product_price = ForeignKey(ShopSPU, on_delete=CASCADE, verbose_name='商品价格', related_name='order_cart')
+    product_price = ForeignKey(ShopSPU, on_delete=PROTECT, verbose_name='商品价格', related_name='order_cart')
 
 
     
@@ -235,10 +227,10 @@ class OrderCart(BaseModel):
 
 class ShopComment(BaseModel):
     """商品评论表"""
-    item_id = ForeignKey(ItemSKU, on_delete=CASCADE, verbose_name='商品ID', related_name='shop_comment')  # 物料编码ID
-    order_id = ForeignKey(OrderMaster, on_delete=CASCADE, verbose_name='订单iD', related_name='shop_comment')  # 订单的id
-    customer_id = ForeignKey(CustomerLogin, on_delete=CASCADE, verbose_name='用户登陆ID', related_name='shop_comment')
-    fa_star = IntegerField(default=0, verbose_name='评论星星')
+    item_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='商品ID', related_name='shop_comment')  # 物料编码ID
+    order_id = ForeignKey(OrderMaster, on_delete=PROTECT, verbose_name='订单iD', related_name='shop_comment')  # 订单的id
+    customer_id = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='用户登陆ID', related_name='shop_comment')
+    fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
     title = CharField(max_length=100, verbose_name='评论标题')
     content = CharField(max_length=300, verbose_name='评论内容')
 

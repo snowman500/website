@@ -24,8 +24,7 @@ def shop(request):
     # page = request.GET.get('page')
     # 获取Page 对象
     contacts = paginator.get_page(num)
-
-    return render(request, 'shop.html', {'contacts': contacts})
+    return render(request, 'shop.html', {'contacts': contacts}, {'fafa': })
 
 
 def single(request):
