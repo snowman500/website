@@ -87,6 +87,7 @@ class ItemSpecification(BaseModel):
     name = CharField(max_length=10, default='PCB属性', verbose_name='物料类属性')
     name_id = CharField(max_length=10, default='1.5.03.01', verbose_name='四级物料代码')
     remark = CharField(max_length=256, default='关于啥啥啥的属性,和啥啥啥不一样', null=True, blank=True, verbose_name='备注')
+    spec_0 = CharField(max_length=64, default='属性', verbose_name='自定义规格0')
     spec_1 = CharField(max_length=64, default='属性', verbose_name='自定义规格1')
     spec_2 = CharField(max_length=64, default='属性', verbose_name='自定义规格2')
     spec_3 = CharField(max_length=64, default='属性', verbose_name='自定义规格3')
@@ -96,7 +97,6 @@ class ItemSpecification(BaseModel):
     spec_7 = CharField(max_length=64, default='属性', verbose_name='自定义规格7')
     spec_8 = CharField(max_length=64, default='属性', verbose_name='自定义规格8')
     spec_9 = CharField(max_length=64, default='属性', verbose_name='自定义规格9')
-    spec_10 = CharField(max_length=64, default='属性', verbose_name='自定义规格10')
 
 
 
