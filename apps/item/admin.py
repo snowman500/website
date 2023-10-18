@@ -3,9 +3,6 @@ from .models import *
 
 
 # 让对应的数据库显示自定义的属性
-class ItemUnitAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'remark')
-
 class WarehouseInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'warehouse_code', 'warehouse_name', 'link_man', 'phone_number', 'warehouse_name', 'warehouse_name', 'warehouse_name')
 
@@ -22,23 +19,25 @@ class ItemCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'item_id', 'item', 'parent')
 
 class ItemSpecificationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'price', 'product_specification', 'supplier', 'remark', 'spec_1', 'spec_2', 'spec_3', 'spec_4', 'spec_5', 'spec_6')
+    list_display = ('id', 'name_id',  'remark', 'spec_1', 'spec_2', 'spec_3', 'spec_4', 'spec_5', 'spec_6')
     
     
 class ItemSKUAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_launched', 'type', 'goods', 'item_id', 'name', 'desc', 'price', 'unite', 'image', 'stock', 'sales', 'brand', 'set', 'enable_inventory_warning')
-    
+    list_display = ('id', 'spec', 'supplier', 'is_launched',  'goods', 'item_id', 'name', 'desc', 'price', 'unite', 'stock', 'sales')
+ 
+class ItemUnitAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'remark')   
 
     
     
     
 
 # Register your models here.
-admin.site.register(WarehouseInfo)
-admin.site.register(WarehouseItem)
-admin.site.register(ShippingInfo)
-admin.site.register(Supplier)
-admin.site.register(ItemCategory)
-admin.site.register(ItemSpecification)
+admin.site.register(WarehouseInfo,WarehouseInfoAdmin)
+admin.site.register(WarehouseItem,WarehouseItemAdmin)
+admin.site.register(ShippingInfo,ShippingInfoAdmin)
+admin.site.register(Supplier,SupplierAdmin)
+admin.site.register(ItemCategory,ItemCategoryAdmin)
+admin.site.register(ItemSpecification,ItemSpecificationAdmin)
 admin.site.register(ItemUnit,ItemUnitAdmin)
-admin.site.register(ItemSKU)
+admin.site.register(ItemSKU,ItemSKUAdmin)
