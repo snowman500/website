@@ -12,7 +12,7 @@ class ShopChannelAdmin(admin.ModelAdmin):
 class ShopBrandAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'logo', 'first_letter')
 class ShopSPUAdmin(admin.ModelAdmin):
-    list_display = ('id', 'goods_name', 'brand', 'listing', 'sales_num','likes_num')   
+    list_display = ('id', 'goods_name', 'fa_star', 'price','likes_num')   
 class ShopSKUAdmin(admin.ModelAdmin):
     list_display = ('id', 'goods_name', 'brand', 'item_sku', 'price','power_chioces')
 class OrderMasterAdmin(admin.ModelAdmin):

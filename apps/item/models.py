@@ -88,14 +88,14 @@ class ItemCategory(BaseModel):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return self.item
 
     
 
 class ItemSpecification(BaseModel):
     """物料属性表"""
-    name = CharField(max_length=10, default='PCB属性', verbose_name='物料类属性')
-    name_id = CharField(max_length=9, default='1.5.03.01', verbose_name='四级物料代码')
+    name = CharField(max_length=64, default='PCB属性', verbose_name='物料类属性')
+    name_id = CharField(max_length=64, default='1.5.03.01', verbose_name='四级物料代码')
     remark = CharField(max_length=256, default='关于啥啥啥的属性,和啥啥啥不一样', null=True, blank=True, verbose_name='备注')
     spec_0 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义属性0')
     spec_1 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义属性1')

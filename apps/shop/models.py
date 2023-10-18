@@ -1,6 +1,7 @@
 # goods models 
 from extensions.models import *
 from extensions.common.base_model import BaseModel
+from django.shortcuts import get_object_or_404
 from item.models import *
 from user.models import *
 
@@ -61,14 +62,27 @@ class ShopSPU(BaseModel):
     fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # SPU价格
     likes_num = IntegerField(default=0, verbose_name='收藏')
-    
 
+    """在这个示例中,我们定义了一个名为get_price的视图函数。
+    这个函数接受一个名为spu_id的参数,
+    并使用Django的get_object_or_404函数从数据库中获取与之相关联的ShopSPU对象。
+    然后,我们使用反向查询来获取与这个对象相关联的所有ShopSKU对象,并将它们存储在变量skus中。
+    接着,我们使用列表推导式来获取每个SKU对象的价格,并将它们存储在变量prices中。
+    最后,我们将价格列表返回给调用者。"""
+
+    def get_price(request, spu_id):
+        spu = get_object_or_404(ShopSPU, pk=spu_id)
+        skus = spu.spusku.all()
+        prices = [sku.price for sku in skus]
+        return prices
+    
+    def __str__(self):
+        return self.goods_name
+    
     class Meta:
         db_table = 'shop_spu'
         verbose_name = '商品SPU'
         verbose_name_plural = verbose_name
-    def __str__(self):
-        return self.goods_name
 
 class ShopSKU(BaseModel):
     """商品SKU"""
@@ -80,6 +94,10 @@ class ShopSKU(BaseModel):
     apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
     color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
     cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+    stock = IntegerField(default=0, verbose_name='库存')
+    sales = IntegerField(default=0, verbose_name='销量')
+    tv_model = TextField(verbose_name='适用电视机型号')
+    likes = IntegerField(default=0, verbose_name='收藏')
     original_code1 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码1')   
     original_code2 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码2')  
     original_code3 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码3')  
@@ -96,10 +114,6 @@ class ShopSKU(BaseModel):
     original_code14 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码14')  
     original_code15 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码15')  
     original_code16 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码16')  
-    stock = IntegerField(default=0, verbose_name='库存')
-    sales = IntegerField(default=0, verbose_name='销量')
-    tv_model = TextField(verbose_name='适用电视机型号')
-    likes = IntegerField(default=0, verbose_name='收藏')
     default_image_url = ImageField(max_length=200, upload_to="product/",  null=True, blank=True, verbose_name='默认图片')
     image_son1 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图1')
     image_son2 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图2')
@@ -111,14 +125,15 @@ class ShopSKU(BaseModel):
     image_son8 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图8')
     image_son9 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图9')
     power_chioces= (
-        ('1', '1W'),
-        ('2', '2W'),
-        ('3', '3W'),
-        )   # 1W/2W/3W
+        ('1', 'paypal'),
+        ('2', 'card'),
+        ('3', '**'),
+        ('4', 'TT'),
+        )
     voltage_chioces= (
         ('1', '3V'),
         ('2', '6V'),
-        )   # 3V/6V
+        )
     pcb_width= (
         ('3', '3mm'),
         ('4', '4mm'),
@@ -137,7 +152,7 @@ class ShopSKU(BaseModel):
         ('18', '18mm'),
         ('20', '20mm'),
         ('22', '22mm'),
-        )   # PCB宽度
+        )
 
     class Meta:
         db_table = 'shop_sku'
