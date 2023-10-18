@@ -14,15 +14,18 @@ def single(request):
 
 
 def shop(request):
+    # ################ 显示整个页面的商品数量
     # 获取当前查询的是第几页
     num = request.GET.get('num')
+    # 获取数据库中所有的信息
     contact_list = ShopSPU.objects.all()
     # 创建Paginator 实例对象
     paginator = Paginator(contact_list,settings.PAGE_SIZE) # 每页显示25个联系人
     # page = request.GET.get('page')
     # 获取Page 对象
     contacts = paginator.get_page(num)
-    return render(request, 'shop.html', {'contacts': contacts,})
+
+    return render(request, 'shop.html', {'contacts': contacts})
 
 
 def single(request):
@@ -31,7 +34,13 @@ def single(request):
     # 去数据库查询对应的产品的所有属性
     sku_list = ShopSPU.objects.filter(id=num).first()
     # 把查到的属性返回给前端
-    return render(request, 'single.html', {'sku_list': sku_list,})
+    return render(request, 'single.html', {'sku_list': sku_list})
+
+
+
+
+
+
 
 
 """ 下面还有点问题 """

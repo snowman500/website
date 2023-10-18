@@ -19,6 +19,9 @@ class WarehouseInfo(BaseModel):
         db_table = 'item_warehouse_info' # 定义属性表名字
         verbose_name = '仓库信息表'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.warehouse_name
         
 
 class ShippingInfo(BaseModel):
@@ -32,6 +35,9 @@ class ShippingInfo(BaseModel):
         db_table = 'item_ShippingInfo' # 定义属性表名字
         verbose_name = '物流公司信息表'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.ship_name
 
 
 class Supplier(BaseModel):
@@ -56,14 +62,14 @@ class Supplier(BaseModel):
                 new_code = 'JF' + str(int(last_code[2:]) + 1).zfill(4)
                 self.supplier_code = new_code
         super(Supplier, self).save(*args, **kwargs)
-    def __str__(self):
-        return self.supplier_name
-
 
     class Meta:
         db_table = 'item_supplier' # 定义属性表名字
         verbose_name = '供应商信息表'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.supplier_name
 
 
 # Create your models here.
@@ -71,9 +77,6 @@ class ItemCategory(BaseModel):
     """物料类别"""
     # 一级: 0-9
     # 二级--四级: 00-99
-
-    def __str__(self):
-        return f'{self.item_id}-{self.item}'
     
     item_id = CharField(max_length=2, default='1', verbose_name='类别分类代码')
     item = CharField(max_length=10, default='采购', verbose_name='类别名称') 
@@ -83,12 +86,16 @@ class ItemCategory(BaseModel):
         db_table = 'item_category'
         verbose_name = '物料类别'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
     
 
 class ItemSpecification(BaseModel):
     """物料属性表"""
     name = CharField(max_length=10, default='PCB属性', verbose_name='物料类属性')
-    name_id = CharField(max_length=10, default='1.5.03.01', verbose_name='四级物料代码')
+    name_id = CharField(max_length=9, default='1.5.03.01', verbose_name='四级物料代码')
     remark = CharField(max_length=256, default='关于啥啥啥的属性,和啥啥啥不一样', null=True, blank=True, verbose_name='备注')
     spec_0 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义属性0')
     spec_1 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义属性1')
@@ -104,7 +111,7 @@ class ItemSpecification(BaseModel):
 
 
     class Meta:
-        db_table = 'item_item_specification'
+        db_table = 'item_specification'
         verbose_name = '物料属性表'
         verbose_name_plural = verbose_name
 
@@ -112,7 +119,7 @@ class ItemSpecification(BaseModel):
         return self.name
 
 
-class ItemUnit(Model):
+class ItemUnit(BaseModel):
     """产品单位"""
     name = CharField(max_length=64, verbose_name='名称')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='备注')
@@ -122,6 +129,9 @@ class ItemUnit(Model):
         verbose_name = '产品单位表'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class ItemSKU(BaseModel):
     '''物料表'''
@@ -130,12 +140,13 @@ class ItemSKU(BaseModel):
     name = CharField(max_length=20, verbose_name='物料名称')
     desc = CharField(max_length=256, verbose_name='物料简介')
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='物料价格')
-    unite = CharField(max_length=20, verbose_name='物料单位')
+    unite = ForeignKey(ItemUnit, on_delete=PROTECT,verbose_name='物料单位', related_name='itemsku_itemspecification')
+    min_num = CharField(max_length=256, verbose_name='最小包装数量')
     w_id = ForeignKey('WarehouseInfo', on_delete=PROTECT,verbose_name='仓库ID', related_name='warehouse_item')
     current_cnt = CharField(max_length=256, verbose_name='库存数量')
     lock_cnt = CharField(max_length=50, verbose_name='锁库数量')
     in_transit_cnt = CharField(max_length=50, verbose_name='在途数量')
-    sales = ForeignKey(Supplier, on_delete=PROTECT, verbose_name='物料销量', related_name='sku_supplier')
+    sales = CharField(max_length=50, verbose_name='物料销量')
     supplier = ForeignKey(Supplier, on_delete=PROTECT,verbose_name='供应商名称', related_name='itemsku_itemsupplier') # 供应商外键
     spec = ForeignKey(ItemSpecification, on_delete=PROTECT,verbose_name='属性类目', related_name='itemsku_itemspecification')
     spec_0 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义规格0')
@@ -148,7 +159,6 @@ class ItemSKU(BaseModel):
     spec_7 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义规格7')
     spec_8 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义规格8')
     spec_9 = CharField(max_length=64, null=True, blank=True, verbose_name='自定义规格9')
-
     
     # @classmethod
     # def get_number(cls, team):
@@ -175,3 +185,8 @@ class ItemSKU(BaseModel):
         db_table = 'item_sku'
         verbose_name = '物料表'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.item_id
+
+

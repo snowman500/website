@@ -16,7 +16,7 @@ class ItemCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'item_id', 'item', 'parent')
 
 class ItemSpecificationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name_id',  'remark', 'spec_1', 'spec_2', 'spec_3', 'spec_4', 'spec_5', 'spec_6')
+    list_display = ('id', 'name', 'name_id', 'spec_0','spec_1', 'spec_2', 'spec_3', 'spec_4', 'spec_5', 'spec_6', 'spec_7', 'spec_8', 'spec_9', 'remark')
     
 class ItemSKUAdmin(admin.ModelAdmin):
     list_display = ('id', 'spec', 'goods', 'item_id', 'name', 'desc', 'price', 'unite', 'current_cnt', 'sales', 'supplier')

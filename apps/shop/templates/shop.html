@@ -81,6 +81,7 @@
                     <!--商品列表正循环内容 -->
                      <!--这里是使用分页器进行分页循环展示 -->
                     {% for item in contacts.object_list %}    
+
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
@@ -95,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="single/?num={{ item.id }}" class="h3 text-decoration-none">{{ item.desc_detail}}</a>
+                                <a href="single/?num={{ item.id }}" class="h3 text-decoration-none">{{ item.listing}}</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li>M/L/X/XL</li>
                                     <li class="pt-2">
@@ -115,11 +116,13 @@
                                         <i class="text-muted fa fa-star"></i>
                                     </li>
                                 </ul>
-                                <p class="text-center mb-0">{{ item.price }}</p>
+                                <p class="text-center mb-0">{{ item.fa_star }}</p>
                             </div>
                         </div>
                     </div>
+
                     {% endfor %}
+
                     <!--商品列表正循环结束 -->
                 </div>
                 <!--商品列表正循环结束 -->
@@ -179,8 +182,6 @@
     </div>
     <!-- End Content -->
 
-
-{#    {% include 'store/brands.html' %}#}
     {% include 'store/footer.html' %}
     {% include 'store/scripts.html' %}
 </body>

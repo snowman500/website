@@ -1,7 +1,8 @@
-from extensions.models import *
-from extensions.common.base_model import BaseModel
-from item.models import *
-from django.contrib.auth.hashers import make_password
+from extensions.models import * 
+from extensions.common.base_model import BaseModel 
+from item.models import * 
+from django.contrib.auth.hashers import make_password 
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class CustomerLogin(BaseModel):
     """用户登录表"""
