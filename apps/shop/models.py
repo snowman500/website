@@ -58,7 +58,6 @@ class ShopSPU(BaseModel):
     """商品SPU"""
     goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
     listing = TextField(verbose_name='listing')  # 这里要用TextField
-    transport_package = CharField(max_length=64, verbose_name='包装方式') 
     fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # SPU价格
     likes_num = IntegerField(default=0, verbose_name='收藏')
