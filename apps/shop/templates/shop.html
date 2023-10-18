@@ -80,7 +80,7 @@
                 <div class="row">
                     <!--商品列表正循环内容 -->
                      <!--这里是使用分页器进行分页循环展示 -->
-                    {% for item in contacts.object_list %}    
+                    {% for spu in page_obj %}    
 
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="single/?num={{ item.id }}" class="h3 text-decoration-none">{{ item.listing}}</a>
+                                <a href="single/?num={{ item.id }}" class="h3 text-decoration-none">{{ spu.listing}}</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li>M/L/X/XL</li>
                                     <li class="pt-2">
@@ -109,14 +109,20 @@
                                 </ul>
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
                                     <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
+                                    {% block scripts %}
+                                        <script>
+                                            var product_id = "{{ spu.fa_star }}";
+                                            for (let i = 0; i < product_id; i++) {
+                                                document.write('<i class="text-warning fa fa-star"></i>');
+                                            }
+                                            for (let i = 0; i < 5 - product_id; i++) {
+                                                document.write('<i class="text-muted fa fa-star"></i>');
+                                            }
+                                        </script>
+                                    {% endblock %}
                                     </li>
                                 </ul>
-                                <p class="text-center mb-0">{{ item.price.0 }}</p>
+                                <p class="text-center mb-0">{{ spu.price }}</p>
                             </div>
                         </div>
                     </div>
@@ -136,9 +142,9 @@
                         </li>
 
 
-                        {% if contacts.has_previous %}
+                        {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num={{contacts.previous_page_number}}">Previous</a>
+                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num={{page_obj.previous_page_number}}">Previous</a>
                         </li>
                         {% else %}
                         <li class="page-item">
@@ -156,9 +162,9 @@
                       
 
 
-                        {% if contacts.has_next  %}
+                        {% if page_obj.has_next  %}
                         <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num={{contacts.next_page_number}}">Next</a>
+                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num={{page_obj.next_page_number}}">Next</a>
                         </li>
                         {% else %}
                         <li class="page-item">
@@ -169,12 +175,12 @@
 
 
                         <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark"  href="?num={{contacts.paginator.num_pages}}">End</a>
+                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark"  href="?num={{page_obj.paginator.num_pages}}">End</a>
                         </li>
                     </ul>
                 </div>
                 <!--商品列表分页器结束-->
-                <p  style="text-align: right;">{{ contacts.number }}/{{ contacts.paginator.num_pages }} </p>
+                <p  style="text-align: right;">{{ page_obj.number }}/{{ page_obj.paginator.num_pages }} </p>
             </div>
             <!--商品列表结束 -->
 

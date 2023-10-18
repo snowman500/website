@@ -60,7 +60,6 @@ class ShopSPU(BaseModel):
     goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
     listing = TextField(verbose_name='listing')  # 这里要用TextField
     fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
-    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # SPU价格
     likes_num = IntegerField(default=0, verbose_name='收藏')
 
     """在这个示例中,我们定义了一个名为get_price的视图函数。
@@ -69,12 +68,6 @@ class ShopSPU(BaseModel):
     然后,我们使用反向查询来获取与这个对象相关联的所有ShopSKU对象,并将它们存储在变量skus中。
     接着,我们使用列表推导式来获取每个SKU对象的价格,并将它们存储在变量prices中。
     最后,我们将价格列表返回给调用者。"""
-
-    def get_price(request, spu_id):
-        spu = get_object_or_404(ShopSPU, pk=spu_id)
-        skus = spu.spusku.all()
-        prices = [sku.price for sku in skus]
-        return prices
     
     def __str__(self):
         return self.goods_name

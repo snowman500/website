@@ -13,19 +13,35 @@ def single(request):
 #     return render(request, "shop.html", {"shop":shop})
 
 
-def shop(request):
-    # ################ 显示整个页面的商品数量
-    # 获取当前查询的是第几页
-    num = request.GET.get('num')
-    # 获取数据库中所有的信息
-    contact_list = ShopSPU.objects.all()
-    # 创建Paginator 实例对象
-    paginator = Paginator(contact_list,settings.PAGE_SIZE) # 每页显示25个联系人
-    # page = request.GET.get('page')
-    # 获取Page 对象
-    contacts = paginator.get_page(num)
-    return render(request, 'shop.html', {'contacts': contacts},)
+# def shop(request):
+#     # ################ 显示整个页面的商品数量
+#     # 获取当前查询的是第几页
+#     num = request.GET.get('num')
+#     # 获取数据库中所有的信息
+#     contact_list = ShopSPU.objects.all()
+#     # 创建Paginator 实例对象
+#     paginator = Paginator(contact_list,settings.PAGE_SIZE) # 每页显示25个联系人
+#     # page = request.GET.get('page')
+#     # 获取Page 对象
+#     contacts = paginator.get_page(num)
+#     return render(request, 'shop.html', {'contacts': contacts},)
 
+def shop(request):
+    # 获取当前页码数
+    page_number = request.GET.get('num')
+    # 获取所有ShopSPU对象
+    spus = ShopSPU.objects.all()
+    # 创建一个分页器对象，每页显示9条数据
+    paginator = Paginator(spus, settings.PAGE_SIZE)
+    # 获取当前页的数据对象
+    page_obj = paginator.get_page(page_number)
+    # 遍历当前页的ShopSPU对象，获取第一个ShopSKU对象的price属性值
+    for spu in page_obj:
+        sku_list = spu.spusku.all()
+        if sku_list:
+            spu.price = sku_list[0].price
+    # 渲染模板并返回响应
+    return render(request, 'shop.html', {'page_obj': page_obj})
 
 def single(request):
     # 获取当前查询的是第几个产品
