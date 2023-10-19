@@ -134,6 +134,10 @@ class ShopSKU(BaseModel):
         db_table = 'shop_sku'
         verbose_name = '商品SKU'
         verbose_name_plural = verbose_name
+    class Meta:
+        db_table = 'shop_sku'
+        verbose_name = '商品SKU'
+        verbose_name_plural = verbose_name
 
 
 
