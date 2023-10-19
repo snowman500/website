@@ -135,7 +135,7 @@
 
                 <!--商品列表分页器开始-->
                 <div class="row">
-                    <ul class="pagination pagination-lg justify-content-end ">
+                    <ul class="pagination  justify-content-end ">
 
                         <li class="page-item">
                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num=1">First</a>
@@ -151,14 +151,35 @@
                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" >Previous</a>
                         </li>
                         {% endif %}
-
-
-                        <!-- 这个部分是分页显示,暂时还没施工
-                        {% for i in page_range_list %}
-                        <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num={{contacts.previous_page_number}}">{{i}}</a>
-                        </li>
-                        {% endfor %} -->
+                        <nav>
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item">
+                                    <a href="#" class="page-link text-dark">
+                                        <span>&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link text-dark">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link text-dark">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link text-dark">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link text-dark">4</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link text-dark">5</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link text-dark">
+                                        <span>&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                       
 
 
@@ -178,8 +199,10 @@
                             <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark"  href="?num={{page_obj.paginator.num_pages}}">End</a>
                         </li>
                     </ul>
+                    
                 </div>
                 <!--商品列表分页器结束-->
+
                 <p  style="text-align: right;">{{ page_obj.number }}/{{ page_obj.paginator.num_pages }} </p>
             </div>
             <!--商品列表结束 -->
