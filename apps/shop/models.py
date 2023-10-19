@@ -2,8 +2,8 @@
 from extensions.models import *
 from extensions.common.base_model import BaseModel
 from django.shortcuts import get_object_or_404
-from item.models import *
 from user.models import *
+import os
 
 # Create your models here.
 
@@ -57,18 +57,12 @@ class ShopBrand(BaseModel):
 class ShopSPU(BaseModel):
 
     """商品SPU"""
-    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  
     listing = TextField(verbose_name='listing')  # 这里要用TextField
-    fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
+    fa_star = DecimalField(max_digits=2, decimal_places=1, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)],verbose_name='评论星星')
     likes_num = IntegerField(default=0, verbose_name='收藏')
+    comments = IntegerField(default=0, verbose_name='评论')
 
-    """在这个示例中,我们定义了一个名为get_price的视图函数。
-    这个函数接受一个名为spu_id的参数,
-    并使用Django的get_object_or_404函数从数据库中获取与之相关联的ShopSPU对象。
-    然后,我们使用反向查询来获取与这个对象相关联的所有ShopSKU对象,并将它们存储在变量skus中。
-    接着,我们使用列表推导式来获取每个SKU对象的价格,并将它们存储在变量prices中。
-    最后,我们将价格列表返回给调用者。"""
-    
     def __str__(self):
         return self.goods_name
     
@@ -79,78 +73,68 @@ class ShopSPU(BaseModel):
 
 class ShopSKU(BaseModel):
     """商品SKU"""
-    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spusku')  # SKU--SPU
-    brand = ForeignKey(ShopBrand, on_delete=PROTECT, related_name='shopspu_shopbrand')  # 品牌
-    item_sku = OneToOneField(ItemSKU, on_delete=PROTECT, related_name='shopspu_itemsku')  # 产品物料编码
+    # 定义产品照片的上传路径
+    def get_upload_path(instance, filename):
+        return os.path.join('uploads', str(instance.id), filename)
+
+    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spu_sku')  # SKU--SPU
+    brand = ForeignKey(ShopBrand, on_delete=PROTECT, related_name='spu_brand')  # 品牌
+    item_sku =  CharField(max_length=16, verbose_name='物料编码(F2.2.09.30.00000)')  
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # 右侧详情页需要显示的
     warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
-    apply = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
+    transport_package = CharField(max_length=64, verbose_name='运输包装')
+    application = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
     color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
     cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
     stock = IntegerField(default=0, verbose_name='库存')
     sales = IntegerField(default=0, verbose_name='销量')
     tv_model = TextField(verbose_name='适用电视机型号')
     likes = IntegerField(default=0, verbose_name='收藏')
-    original_code1 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码1')   
-    original_code2 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码2')  
-    original_code3 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码3')  
-    original_code4 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码4')  
-    original_code5 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码5')  
-    original_code6 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码6')  
-    original_code7 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码7')  
-    original_code8 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码8')  
-    original_code9 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码9')  
-    original_code10 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码10')  
-    original_code11 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码11')  
-    original_code12 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码12')  
-    original_code13 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码13')  
-    original_code14 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码14')  
-    original_code15 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码15')  
-    original_code16 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码16')  
-    default_image_url = ImageField(max_length=200, upload_to="product/",  null=True, blank=True, verbose_name='默认图片')
-    image_son1 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图1')
-    image_son2 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图2')
-    image_son3 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图3')
-    image_son4 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图4')
-    image_son5 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图5')
-    image_son6 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图6')
-    image_son7 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图7')
-    image_son8 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图8')
-    image_son9 = ImageField(max_length=200, upload_to="product/", null=True, blank=True, verbose_name='产品辅图9')
-    power_chioces= (
-        ('1', 'paypal'),
-        ('2', 'card'),
-        ('3', '**'),
-        ('4', 'TT'),
-        )
-    voltage_chioces= (
-        ('1', '3V'),
-        ('2', '6V'),
-        )
-    pcb_width= (
-        ('3', '3mm'),
-        ('4', '4mm'),
-        ('5', '5mm'),
-        ('6', '6mm'),
-        ('7', '7mm'),
-        ('8', '8mm'),
-        ('9', '9mm'),
-        ('10', '10mm'),
-        ('11', '11mm'),
-        ('12', '12mm'),
-        ('14', '14mm'),
-        ('15', '15mm'),
-        ('16', '16mm'),
-        ('17', '17mm'),
-        ('18', '18mm'),
-        ('20', '20mm'),
-        ('22', '22mm'),
-        )
+    complete_set = CharField(max_length=8, verbose_name='一套多少条')    
+    pcb_material = CharField(max_length=8, verbose_name='PCB类型')    
+    pcb_l = DecimalField(max_digits=6, decimal_places=2, verbose_name='PCB长度')   
+    pcb_w = DecimalField(max_digits=4, decimal_places=2, verbose_name='PCB宽度')   
+    pcb_t = DecimalField(max_digits=3, decimal_places=2, verbose_name='PCB厚度')      
+    power_chioces = CharField(max_length=8, verbose_name='LED灯珠功率')    
+    voltage = CharField(max_length=8, verbose_name='LED灯珠电压') 
+    current = DecimalField(max_digits=6, decimal_places=2, verbose_name='LED灯珠电流')     
+    o_code1 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码1')   
+    o_code2 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码2')  
+    o_code3 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码3')  
+    o_code4 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码4')  
+    o_code5 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码5')  
+    o_code6 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码6')  
+    o_code7 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码7')  
+    o_code8 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码8')  
+    o_code9 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码9')  
+    o_code10 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码10')  
+    o_code11 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码11')  
+    o_code12 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码12')  
+    o_code13 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码13')  
+    o_code14 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码14')  
+    o_code15 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码15')  
+    o_code16 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码16')
+    image = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='默认图片')
+    image_1 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图1')
+    image_2 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图2')
+    image_3 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图3')
+    image_4 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图4')
+    image_5 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图5')
+    image_6 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图6')
+    image_7 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图7')
+    image_8 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图8')
+    image_9 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图9')
+    
+    def save(self, *args, **kwargs):
+        if self.goods_name:
+            self.image.upload_to = 'shop/{}/%Y/%m/%d/'.format(self.goods_name.goods_name)
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'shop_sku'
         verbose_name = '商品SKU'
         verbose_name_plural = verbose_name
+
 
 
 class OrderMaster(BaseModel):

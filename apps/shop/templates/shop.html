@@ -86,25 +86,25 @@
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
                                 <!-- <img class="card-img rounded-0 img-fluid" src="{% static 'img/JF-D-004.jpg' %}"> -->
-                                <img class="card-img rounded-0 img-fluid" src="{{ item.default_image_url.url }}">
+                                <img class="card-img rounded-0 img-fluid" src="{{ spu.image.url }}">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white" href="single/?num={{ item.id }}"><i class="far fa-heart"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="single/?num={{ item.id }}"><i class="far fa-eye"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="single/?num={{ item.id }}"><i class="fas fa-cart-plus"></i></a></li>
+                                        <li><a class="btn btn-success text-white" href="single/?num={{ spu.id }}"><i class="far fa-heart"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="single/?num={{ spu.id }}"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="single/?num={{ spu.id }}"><i class="fas fa-cart-plus"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="single/?num={{ item.id }}" class="h3 text-decoration-none">{{ spu.listing}}</a>
+                                <a href="single/?num={{ spu.id }}" class="h3 text-decoration-none">{{ spu.listing}}{{ spu.brand}}{{ spu.image }}{{ spu.image.url }}</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li>M/L/X/XL</li>
                                     <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1">1</span>
+                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1">2</span>
+                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1">3</span>
+                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1">4</span>
+                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1">5</span>
                                     </li>
                                 </ul>
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -112,6 +112,7 @@
                                     {% block scripts %}
                                         <script>
                                             var product_id = "{{ spu.fa_star }}";
+                                                product_id = Math.floor(product_id);
                                             for (let i = 0; i < product_id; i++) {
                                                 document.write('<i class="text-warning fa fa-star"></i>');
                                             }

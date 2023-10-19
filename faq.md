@@ -80,3 +80,69 @@ for (let i = 0; i < 5 - spu.fa_star; i++) {
 (1) CSS 、JS实现浪漫流星雨动画 - 知乎 - 知乎专栏. https://zhuanlan.zhihu.com/p/342812170.
 (2) 用CSS实现超美星空特效 - 掘金. https://juejin.cn/post/7044091542876717092.
 (3) HTML+CSS+JS实现 宇宙星球旋转动画特效 - 掘金. https://juejin.cn/post/7004742284033916941.
+
+
+我有两个类,
+class ShopSPU(BaseModel):
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')
+    listing = TextField(verbose_name='listing')  # 这里要用TextField
+    fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
+    likes_num = IntegerField(default=0, verbose_name='收藏')
+class ShopSKU(BaseModel):
+    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spusku')  
+    brand = ForeignKey(ShopBrand, on_delete=PROTECT, related_name='shopspu_shopbrand')  
+    item_sku = OneToOneField(ItemSKU, on_delete=PROTECT, related_name='shopspu_itemsku') 
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')  
+请帮我在ShopSKU中,增加一条ImageField属性,其上传的路径为ShopSPU中的goods_name
+
+# F3:
+帮我修改这段代码,要求:{{ spu.fa_star }}是一个大于等于0且小于等于5的含有一位小数数字,需要对{{ spu.fa_star }}向下取整,
+{% block scripts %}
+    <script>
+        var product_id = "{{ spu.fa_star }}";
+        for (let i = 0; i < product_id; i++) {
+            document.write('<i class="text-warning fa fa-star"></i>');
+        }
+        for (let i = 0; i < 5 - product_id; i++) {
+            document.write('<i class="text-muted fa fa-star"></i>');
+        }
+    </script>
+{% endblock %}
+
+# Q3:
+以下是修改后的代码，它将对 `{{ spu.fa_star }}` 进行向下取整，并确保其为一个大于等于0且小于等于5的含有一位小数数字：
+
+```html
+{% block scripts %}
+    <script>
+        var product_id = Math.floor({{ spu.fa_star }});
+        if (product_id < 0) {
+            product_id = 0;
+        }
+        for (let i = 0; i < product_id; i++) {
+            document.write('<i class="text-warning fa fa-star"></i>');
+        }
+        for (let i = 0; i < 5 - product_id; i++) {
+            document.write('<i class="text-muted fa fa-star"></i>');
+        }
+    </script>
+{% endblock %}
+```
+
+在这个示例中，我们使用了 `Math.floor()` 函数来对 `{{ spu.fa_star }}` 进行向下取整，并使用了一个条件语句来确保其值不小于0。然后，我们使用了两个循环来生成相应数量的黄色和灰色星星。
+
+希望这可以帮助您。
+
+
+我有两个类:
+class ShopSPU(BaseModel):
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
+    listing = TextField(verbose_name='listing')  # 这里要用TextField
+    fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
+    likes_num = IntegerField(default=0, verbose_name='收藏')
+
+class ShopSKU(BaseModel):
+    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spusku')  
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价') 
+    warranty = IntegerField(default=0, verbose_name='保修期')          
+请帮我写一个视图函数,我需要将通过ShopSPU反查所有的ShopSKU,并能通过[0]的方式在前端显示

@@ -24,9 +24,10 @@ def shop(request):
     page_obj = paginator.get_page(page_number)
     # 遍历当前页的ShopSPU对象，获取第一个ShopSKU对象的price属性值
     for spu in page_obj:
-        sku_list = spu.spusku.all()
+        sku_list = spu.spu_sku.all()
         if sku_list:
             spu.price = sku_list[0].price
+            spu.image = sku_list[0].image
     # 渲染模板并返回响应
     return render(request, 'shop.html', {'page_obj': page_obj})
 
@@ -37,4 +38,3 @@ def single(request):
     sku_list = ShopSPU.objects.filter(id=num).first()
     # 把查到的属性返回给前端
     return render(request, 'single.html', {'sku_list': sku_list},)
-

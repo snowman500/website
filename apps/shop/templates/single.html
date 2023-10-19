@@ -114,15 +114,23 @@
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2">{{ sku_list.name }}</h1>
+                            <h1 class="h2">{{ sku_list.goods_name }}</h1>
                             <p class="h3 py-2">{{ sku_list.price }}</p>
                             <p class="py-2">
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                                <!-- 对传入的{{ spu.fa_star }}值向下取整 -->
+                                {% block scripts %}
+                                <script>
+                                    var product_id = "{{ spu.fa_star }}";
+                                        product_id = Math.floor(product_id); 
+                                    for (let i = 0; i < product_id; i++) {
+                                        document.write('<i class="text-warning fa fa-star"></i>');
+                                    }
+                                    for (let i = 0; i < 5 - product_id; i++) {
+                                        document.write('<i class="text-muted fa fa-star"></i>');
+                                    }
+                                </script>
+                            {% endblock %}
+                                <span class="list-inline-item text-dark">{{ sku_list.goods_name.fa_star }} | {{ sku_list. }} Comments</span>
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
@@ -134,13 +142,13 @@
                             </ul>
 
                             <h6>Description:</h6>
-                            <p>{{ sku_list.desc_detail }}</p>
+                            <p>{{ sku_list.goods_name.listing }}</p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>Power :</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>1W / 2W</strong></p>
+                                    <p class="text-muted"><strong>{{ sku_list[0].price }}</strong></p>
                                 </li>
                             </ul>
 

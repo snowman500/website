@@ -135,8 +135,8 @@ class ItemUnit(BaseModel):
 
 class ItemSKU(BaseModel):
     '''物料表'''
-    goods =CharField(max_length=64, verbose_name='物料型号:JF-D-002')   
-    item_id = CharField(max_length=20, verbose_name='物料编码:F2.2.09.30.00000')    
+    goods =CharField(max_length=64, verbose_name='物料型号(JF-D-002)')   
+    item_id = CharField(max_length=16, verbose_name='物料编码(F2.2.09.30.00000)')    
     name = CharField(max_length=20, verbose_name='物料名称')
     desc = CharField(max_length=256, verbose_name='物料简介')
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='物料价格')
