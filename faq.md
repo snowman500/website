@@ -145,4 +145,30 @@ class ShopSKU(BaseModel):
     goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spusku')  
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价') 
     warranty = IntegerField(default=0, verbose_name='保修期')          
-请帮我写一个视图函数,我需要将通过ShopSPU反查所有的ShopSKU,并能通过[0]的方式在前端显示
+请帮我写一个视图函数,我需要将通过ShopSPU反查所有的ShopSKU,并能通过数列的方式在前端显示
+
+
+你好，这是Bing。你需要一个视图函数，它可以通过ShopSPU反查所有的ShopSKU，并能通过数列的方式在前端显示。以下是一个可能的实现：
+
+```python
+from django.shortcuts import render
+from .models import ShopSPU, ShopSKU
+
+def spu_sku(request):
+    spus = ShopSPU.objects.all()
+    sku_list = []
+    for spu in spus:
+        skus = spu.spusku.all()
+        sku_list.append(skus)
+    context = {'sku_list': sku_list}
+    return render(request, 'spu_sku.html', context)
+```
+
+在这个视图函数中，我们首先获取所有的ShopSPU对象。然后，我们遍历每个ShopSPU对象并获取其所有关联的ShopSKU对象。最后，我们将所有的ShopSKU对象存储在一个列表中，并将其作为上下文传递给模板。在模板中，您可以使用循环来遍历sku_list并在前端以列表形式显示所有的ShopSKU对象。
+
+请注意，这只是一个可能的实现。您可以根据您的具体需求进行修改。
+
+源: 与必应的对话， 2023/10/19
+(1) Rakuten: Online & In-Store Cash Back | Shop 3,500 Stores!. https://www.rakuten.com/.
+(2) Beauty, Skincare, Bath & Body Products | The Body Shop. https://www.thebodyshop.com/en-us/.
+(3) Shop by Category - Temu. https://www.temu.com/shopping_category.html.

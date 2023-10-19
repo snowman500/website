@@ -31,10 +31,19 @@ def shop(request):
     # 渲染模板并返回响应
     return render(request, 'shop.html', {'page_obj': page_obj})
 
-def single(request):
-    # 获取当前查询的是第几个产品
-    num = request.GET.get('num')
-    # 去数据库查询对应的产品的所有属性
-    sku_list = ShopSPU.objects.filter(id=num).first()
-    # 把查到的属性返回给前端
-    return render(request, 'single.html', {'sku_list': sku_list},)
+# def single(request):
+#     # 获取当前查询的是第几个产品
+#     num = request.GET.get('num')
+#     # 去数据库查询对应的产品的所有属性
+#     sku_list = ShopSPU.objects.filter(id=num).first()
+#     # 把查到的属性返回给前端
+#     return render(request, 'single.html', {'sku_list': sku_list},)
+
+def spu_sku(request):
+    spus = ShopSPU.objects.all()
+    sku_list = []
+    for spu in spus:
+        skus = spu.spusku.all()
+        sku_list.append(skus)
+    context = {'sku_list': sku_list}
+    return render(request, 'single.html', context)
