@@ -133,42 +133,103 @@ class ShopSKU(BaseModel):
 
 希望这可以帮助您。
 
-
+# F3:
 我有两个类:
 class ShopSPU(BaseModel):
     goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  # 
-    listing = TextField(verbose_name='listing')  # 这里要用TextField
+    listing = TextField(verbose_name='listing')
     fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')
     likes_num = IntegerField(default=0, verbose_name='收藏')
 
 class ShopSKU(BaseModel):
-    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spusku')  
+    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spu_sku')  
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价') 
     warranty = IntegerField(default=0, verbose_name='保修期')          
-请帮我写一个视图函数,我需要将通过ShopSPU反查所有的ShopSKU,并能通过数列的方式在前端显示
+请帮我写一个视图函数,我需要将通过ShopSPU反查ShopSKU的price,并能在模板中通过列表的方式访问列表中的任意一个值
 
-
-你好，这是Bing。你需要一个视图函数，它可以通过ShopSPU反查所有的ShopSKU，并能通过数列的方式在前端显示。以下是一个可能的实现：
+# Q3:
+你好，这里是Bing。你需要一个视图函数来反查所有的ShopSKU，是吗？我可以帮你写一个。以下是一个可能的实现：
 
 ```python
 from django.shortcuts import render
 from .models import ShopSPU, ShopSKU
 
-def spu_sku(request):
-    spus = ShopSPU.objects.all()
+def shop_sku_view(request):
+    spu_list = ShopSPU.objects.all()
     sku_list = []
-    for spu in spus:
-        skus = spu.spusku.all()
-        sku_list.append(skus)
+    for spu in spu_list:
+        sku_list.append(spu.spu_sku.all())
     context = {'sku_list': sku_list}
-    return render(request, 'spu_sku.html', context)
+    return render(request, 'shop_sku.html', context)
 ```
 
-在这个视图函数中，我们首先获取所有的ShopSPU对象。然后，我们遍历每个ShopSPU对象并获取其所有关联的ShopSKU对象。最后，我们将所有的ShopSKU对象存储在一个列表中，并将其作为上下文传递给模板。在模板中，您可以使用循环来遍历sku_list并在前端以列表形式显示所有的ShopSKU对象。
+这个视图函数会将所有的ShopSPU对象取出来，然后通过反向关联查询到所有的ShopSKU对象。最后将所有的ShopSKU对象放入一个列表中，传递给模板进行渲染。在模板中，你可以通过列表的方式访问任意一个值。
 
-请注意，这只是一个可能的实现。您可以根据您的具体需求进行修改。
+希望这个回答能够帮到你。如果你还有其他问题，请随时问我。
 
 源: 与必应的对话， 2023/10/19
-(1) Rakuten: Online & In-Store Cash Back | Shop 3,500 Stores!. https://www.rakuten.com/.
+(1) Shop Halloween Costumes, Décor, Candy & More - Walmart. https://www.walmart.com/.
 (2) Beauty, Skincare, Bath & Body Products | The Body Shop. https://www.thebodyshop.com/en-us/.
 (3) Shop by Category - Temu. https://www.temu.com/shopping_category.html.
+
+
+
+
+我有两个类:
+class ShopSPU(BaseModel):
+    goods_name = CharField(max_length=64, verbose_name=) 
+    listing = TextField(verbose_name='listing')
+    fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    likes_num = IntegerField(default=0)
+
+class ShopSKU(BaseModel):
+    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spusku')  
+    price = DecimalField(max_digits=10, decimal_places=2) 
+    warranty = IntegerField(default=0)          
+请帮我用django写一个函数视图,要求:能够通过get请求获取到num值来确认ShopSKU,并将查询到的所有的ShopSKU的属性显示在模板中
+
+以下是您要求的函数视图代码，它可以通过GET请求获取num值来确认ShopSKU，并将查询到的所有ShopSKU的属性显示在模板中：
+
+```python
+from django.shortcuts import render
+from .models import ShopSKU
+
+def shop_sku_view(request):
+    if request.method == 'GET':
+        num = request.GET.get('num')
+        skus = ShopSKU.objects.filter(num=num)
+        context = {'skus': skus}
+        return render(request, 'sku.html', context)
+```
+
+在上面的代码中，我们首先从请求中获取查询参数 `num`。然后，我们使用 `filter()` 方法从数据库中获取所有 `ShopSKU` 对象，其中 `num` 字段等于查询参数 `num`。最后，我们将所有 `ShopSKU` 对象传递给模板，并使用 `render()` 函数渲染模板。
+
+希望这可以帮助您解决问题！如果您有任何其他问题，请随时问我。
+
+源: 与必应的对话， 2023/10/20
+(1) Django class based view with GET parameters - Stack Overflow. https://stackoverflow.com/questions/45418422/django-class-based-view-with-get-parameters.
+(2) 【Django】GET・POSTの役割について | くまのブログ. https://kuma-server.com/django-get-post/.
+(3) Django: URL to specific request method - Stack Overflow. https://stackoverflow.com/questions/58779929/django-url-to-specific-request-method.
+(4) How to call a method from a Django Class Model to a Django field?. https://stackoverflow.com/questions/53494528/how-to-call-a-method-from-a-django-class-model-to-a-django-field.
+(5) undefined. https://www.django-rest-framework.org/api-guide/generic-views/.
+
+
+我有一个视图函数single和一个类ShopSKU:
+def single(request):
+    num = request.GET.get('num')
+    context = ShopSKU.objects.filter(id=num)
+    return render(request, 'single.html',  {'context': context})
+class ShopSKU(BaseModel):
+    """商品SKU"""
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)
+    image1 = ImageField(upload_to='product/', verbose_name='主图')
+    image2 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image3 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image4 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image5 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image6 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image7 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image8 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image9 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image10 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+请帮我用django在前端模板实现一个要求:通过循环的方式显示全部图片,也就是从image1显示到image10

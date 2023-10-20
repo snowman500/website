@@ -54,51 +54,55 @@ class ShopBrand(BaseModel):
         return self.name
 
 
-class ShopSPU(BaseModel):
 
-    """商品SPU"""
-    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)')  
+class ShopSKU(BaseModel):
+    """商品SKU"""
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)') 
     listing = TextField(verbose_name='listing')  # 这里要用TextField
     fa_star = DecimalField(max_digits=2, decimal_places=1, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)],verbose_name='评论星星')
     likes_num = IntegerField(default=0, verbose_name='收藏')
     comments = IntegerField(default=0, verbose_name='评论')
-
-    def __str__(self):
-        return self.goods_name
-    
-    class Meta:
-        db_table = 'shop_spu'
-        verbose_name = '商品SPU'
-        verbose_name_plural = verbose_name
-
-class ShopSKU(BaseModel):
-    """商品SKU"""
-    # 定义产品照片的上传路径
-    def get_upload_path(instance, filename):
-        return os.path.join('uploads', str(instance.id), filename)
-
-    goods_name = ForeignKey(ShopSPU, on_delete=PROTECT, related_name='spu_sku')  # SKU--SPU
-    brand = ForeignKey(ShopBrand, on_delete=PROTECT, related_name='spu_brand')  # 品牌
+    brand = ForeignKey(ShopBrand, on_delete=PROTECT, related_name='spu_brand')  # SKU--brand外键
     item_sku =  CharField(max_length=16, verbose_name='物料编码(F2.2.09.30.00000)')  
-    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')   # 右侧详情页需要显示的
-    warranty = IntegerField(default=0, verbose_name='保修期')           # 右侧详情页需要显示的
-    transport_package = CharField(max_length=64, verbose_name='运输包装')
-    application = CharField(max_length=8, verbose_name='应用范围')           # 右侧详情页需要显示的
-    color = CharField(max_length=64, verbose_name='灯光颜色')      # 右侧详情页需要显示的
-    cost = DecimalField(max_digits=10, decimal_places=2, verbose_name='成本')
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价') 
+    warranty = IntegerField(default=0, verbose_name='保修期')          
+    transport_package = CharField(max_length=64, verbose_name='运输包装')     
+    color = CharField(max_length=64, verbose_name='灯光颜色')    
+    cost = DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='成本')
+    likes = IntegerField(default=0, verbose_name='收藏')
     stock = IntegerField(default=0, verbose_name='库存')
     sales = IntegerField(default=0, verbose_name='销量')
-    tv_model = TextField(verbose_name='适用电视机型号')
-    likes = IntegerField(default=0, verbose_name='收藏')
-    complete_set = CharField(max_length=8, verbose_name='一套多少条')    
-    pcb_material = CharField(max_length=8, verbose_name='PCB类型')    
-    pcb_l = DecimalField(max_digits=6, decimal_places=2, verbose_name='PCB长度')   
-    pcb_w = DecimalField(max_digits=4, decimal_places=2, verbose_name='PCB宽度')   
-    pcb_t = DecimalField(max_digits=3, decimal_places=2, verbose_name='PCB厚度')      
-    power_chioces = CharField(max_length=8, verbose_name='LED灯珠功率')    
-    voltage = CharField(max_length=8, verbose_name='LED灯珠电压') 
+    comment_num = IntegerField(default=0, verbose_name='评论数量')
+    POWER_CHOICES = [
+            ('1', '1W'),
+            ('2', '2W'),
+            ('3', '3W'),
+    ]
+    led_power = CharField(max_length=2, choices=POWER_CHOICES)
+    PCB_MATERIAL_CHIOCES = [
+            ('1', 'FR4'),
+            ('2', 'Aluminum'),
+    ]
+    pcb_material = CharField(max_length=2, choices=PCB_MATERIAL_CHIOCES)
+    pcb_w = DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name='PCB宽度')  
+    pcb_t = DecimalField(max_digits=3, decimal_places=2, null=True, blank=True, verbose_name='PCB厚度')  
+    a_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='A板PCB长度')          
+    b_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='B板PCB长度')      
+    c_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='C板PCB长度')    
+    d_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='D板PCB长度')       
+    a_pcb_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='一套几条A板')    
+    b_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='一套几条B板')    
+    c_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='一套几条C板')    
+    d_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='一套几条D板')      
+    led_num = CharField(max_length=8, verbose_name='LED灯珠数量')      
+    lens = CharField(max_length=16, verbose_name='透镜类型')
+    a_cnt = CharField(max_length=16, verbose_name='连接器1')    
+    b_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='连接器2')    
+    c_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='连接器3')    
+    d_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='连接器4')    
+    voltage = CharField(max_length=8, null=True, blank=True, verbose_name='LED灯珠电压') 
     current = DecimalField(max_digits=6, decimal_places=2, verbose_name='LED灯珠电流')     
-    o_code1 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码1')   
+    o_code1 = CharField(max_length=200, verbose_name='原厂代码1')   
     o_code2 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码2')  
     o_code3 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码3')  
     o_code4 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码4')  
@@ -114,31 +118,39 @@ class ShopSKU(BaseModel):
     o_code14 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码14')  
     o_code15 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码15')  
     o_code16 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码16')
-    image = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='默认图片')
-    image_1 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图1')
-    image_2 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图2')
-    image_3 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图3')
-    image_4 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图4')
-    image_5 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图5')
-    image_6 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图6')
-    image_7 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图7')
-    image_8 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图8')
-    image_9 = ImageField(upload_to='shop/%Y/%m/%d/', null=True, blank=True, verbose_name='副图9')
-    
-    def save(self, *args, **kwargs):
-        if self.goods_name:
-            self.image.upload_to = 'shop/{}/%Y/%m/%d/'.format(self.goods_name.goods_name)
-        super().save(*args, **kwargs)
+    tv_model = TextField(null=True, blank=True,verbose_name='适用电视机型号')
+    image1 = ImageField(upload_to='product/', verbose_name='主图')
+    image2 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image3 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image4 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image5 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image6 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image7 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image8 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image9 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image10 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+
+    # def save(self, *args, **kwargs):
+    #     # Create folder based on goods_name
+    #     folder_path = os.path.join('media', self.goods_name.goods_name)
+    #     if not os.path.exists(folder_path):
+    #         os.makedirs(folder_path)
+
+    #     # Save images to folder
+    #     for i in range(1, 11):
+    #         image_field = getattr(self, f'image{i}')
+    #         if image_field:
+    #             image_path = os.path.join(folder_path, image_field.name)
+    #             os.rename(image_field.path, image_path)
+    #             setattr(self, f'image{i}', image_path)
+
+    #     super().save(*args, **kwargs)
+
 
     class Meta:
         db_table = 'shop_sku'
         verbose_name = '商品SKU'
         verbose_name_plural = verbose_name
-    class Meta:
-        db_table = 'shop_sku'
-        verbose_name = '商品SKU'
-        verbose_name_plural = verbose_name
-
 
 
 class OrderMaster(BaseModel):
@@ -197,16 +209,13 @@ class OrderDetail(BaseModel):
         return self.order_id
 
 
-
-
-
 class OrderCart(BaseModel):
     """购物车表"""
     order_id = IntegerField( verbose_name='订单表ID')
     customer_id = ForeignKey(CustomerInfo, on_delete=PROTECT, verbose_name='用户ID', related_name='order_cart')  # 其实是存的用户登陆的id
     product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='物料编码', related_name='order_cart')
     product_amount = IntegerField( verbose_name='加入购物车的数量')
-    product_price = ForeignKey(ShopSPU, on_delete=PROTECT, verbose_name='商品价格', related_name='order_cart')
+    product_price = ForeignKey(ShopSKU, on_delete=PROTECT, verbose_name='商品价格', related_name='order_cart')
 
 
     
@@ -219,10 +228,9 @@ class OrderCart(BaseModel):
 
 
 
-
 class ShopComment(BaseModel):
     """商品评论表"""
-    item_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='商品ID', related_name='shop_comment')  # 物料编码ID
+    item_id = ForeignKey(ShopSKU, on_delete=PROTECT, verbose_name='商品ID', related_name='shop_comment')  # 物料编码ID
     order_id = ForeignKey(OrderMaster, on_delete=PROTECT, verbose_name='订单iD', related_name='shop_comment')  # 订单的id
     customer_id = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='用户登陆ID', related_name='shop_comment')
     fa_star = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='评论星星')

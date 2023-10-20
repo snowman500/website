@@ -30,16 +30,36 @@
                         <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
                             <!--Start Slides-->
                             <div class="carousel-inner product-links-wap" role="listbox">
+                            {% block scripts %}
+                                <script>
+                                    var product_id = "{{ spu.fa_star }}";
+                                        product_id = Math.floor(product_id);
+                                    for (let i = 0; i < product_id; i++) {
+                                        document.write('<i class="text-warning fa fa-star"></i>');
+                                    }
+                                    for (let i = 0; i < 5 - product_id; i++) {
+                                        document.write('<i class="text-muted fa fa-star"></i>');
+                                    }
+                                </script>
+                            {% endblock %}
                                 <!--First slide-->
                                 <div class="carousel-item active">
                                     <div class="row">
-                                        {% for i in "123" %}
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{ 'sku.image'|join:i|join:'.url' }}" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Product Image 1">
                                             </a>
                                         </div>
-                                        {% endfor %}
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="{{ sku.image2.url }}" alt="Product Image 2">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="{{ sku.image3.url }}" alt="Product Image 3">
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <!--/.First slide-->

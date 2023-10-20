@@ -10,11 +10,9 @@ class ShopChannelGroupAdmin(admin.ModelAdmin):
 class ShopChannelAdmin(admin.ModelAdmin):
     list_display = ('id', 'category', 'url', 'sequence')
 class ShopBrandAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'logo', 'first_letter')
-class ShopSPUAdmin(admin.ModelAdmin):
-    list_display = ('id', 'goods_name', 'fa_star','likes_num')   
+    list_display = ('id', 'name', 'logo', 'first_letter') 
 class ShopSKUAdmin(admin.ModelAdmin):
-    list_display = ('id', 'goods_name', 'brand', 'price','power_chioces')
+    list_display = ('id', 'goods_name')
 class OrderMasterAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_sn', 'shipping_user', 'country','order_money','district_money','shipping_money','payment_money')
 class OrderDetailAdmin(admin.ModelAdmin):
@@ -27,7 +25,6 @@ class ShopCommentAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(ShopChannelGroup,ShopChannelGroupAdmin)
 admin.site.register(ShopChannel,ShopChannelAdmin)
-admin.site.register(ShopSPU,ShopSPUAdmin)
 admin.site.register(ShopBrand,ShopBrandAdmin)
 admin.site.register(ShopSKU,ShopSKUAdmin)
 admin.site.register(OrderMaster,OrderMasterAdmin)

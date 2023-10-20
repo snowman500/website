@@ -20,7 +20,7 @@ from shop import views
 
 urlpatterns = [
     path('', views.shop, name="shop"),
+    #path('single/', views.Single.as_view(), name="single"),
     path('single/', views.single, name="single"),
-    path('cart/', views.single, name="cart"),
     
 ]
