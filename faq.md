@@ -221,7 +221,7 @@ def single(request):
     return render(request, 'single.html',  {'context': context})
 class ShopSKU(BaseModel):
     """商品SKU"""
-    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***)
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***))
     image1 = ImageField(upload_to='product/', verbose_name='主图')
     image2 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
     image3 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')

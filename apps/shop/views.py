@@ -20,6 +20,6 @@ def shop(request):
 
 def single(request):
     num = request.GET.get('num')
-    context = ShopSKU.objects.filter(id=num)
-    return render(request, 'single.html',  {'context': context})
+    sku = ShopSKU.objects.filter(id=num).first
+    return render(request, 'single.html',  {'sku': sku})
 

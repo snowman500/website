@@ -9,7 +9,7 @@ import os
 
 class ShopChannelGroup(BaseModel):
     """商品频道组"""
-    name = CharField(max_length=20, verbose_name='频道组名') # 直下式,侧入式
+    name = CharField(max_length=20, verbose_name='频道组名') # 直下式,侧入式,其他配件
 
     class Meta:
         db_table = 'shop_channel_group'
@@ -25,7 +25,7 @@ class ShopChannelGroup(BaseModel):
 class ShopChannel(BaseModel):
     """商品频道"""
 #    group = ForeignKey(GoodsChannelGroup, on_delete=PROTECT, verbose_name='频道组名')
-    category = ForeignKey(ItemCategory, on_delete=PROTECT, verbose_name='顶级商品类别', related_name='shop_channel')
+    category = ForeignKey(ShopChannelGroup, on_delete=PROTECT, verbose_name='顶级商品类别', related_name='shop_channel')
     url = CharField(max_length=50, verbose_name='频道页面链接')
     sequence = IntegerField(verbose_name='组内顺序')
 
@@ -129,23 +129,6 @@ class ShopSKU(BaseModel):
     image8 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
     image9 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
     image10 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
-
-    # def save(self, *args, **kwargs):
-    #     # Create folder based on goods_name
-    #     folder_path = os.path.join('media', self.goods_name.goods_name)
-    #     if not os.path.exists(folder_path):
-    #         os.makedirs(folder_path)
-
-    #     # Save images to folder
-    #     for i in range(1, 11):
-    #         image_field = getattr(self, f'image{i}')
-    #         if image_field:
-    #             image_path = os.path.join(folder_path, image_field.name)
-    #             os.rename(image_field.path, image_path)
-    #             setattr(self, f'image{i}', image_path)
-
-    #     super().save(*args, **kwargs)
-
 
     class Meta:
         db_table = 'shop_sku'
