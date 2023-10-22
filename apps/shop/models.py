@@ -7,25 +7,22 @@ import os
 
 # Create your models here.
 
+
 class ShopChannelGroup(BaseModel):
     """商品频道组"""
-    name = CharField(max_length=20, verbose_name='频道组名') # 直下式,侧入式,其他配件
-
+    group_name = CharField(max_length=64, verbose_name="频道组名字") 
+    
     class Meta:
         db_table = 'shop_channel_group'
         verbose_name = '商品频道组'
         verbose_name_plural = verbose_name
-        
     def __str__(self):
-        return self.name
-
-
+        return self.group_name
 
 
 class ShopChannel(BaseModel):
     """商品频道"""
-#    group = ForeignKey(GoodsChannelGroup, on_delete=PROTECT, verbose_name='频道组名')
-    category = ForeignKey(ShopChannelGroup, on_delete=PROTECT, verbose_name='顶级商品类别', related_name='shop_channel')
+    channel_name = CharField(max_length=64, verbose_name="频道名字") 
     url = CharField(max_length=50, verbose_name='频道页面链接')
     sequence = IntegerField(verbose_name='组内顺序')
 
@@ -34,7 +31,7 @@ class ShopChannel(BaseModel):
         verbose_name = '商品频道'
         verbose_name_plural = verbose_name
     def __str__(self):
-        return self.category
+        return self.channel_name
 
 
 

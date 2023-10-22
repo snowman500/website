@@ -6,9 +6,9 @@ from .models import *
 
 # 让对应的数据库显示自定义的属性
 class ShopChannelGroupAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'group_name')
 class ShopChannelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'category', 'url', 'sequence')
+    list_display = ('id', 'channel_name', 'url', 'sequence')
 class ShopBrandAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'logo', 'first_letter') 
 class ShopSKUAdmin(admin.ModelAdmin):
