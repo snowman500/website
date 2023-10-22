@@ -26,8 +26,6 @@ Table of contents
 --------------------------------------------- */
 
 
-
-
 /* Typography */
 body, ul, li, p, a, label, input, div {
   font-family: 'Roboto', sans-serif;
@@ -59,7 +57,7 @@ body, ul, li, p, a, label, input, div {
 .bg-black { background-color: #1d242d !important;}
 .bg-success { background-color: #59ab6e !important;}
 .btn-success {
-  background-color: #59ab6e !important;
+  background-color: #7f59ab !important;
   border-color: #56ae6c !important;
 }
 .pagination .page-link:hover {color: #000;}

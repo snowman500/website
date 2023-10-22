@@ -148,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 分页配置
 
-PAGE_SIZE=12
+PAGE_SIZE=2
 ORPHANS=5
 RANGE_LIST_SIZE=9
 

@@ -5,7 +5,6 @@
     <title>Jufeng Shop - Shop</title>
 <body>
     {% include 'store/navbar.html' %}
-
     <!-- Start Content -->
     <div class="container py-5">
         <div class="row">
@@ -105,37 +104,33 @@
                 <!--商品列表分页器开始-->
                 <div class="row">
                     <ul class="pagination  justify-content-end ">
-                        <!-- <li class="page-item">
+                        <li class="page-item">
                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num=1">First</a>
-                        </li> -->
-                        <!-- {% if page_obj.has_previous %}
+                        </li>
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                        {% if page_obj.has_previous %}
                         <li class="page-item">
                             <a href="?num={{page_obj.previous_page_number}}" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
                                 <span>&laquo;</span>
                             </a>
                         </li>
                         {% else %}
-                        <li class="page-item">
+                        <li class="page-item disabled">
                             <a href="#" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
                                 <span>&laquo;</span>
                             </a>
                         </li>
                         {% endif %}
-                        <li class="page-item">
-                            <a href="#" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">5</a>
-                        </li>
+                        {% for num in page_range %}
+                        {% if num == current_num %}
+                            <li class="page-item disabled">
+                                <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="?num={{ num }}" tabindex="-1">{{ num }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item "><a href="?num={{ num }}" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">{{ num }}</a></li>
+                        {% endif %}
+                        {% endfor %}
                         {% if page_obj.has_next  %}
                         <li class="page-item">
                             <a href="?num={{page_obj.next_page_number}}" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
@@ -143,7 +138,7 @@
                             </a>
                         </li>
                         {% else %}
-                        <li class="page-item">
+                        <li class="page-item disabled">
                             <a href="#" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
                                 <span>&raquo;</span>
                             </a>
@@ -151,15 +146,14 @@
                         {% endif %}
                         <li class="page-item">
                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"  href="?num={{page_obj.paginator.num_pages}}">End</a>
-                        </li> -->
+                        </li>
                     </ul>
-                    
                 </div>
                 <!--商品列表分页器结束-->
 
-                <p  style="text-align: right;">{{ page_obj.number }}/{{ page_obj.paginator.num_pages }} </p>
             </div>
             <!--商品列表结束 -->
+            <p  style="text-align: right;">{{ page_obj.number }}/{{ page_obj.paginator.num_pages }} </p>
 
         </div>
     </div>
