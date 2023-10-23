@@ -16,7 +16,11 @@
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">D-LED BACKLIGHT BAR<i class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
                         <ul class="collapse show list-unstyled pl-3">
                             {% for item in brand %}
+                            {% if item.is_activate  %}
                             <li><a class="text-decoration-none" href="#">{{item.name}}</a></li>
+                            {% else %}
+                            <li></li>
+                            {% endif %}
                             {% endfor %}
                         </ul>
                     </li>
