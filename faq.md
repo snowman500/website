@@ -300,3 +300,36 @@ class ShopSKUImage(BaseModel):
         verbose_name = '产品图片'
         verbose_name_plural = verbose_name
 请帮我用django写一个视图函数,在前端模板实现一个要求:查询ShopSKUImage中image1到image10
+
+
+<div class="col-lg-3">
+    <h1 class="h2 pb-4">Categories</h1>
+    <ul class="list-unstyled templatemo-accordion">
+        <li class="pb-3">
+            <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">D-LED BACKLIGHT BAR<i class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+            <ul class="collapse show list-unstyled pl-3">
+                {% for item in brand %}
+                <li><a class="text-decoration-none" href="#">{{item.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</div>
+请帮我用django写一个模板,实现一个要求:列表可以滚动查询
+<div class="col-lg-3">
+    <h1 class="h2 pb-4">Categories</h1>
+    <ul class="list-unstyled templatemo-accordion" id="scrollable-list">
+        {% for item in brand %}
+        <li><a class="text-decoration-none" href="#">{{item.name}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    var list = document.getElementById("scrollable-list");
+    list.addEventListener("scroll", function() {
+        if (list.scrollTop + list.clientHeight >= list.scrollHeight) {
+            // Load more items here
+        }
+    });
+</script>

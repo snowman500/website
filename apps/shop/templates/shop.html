@@ -12,16 +12,30 @@
             <div class="col-lg-3">
                 <h1 class="h2 pb-4">Categories</h1>
                 <ul class="list-unstyled templatemo-accordion">
-                    {% for group in channel_group %}
                     <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">{{ group.group_name }}<i class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">D-LED BACKLIGHT BAR<i class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
                         <ul class="collapse show list-unstyled pl-3">
-                            {% for item in channel %}
-                            <li><a class="text-decoration-none" href="#">{{item.channel_name}}</a></li>
+                            {% for item in brand %}
+                            <li><a class="text-decoration-none" href="#">{{item.name}}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
-                    {% endfor %}
+                    <li class="pb-3">
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">E-LED BACKLIGHT BAR<i class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+                        <ul class="collapse show list-unstyled pl-3">
+                            {% for item in brand %}
+                            <li><a class="text-decoration-none" href="#">{{item.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="pb-3">
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">OTHER<i class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+                        <ul class="collapse show list-unstyled pl-3">
+                            {% for item in brand %}
+                            <li><a class="text-decoration-none" href="#">{{item.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!--侧边栏结束 -->

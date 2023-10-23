@@ -19,28 +19,12 @@ class ShopChannelGroup(BaseModel):
     def __str__(self):
         return self.group_name
 
-
-class ShopChannel(BaseModel):
-    """商品频道"""
-    channel_name = CharField(max_length=64, verbose_name="频道名字") 
-    url = CharField(max_length=50, verbose_name='频道页面链接')
-    sequence = IntegerField(verbose_name='组内顺序')
-
-    class Meta:
-        db_table = 'shop_channel'
-        verbose_name = '商品频道'
-        verbose_name_plural = verbose_name
-    def __str__(self):
-        return self.channel_name
-
-
-
-
 class ShopBrand(BaseModel):
-    """品牌"""
-    name = CharField(max_length=20, verbose_name='名称')
+    """商品品牌"""
+    name = CharField(max_length=20, null=True, blank=True, verbose_name='品牌名称')
     logo = ImageField(max_length=200, upload_to="logo/", null=True, blank=True, verbose_name='LOGO图片')
-    first_letter = CharField(max_length=1, verbose_name='品牌首字母')
+    first_letter = CharField(max_length=1, null=True, blank=True, verbose_name='品牌首字母')
+    url = CharField(max_length=50, null=True, blank=True, verbose_name='品牌页面链接')
 
     class Meta:
         db_table = 'shop_brand'

@@ -65,8 +65,9 @@ body, ul, li, p, a, label, input, div {
   background-color: #69bb7e;
   color: #fff;
 }
+/* 分页器间隙 */
 .pagination-gap a {
-  margin-right: 10px;
+  margin-right: 8px;
 }
 /* Nav */
 #templatemo_nav_top { min-height: 40px;}
