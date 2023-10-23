@@ -156,24 +156,15 @@
                                     <h6>Power :</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>
-                                    {% for choice in sku.get_led_power_display %}
-                                    {{ choice }}
-                                    {% endfor %}</strong></p> 
+                                    <p class="text-muted"><strong>{{ brand.name }}</strong></p> 
                                 </li>
                             </ul>
                             <h6>Specification:</h6>
                             <ul class="list-unstyled pb-3">
-                                <div class="col-4">
-                                    <a href="#">
-                                        <span>{{sku}}
-                                        </span>
-                                    </a>
-                                </div>
                                 <li>warranty : 2 years</li>
-                                <li>Pcb Material:{% for choice in sku.get_pcb_material_display %}{{ choice }}{% endfor %} </li>
+                                <li>Pcb Material:{{ brand.pcb_material }}</li>
                                 <li>Application: TV/Blu/Display Repair</li>
-                                <li>Emitting Color: White</li>
+                                <li>Emitting Color: {{ brand.color }}</li>
                                 <li>Transport Package: Carton Box</li>
                                 <li>Origin:Shenzhen,China</li>
                             </ul>
