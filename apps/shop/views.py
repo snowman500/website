@@ -2,17 +2,17 @@ from django.shortcuts import render, redirect,reverse
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.views.generic import View
-from shop.models import ShopSKU, ShopChannel, ShopChannelGroup
+from shop.models import ShopSKU, ShopChannel, ShopChannelGroup, ShopBrand
 
 
 
 
 def single(request):
+    # 查询产品的所属其他属性
     num = request.GET.get('num')
-    sku = ShopSKU.objects.filter(id=num).first
-    return render(request, 'single.html',  {'sku': sku})
+    sku = ShopSKU.objects.filter(id=num).first()
 
-
+    return render(request, 'single.html', {'sku': sku})
 
 # def shop(request):
 #     """左侧边栏分栏目录循环 """

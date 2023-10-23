@@ -233,3 +233,70 @@ class ShopSKU(BaseModel):
     image9 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
     image10 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
 请帮我用django在前端模板实现一个要求:通过循环的方式显示全部图片,也就是从image1显示到image10
+
+
+
+
+我有两个类:
+class ShopBrand(BaseModel):
+    name = CharField(max_length=20, verbose_name='名称')
+    logo = ImageField(max_length=200, upload_to="LOGO/", null=True, blank=True, verbose_name='LOGO图片')
+    first_letter = CharField(max_length=1, verbose_name='品牌首字母')
+class ShopSKU(BaseModel):
+    likes_num = IntegerField(default=0, verbose_name='收藏')
+    comments = IntegerField(default=0, verbose_name='评论')
+    brand = ManyToManyField(ShopBrand,  verbose_name="品牌")
+请帮我用django写一个视图函数,在前端模板实现一个要求:查询ShopSKU中brand的全部ShopBrand的name
+
+
+你可以使用以下代码来实现这个功能：
+
+```python
+from django.shortcuts import render
+from .models import ShopSKU
+
+def my_view(request):
+    skus = ShopSKU.objects.all()
+    brands = set()
+    for sku in skus:
+        for brand in sku.brand.all():
+            brands.add(brand.name)
+    return render(request, 'my_template.html', {'brands': brands})
+```
+
+在这个示例中，我们首先获取了所有的 `ShopSKU` 对象，并将它们存储在了一个名为 `skus` 的变量中。然后，我们创建了一个空集合 `brands`，用于存储所有的品牌名称。
+
+接下来，我们使用两个嵌套的 `for` 循环遍历每个 `ShopSKU` 对象的品牌，并将每个品牌的名称添加到 `brands` 集合中。由于集合只包含唯一的元素，因此我们可以确保每个品牌只会被添加一次。
+
+最后，我们将 `brands` 集合传递给名为 `my_template.html` 的前端模板，并使用 Django 模板语言中的 `for` 循环遍历品牌列表并输出它们的名称。
+
+请注意，这个示例假设你已经在 `models.py` 文件中定义了 `ShopSKU` 和 `ShopBrand` 模型，并且已经在 `settings.py` 文件中配置了数据库连接信息。
+
+源: 与必应的对话， 2023/10/23
+(1) 13.Django中几大常用模板标签讲解及实战使用 【for循环；if判断；页面跳转；开启关闭自动转义；url携带参数传递；注释 .... https://blog.csdn.net/m0_67266171/article/details/123103520.
+(2) Django 模板语言 for循环 - kevin.Xiang - 博客园. https://www.cnblogs.com/xiangsikai/p/10917860.html.
+(3) 手把手Django+Vue前后端分离开发入门(附demo) - 知乎. https://zhuanlan.zhihu.com/p/128976272.
+(4) django前端模板循环多个list_django前端循环-CSDN博客. https://blog.csdn.net/weixin_35757704/article/details/117198895.
+(5) undefined. http://127.0.0.1:8888.
+(6) undefined. http://127.0.0.1:8888/music/sing/.
+
+
+我有一个类:
+class ShopSKUImage(BaseModel):
+    """产品图片"""
+    goods_name = CharField(max_length=64, verbose_name='物料型号:(JF-D-***))
+    image1 = ImageField(upload_to='product/', verbose_name='主图')
+    image2 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image3 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image4 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image5 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image6 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image7 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image8 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image9 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image10 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    class Meta:
+        db_table = 'shop_sku_image'
+        verbose_name = '产品图片'
+        verbose_name_plural = verbose_name
+请帮我用django写一个视图函数,在前端模板实现一个要求:查询ShopSKUImage中image1到image10

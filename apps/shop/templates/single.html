@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="{{ sku.image4.url }}" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Card image cap" id="product-detail">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -34,19 +34,34 @@
                                 <div class="carousel-item active">
                                     <div class="row">
                                         <div class="col-4">
+                                            {% if sku.image4  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Product Image 4">
                                             </a>
+                                            {% else %}
+                                            <a href="#">
+                                            </a>
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
+                                            {% if sku.image4  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{ sku.image2.url }}" alt="Product Image 2">
+                                                <img class="card-img img-fluid" src="{{ sku.image2.url }}" alt="Product Image 4">
                                             </a>
+                                            {% else %}
+                                            <a href="#">
+                                            </a>
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
+                                            {% if sku.image4  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{ sku.image3.url }}" alt="Product Image 3">
+                                                <img class="card-img img-fluid" src="{{ sku.image3.url }}" alt="Product Image 4">
                                             </a>
+                                            {% else %}
+                                            <a href="#">
+                                            </a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -62,25 +77,27 @@
                                             </a>
                                             {% else %}
                                             <a href="#">
-
                                             </a>
                                             {% endif %}
-
                                         </div>
                                         <div class="col-4">
+                                            {% if sku.image4  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{ sku.image5.url }}" alt="Product Image 5">
+                                                <img class="card-img img-fluid" src="{{ sku.image5.url }}" alt="Product Image 4">
                                             </a>
+                                            {% else %}
+                                            <a href="#">
+                                            </a>
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
                                             {%for i in '123'%}
                                             {% if sku.imagei  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{{ sku.image|add:i|add:.url }}" alt="Product Image 4">
+                                                <img class="card-img img-fluid" src="{{ sku.image6.url }}" alt="Product Image 4">
                                             </a>
                                             {% else %}
                                             <a href="#">
-
                                             </a>
                                             {% endif %}
                                             {% endfor %}
@@ -88,28 +105,6 @@
                                     </div>
                                 </div>
                                 <!--/.Second slide-->
-
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-04.jpg'%}" alt="Product Image 7">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-04.jpg'%}" alt="Product Image 8">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-04.jpg'%}" alt="Product Image 9">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Third slide-->
                             </div>
                             <!--End Slides-->
                         </div>
@@ -148,13 +143,14 @@
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <h6>Brand:</h6>
+                                    <h6>Used for brand:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>{{ sku.brand }}</strong></p>
+                                    <p class="text-muted">
+                                        <strong>{% for brand in sku.brand.all %}{{ brand.name }}&nbsp;&nbsp;&nbsp;{% endfor %}</strong>
+                                    </p>
                                 </li>
                             </ul>
-
                             <h6>Description:</h6>
                             <p>{{ sku.listing }}</p>
                             <ul class="list-inline">
@@ -170,16 +166,12 @@
                             </ul>
                             <h6>Specification:</h6>
                             <ul class="list-unstyled pb-3">
-                                
                                 <div class="col-4">
                                     <a href="#">
-                                        <span>{{sku}}</span>
-                                        <img class="card-img img-fluid" src="{{i}}" alt="{{i}}">
-                                        <img class="card-img img-fluid" src="{{ sku.image1.url }}"  alt="Product Image">
-                                       
+                                        <span>{{sku}}
+                                        </span>
                                     </a>
                                 </div>
-                              
                                 <li>warranty : 2 years</li>
                                 <li>Pcb Material:{% for choice in sku.get_pcb_material_display %}{{ choice }}{% endfor %} </li>
                                 <li>Application: TV/Blu/Display Repair</li>
@@ -220,7 +212,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -235,10 +226,8 @@
             <div class="row text-left p-2 pb-3">
                 <h4>Related Products</h4>
             </div>
-
             <!--Start Carousel Wrapper-->
             <div id="carousel-related-product">
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -276,7 +265,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -314,7 +302,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -352,7 +339,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -390,7 +376,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -428,7 +413,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -466,7 +450,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -504,7 +487,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -542,7 +524,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -580,7 +561,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -618,7 +598,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -656,7 +635,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
@@ -694,10 +672,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </section>
     <!-- End Article -->

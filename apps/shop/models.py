@@ -59,7 +59,7 @@ class ShopSKU(BaseModel):
     fa_star = DecimalField(max_digits=2, decimal_places=1, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)],verbose_name='评论星星')
     likes_num = IntegerField(default=0, verbose_name='收藏')
     comments = IntegerField(default=0, verbose_name='评论')
-    brand = ForeignKey(ShopBrand, on_delete=PROTECT, related_name='spu_brand')  # SKU--brand外键
+    brand = ManyToManyField(ShopBrand,  verbose_name="品牌")  # SKU--brand 多对多外键
     item_sku =  CharField(max_length=16, verbose_name='物料编码(F2.2.09.30.00000)')  
     price = DecimalField(max_digits=10, decimal_places=2, verbose_name='单价') 
     warranty = IntegerField(default=0, verbose_name='保修期')          
@@ -116,6 +116,7 @@ class ShopSKU(BaseModel):
     o_code15 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码15')  
     o_code16 = CharField(max_length=200, null=True, blank=True, verbose_name='原厂代码16')
     tv_model = TextField(null=True, blank=True,verbose_name='适用电视机型号')
+    #image1 = ForeignKey(ImageField, on_delete=PROTECT,verbose_name='产品图片', related_name='sku_image')
     image1 = ImageField(upload_to='product/', verbose_name='主图')
     image2 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
     image3 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
@@ -131,6 +132,23 @@ class ShopSKU(BaseModel):
         db_table = 'shop_sku'
         verbose_name = '商品SKU'
         verbose_name_plural = verbose_name
+
+# class ShopSKUImage(BaseModel):
+#     """产品图片"""
+#     image1 = ImageField(upload_to='product/', verbose_name='主图')
+#     image2 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image3 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image4 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image5 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image6 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image7 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image8 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image9 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     image10 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+#     class Meta:
+#         db_table = 'shop_sku_image'
+#         verbose_name = '产品图片'
+#         verbose_name_plural = verbose_name
 
 
 class OrderMaster(BaseModel):
