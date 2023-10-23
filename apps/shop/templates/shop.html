@@ -50,7 +50,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 <a href="single/?num={{ spu.id }}" class="h3 text-decoration-none">{{ spu.listing }}</a>
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
                                     <li>
@@ -68,24 +68,20 @@
                                     {% endblock %}
                                     </li>
                                 </ul>
-                                <p class="text-center mb-0">{{ spu.price }}</p>
+                                <p class="text-center mb-0">{{ spu.price }} USD</p>
                             </div>
                         </div>
                     </div>
-
                     {% endfor %}
-
                     <!--商品列表正循环结束 -->
                 </div>
                 <!--商品列表正循环结束 -->
                 <!--商品列表分页器开始-->
-                <div class="row">
-                    <ul class="pagination  justify-content-end ">
+                <div class="row ">
+                    <ul class="pagination  justify-content-end pagination-gap ">
                         <li class="page-item">
                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num=1">First</a>
                         </li>
-                        <nav aria-label="...">
-                            <ul class="pagination">
                         {% if page_obj.has_previous %}
                         <li class="page-item">
                             <a href="?num={{page_obj.previous_page_number}}" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
