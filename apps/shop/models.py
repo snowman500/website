@@ -60,9 +60,10 @@ class ShopSKU(BaseModel):
     pcb_w = DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name='PCB宽度')  
     pcb_t = DecimalField(max_digits=3, decimal_places=2, null=True, blank=True, verbose_name='PCB厚度')
     
+    a_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='A/L1板名称')
     a_led_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='A板灯珠数量')     
     a_pcb_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='A板数量')     
-    a_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='A/L1板PCB长度')
+    a_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='A/L1板PCB长度')
     aa_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='A板连接器型号A数量')   
     aa_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='A板连接器型号A')    
     ab_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='A板连接器型号B数量')    
@@ -71,9 +72,10 @@ class ShopSKU(BaseModel):
     ac_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='A板连接器型号C')    
   
     
+    b_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='B/R2板名称')      
     b_led_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='B板灯珠数量')     
     b_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='B板数量')    
-    b_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='B/R2板PCB长度')      
+    b_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='B/R2板PCB长度')      
     ba_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='B板连接器型号A数量')   
     ba_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='B板连接器型号A')    
     bb_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='B板连接器型号B数量')    
@@ -82,9 +84,10 @@ class ShopSKU(BaseModel):
     bc_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='B板连接器型号C')    
  
     
+    c_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='C/L2板名称')    
     c_led_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='C板灯珠数量')     
     c_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='C板数量')    
-    c_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='C/L2板PCB长度')    
+    c_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='C/L2板PCB长度')    
     ca_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='C板连接器型号A数量')   
     ca_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='C板连接器型号A')    
     cb_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='C板连接器型号B数量')    
@@ -93,9 +96,10 @@ class ShopSKU(BaseModel):
     cc_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='C板连接器型号C')    
 
     
+    d_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='D/R2板名称')       
     d_led_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='D板灯珠数量')     
     d_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='D板数量')      
-    d_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='D/R2板PCB长度')       
+    d_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='D/R2板PCB长度')       
     da_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='D板连接器型号A数量')   
     da_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='D板连接器型号A')    
     db_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='D板连接器型号B数量')    
@@ -104,9 +108,10 @@ class ShopSKU(BaseModel):
     dc_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='D板连接器型号C')    
      
     
+    e_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='E板名称')       
     e_led_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='E板灯珠数量')     
     e_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='E板数量')      
-    e_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='E板PCB长度')       
+    e_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='E板PCB长度')       
     ea_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='E板连接器型号A数量')   
     ea_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='E板连接器型号A')    
     eb_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='E板连接器型号B数量')    
@@ -114,10 +119,10 @@ class ShopSKU(BaseModel):
     ec_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='E板连接器型号C数量')    
     ec_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='E板连接器型号C')    
        
-    
+    f_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='F板名称')   
     f_led_num = DecimalField(max_digits=2, decimal_places=0, verbose_name='F板灯珠数量')     
-    f_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='F板数量')           
-    f_pcb = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='F板PCB长度')       
+    f_pcb_num = DecimalField(max_digits=2, decimal_places=0, null=True, blank=True, verbose_name='F板数量')               
+    f_pcb_l = DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name='F板PCB长度')       
     fa_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='F板连接器型号A数量')   
     fa_cnt = CharField(max_length=16, null=True, blank=True, verbose_name='F板连接器型号A')    
     fb_cnt_num = CharField(max_length=16, null=True, blank=True, verbose_name='F板连接器型号B数量')    
