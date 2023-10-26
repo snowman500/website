@@ -11,7 +11,6 @@ def single(request):
     # 查询产品的所属其他属性
     num = request.GET.get('num')
     sku = ShopSKU.objects.filter(id=num).first()
-    brand = ShopBrand.objects.filter(id=num).first()
 
     return render(request, 'single.html', {'sku': sku})
 
@@ -25,7 +24,7 @@ def shop(request):
 
     # 取出当前用户页码,并把这个字符转换为整型.没有娶到默认为1
     current_num =int(request.GET.get('num',1))
-    # 获取所有ShopSPU对象   
+    # 获取所有is_activate为ture(产品处于激活状态)的ShopSPU对象   
     skus = ShopSKU.objects.filter(is_activate=True)
     # 创建一个分页器对象，每页显示settings.PAGE_SIZE(这个数据是在setting中设置的)条数据
     paginator = Paginator(skus, settings.PAGE_SIZE)
