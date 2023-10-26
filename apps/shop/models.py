@@ -150,6 +150,7 @@ class ShopSKU(BaseModel):
     image4 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
     image5 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
     image6 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    
     class Meta:
         db_table = 'shop_sku'
         verbose_name = '商品SKU'
