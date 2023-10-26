@@ -20,6 +20,7 @@
                             <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Card image cap" id="product-detail">
                         </a>
                         {% else %}
+                        <a href="#">
                             <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Card image cap" id="product-detail">
                         </a>
                         {% endif %}
@@ -46,8 +47,6 @@
                                                 <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Product Image 1">
                                             </a>
                                             {% else %}
-                                                <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Product Image 1">
-                                            </a>
                                             {% endif %}
                                         </div>
                                         <div class="col-4">
@@ -56,8 +55,6 @@
                                                 <img class="card-img img-fluid" src="{{ sku.image2.url }}" alt="Product Image 2">
                                             </a>
                                             {% else %}
-                                                <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Product Image 2">
-                                            </a>
                                             {% endif %}
                                         </div>
                                         <div class="col-4">
@@ -66,8 +63,6 @@
                                                 <img class="card-img img-fluid" src="{{ sku.image3.url }}" alt="Product Image 3">
                                             </a>
                                             {% else %}
-                                                <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Product Image 3">
-                                            </a>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -83,8 +78,6 @@
                                                 <img class="card-img img-fluid" src="{{ sku.image4.url }}" alt="Product Image 4">
                                             </a>
                                             {% else %}
-                                                <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Product Image 4">
-                                            </a>
                                             {% endif %}
                                         </div>
                                         <div class="col-4">
@@ -93,8 +86,6 @@
                                                 <img class="card-img img-fluid" src="{{ sku.image5.url }}" alt="Product Image 5">
                                             </a>
                                             {% else %}
-                                                <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Product Image 5">
-                                            </a>
                                             {% endif %}
                                         </div>
                                         <div class="col-4">
@@ -103,8 +94,6 @@
                                                 <img class="card-img img-fluid" src="{{ sku.image6.url }}" alt="Product Image 6">
                                             </a>
                                             {% else %}
-                                                <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Product Image 6">
-                                            </a>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -148,7 +137,7 @@
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <h6>Used for brand:</h6>
+                                    <h5>Used for brand:</h5>
                                 </li>
                                 <li class="list-inline-item">
                                     <p class="text-muted">
@@ -156,24 +145,24 @@
                                     </p>
                                 </li>
                             </ul>
-                            <h6>Description:</h6>
+                            <h5>Description:</h5>
                             <p>{{ sku.listing }}</p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <h6>Power :</h6>
+                                    <h5>Power :</h5>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>{{ brand.name }}</strong></p> 
+                                    <p class="text-muted"><strong>{{ sku.led_power }}</strong></p> 
                                 </li>
                             </ul>
-                            <h6>Specification:</h6>
+                            <h5>Specification:</h5>
                             <ul class="list-unstyled pb-3">
-                                <li>warranty : 2 years</li>
-                                <li>Pcb Material:{{ brand.pcb_material }}</li>
-                                <li>Application: TV/Blu/Display Repair</li>
-                                <li>Emitting Color: {{ brand.color }}</li>
-                                <li>Transport Package: Carton Box</li>
-                                <li>Origin:Shenzhen,China</li>
+                                <li><b>warranty :</b>&nbsp;&nbsp;2 years</li>
+                                <li><b>Pcb Material :</b>&nbsp;&nbsp;{{ sku.pcb_material }}</li>
+                                <li><b>Application :</b>&nbsp;&nbsp;TV/Blu/Display Repair</li>
+                                <li><b>Emitting Color :</b>&nbsp;&nbsp;{{ sku.color }}</li>
+                                <li><b>Transport Package :</b>&nbsp;&nbsp;{{ sku.transport_package }}</li>
+                                <li><b>Origin :</b>&nbsp;&nbsp;Shenzhen,China</li>
                             </ul>
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
@@ -214,9 +203,83 @@
             </div>
         </div>
     </section>
+    <!-- Open Content -->
+    <section class="bg-light">
+        <div class="container pb-5">
+            <div class="col-lg-12 py-0">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="h2, list-inline-item">Original Code</h1>
+                        <p>{% if sku.o_code1  %}{{ sku.o_code1 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code2  %}{{ sku.o_code2 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code3  %}{{ sku.o_code3 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code4  %}{{ sku.o_code4 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code5  %}{{ sku.o_code5 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code6  %}{{ sku.o_code6 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code7  %}{{ sku.o_code7 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code8  %}{{ sku.o_code8 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code9  %}{{ sku.o_code9 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code10  %}{{ sku.o_code10 }}{% else %}{% endif %}</p>
+                        <h1 class="h2, list-inline-item">Fundamental Specification</h1>
+                        <p>55P1 A     55HR330M04A0  V2     4C-LB5504-HR05J</p>
+                        <h1 class="h2, list-inline-item">TV Model</h1>
+                        <p>{{ sku.tv_model }}</p>
+                        <ul class="list-unstyled pb-3">
+                            <li>{% if sku.image1  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Product Image 1">
+                                </a>
+                                {% else %}
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image2  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image2.url }}" alt="Product Image 2">
+                                </a>
+                                {% else %}
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image3  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image3.url }}" alt="Product Image 3">
+                                </a>
+                                {% else %}
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image4  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image4.url }}" alt="Product Image 4">
+                                </a>
+                                {% else %}
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image5  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image5.url }}" alt="Product Image 5">
+                                </a>
+                                {% else %}
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image6  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image6.url }}" alt="Product Image 6">
+                                </a>
+                                {% else %}
+                                {% endif %}
+                            </li>
+                        </ul>
+                        <h1 class="h2, list-inline-item">Packaging & Shipping</h1>
+                        <ul class="list-unstyled pb-3">
+                            <li>1. The Light bars are packed in the cardboard boxes after being set in the tray plate with a drier.</li>
+                            <li>2. The tray plate should be packed by the paper self-adhesive tape in a loop.</li>
+                        </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </section>
     <!-- Close Content -->
-    {% include 'store/listing.html' %}
-    <!-- Start Article -->
     <section class="py-5">
         <div class="container">
             <div class="row text-left p-2 pb-3">

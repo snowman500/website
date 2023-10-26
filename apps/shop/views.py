@@ -11,6 +11,7 @@ def single(request):
     # 查询产品的所属其他属性
     num = request.GET.get('num')
     sku = ShopSKU.objects.filter(id=num).first()
+    brand = ShopBrand.objects.filter(id=num).first()
 
     return render(request, 'single.html', {'sku': sku})
 
