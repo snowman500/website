@@ -118,7 +118,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h1 class="h2">{{ sku.goods_name }}</h1>
-                            <p class="h3 py-2">{{ sku.price }}</p>
+                            <p class="h3 py-2">{{ sku.price }} / SET</p>
                             <p class="py-2">
                                 <!-- 对传入的{{ sku.fa_star }}值向下取整 -->
                                 {% block scripts %}
@@ -207,7 +207,7 @@
                 <div class="card">
                     <div class="card-body">
                         <a href="#">
-                            <img class="card-img img-fluid" src="{% static 'media/file/company.jpg'%}" alt="Product Image 4">
+                            <img class="card-img img-fluid" src="{% static 'img/file/company.jpg'%}" alt="Product Image 4">
                         </a>
                         <h1 class="h2, list-inline-item">Original Code</h1>
                         <p>{% if sku.o_code1  %}{{ sku.o_code1 }}{% else %}{% endif %}</p>
@@ -220,7 +220,7 @@
                         <p>{% if sku.o_code8  %}{{ sku.o_code8 }}{% else %}{% endif %}</p>
                         <p>{% if sku.o_code9  %}{{ sku.o_code9 }}{% else %}{% endif %}</p>
                         <p>{% if sku.o_code10  %}{{ sku.o_code10 }}{% else %}{% endif %}</p>
-                        <h1 class="h2, list-inline-item">Pcb info</h1>
+                        <h1 class="h2, list-inline-item">Pcb Information</h1>
                         <div class="container mt-3">
                             <table class="table table-bordered table-sm">
                             <thead>
@@ -350,6 +350,9 @@
                                 <li>1. The Light bars are packed in the cardboard boxes after being set in the tray plate with a drier.</li>
                                 <li>2. The tray plate should be packed by the paper self-adhesive tape in a loop.</li>
                             </ul>
+                            <a href="#">
+                                <img class="card-img img-fluid" src="{% static 'img/file/transport.jpg'%}" alt="transport">
+                            </a>
                         </ul>
                     </div>
                 </div>
