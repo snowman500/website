@@ -1,6 +1,9 @@
+  
+
 # bom models
 from extensions.models import *
 from extensions.common.base_model import *
+from shop.models import ShopSKU 
 # Create your models here.
 class Team(Model):
 
@@ -34,7 +37,6 @@ class Team(Model):
 #     image = ImageField(null=True, blank=True, verbose_name='图片')
 #     text = TextField(null=True, blank=True, verbose_name='内容')
 #     sequence =IntegerField(verbose_name='排序')
-#     status = BooleanField(default=True, verbose_name='是否展示')
 
 #     class Meta:
 #         db_table = 'goods_content'
@@ -46,20 +48,20 @@ class Team(Model):
 
 # #--------------------------------------广告部分结束----------------------------------------------
 
-# # '首页轮播商品'
-# class IndexGoodsBanner(BaseModel):
-#     '''首页轮播商品展示模型类'''
-#     sku = ForeignKey('ItemSKU.item_id', on_delete=CASCADE, verbose_name='商品')  # 其实是存的sku的id
-#     image = ImageField(upload_to='banner', verbose_name='图片')
-#     index = SmallIntegerField(default=0, verbose_name='展示顺序')  # 0 1 2 3
+# '首页轮播商品'
+class IndexGoodsBanner(BaseModel):
+    '''首页轮播商品展示模型类'''
+    sku = ForeignKey(ShopSKU, on_delete=CASCADE, verbose_name='商品')  # 其实是存的sku的id
+    image = ImageField(upload_to='banner', verbose_name='图片')
+    index = SmallIntegerField(default=0, verbose_name='展示顺序')  # 0 1 2 3
 
-#     class Meta:
-#         db_table = 'df_index_banner'
-#         verbose_name = '首页轮播商品'
-#         verbose_name_plural = verbose_name
+    class Meta:
+        db_table = 'df_index_banner'
+        verbose_name = '首页轮播商品'
+        verbose_name_plural = verbose_name
 
-#     def __str__(self):
-#         return self.sku.name
+    def __str__(self):
+        return self.sku.name
 
 
 # # "主页分类展示商品"
