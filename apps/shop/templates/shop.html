@@ -63,11 +63,15 @@
                 <div class="row">
                     <!--商品列表正循环内容 -->
                     <!--这里是使用分页器进行分页循环展示 -->
-                    {% for spu in page_obj %}    
+                    {% for spu in page_obj %} 
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
+                                {% if spu.image1  %}   
                                 <img class="card-img rounded-0 img-fluid" src="{{ spu.image1.url }}">
+                                {% else %}
+                                <img class="card-img rounded-0 img-fluid" src="{% static 'img/Image to be uploaded.png'%}">
+                                {% endif %}
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
                                         <li><a class="btn btn-success text-white" href="single/?num={{ spu.id }}"><i class="far fa-heart"></i></a></li>

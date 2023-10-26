@@ -25,7 +25,7 @@ def shop(request):
     # 取出当前用户页码,并把这个字符转换为整型.没有娶到默认为1
     current_num =int(request.GET.get('num',1))
     # 获取所有ShopSPU对象   
-    skus = ShopSKU.objects.all()
+    skus = ShopSKU.objects.filter(is_activate=True)
     # 创建一个分页器对象，每页显示settings.PAGE_SIZE(这个数据是在setting中设置的)条数据
     paginator = Paginator(skus, settings.PAGE_SIZE)
     # 获取当前页的数据对象
