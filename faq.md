@@ -333,3 +333,41 @@ class ShopSKUImage(BaseModel):
         }
     });
 </script>
+
+我有一个类,
+class ShopSKU(BaseModel):
+    """商品SKU"""
+    goods_name = CharField(max_length=200, verbose_name='物料型号:(JF-D-***)') 
+    item_sku =  CharField(max_length=64, verbose_name='物料编码(F2.2.09.30.00000)')  
+
+    tv_model = TextField(null=True, blank=True,verbose_name='适用电视机型号')
+    image1 = ImageField(upload_to='product/', null=True, blank=True, verbose_name='主图')
+    image2 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image3 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image4 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image5 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+    image6 = ImageField(upload_to='product/', blank=True, null=True, verbose_name='辅图')
+
+请帮我用django写一个视图函数,在前端模板实现一个要求:查询ShopSKU中image1-image10中不为空的属性,返回给前端
+
+你可以使用Django的过滤器来实现这一点。以下是一个示例视图函数，它将返回一个QuerySet，其中包含所有属性image1-image6不为空的ShopSKU对象：
+
+```python
+from django.shortcuts import render
+from .models import ShopSKU
+
+def get_sku_images(request):
+    skus = ShopSKU.objects.exclude(image1__exact='').exclude(image2__exact='').exclude(image3__exact='').exclude(image4__exact='').exclude(image5__exact='').exclude(image6__exact='')
+    return render(request, 'sku_images.html', {'skus': skus})
+```
+
+在这个示例中，我们使用了Django的`exclude()`方法来排除那些属性image1-image6为空的ShopSKU对象。这将返回一个QuerySet，其中包含所有属性image1-image6不为空的ShopSKU对象。然后，我们将这个QuerySet传递给前端模板，以便在页面上显示这些对象。
+
+请注意，如果你有更多或更少的属性需要检查，请相应地修改`exclude()`方法的参数。
+
+如果你需要更多帮助，请参考Django文档或向Django社区寻求帮助。¹²
+
+源: 与必应的对话， 2023/10/26
+(1) how to filter out a null value from spark dataframe. https://stackoverflow.com/questions/39727742/how-to-filter-out-a-null-value-from-spark-dataframe.
+(2) Solved: Filter Query ne null doesnt work - Power Platform Community. https://powerusers.microsoft.com/t5/Building-Flows/Filter-Query-ne-null-doesnt-work/td-p/253467.
+(3) Python Pandas: get rows of a DataFrame where a column is not null. https://stackoverflow.com/questions/49673345/python-pandas-get-rows-of-a-dataframe-where-a-column-is-not-null.

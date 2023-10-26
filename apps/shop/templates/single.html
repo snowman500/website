@@ -156,13 +156,10 @@
                                 </li>
                             </ul>
                             <h5>Specification:</h5>
-                            <ul class="list-unstyled pb-3">
+                            <ul class="list-unstyled pb-1">
                                 <li><b>warranty :</b>&nbsp;&nbsp;2 years</li>
                                 <li><b>Pcb Material :</b>&nbsp;&nbsp;{{ sku.pcb_material }}</li>
-                                <li><b>Application :</b>&nbsp;&nbsp;TV/Blu/Display Repair</li>
                                 <li><b>Emitting Color :</b>&nbsp;&nbsp;{{ sku.color }}</li>
-                                <li><b>Transport Package :</b>&nbsp;&nbsp;{{ sku.transport_package }}</li>
-                                <li><b>Origin :</b>&nbsp;&nbsp;Shenzhen,China</li>
                             </ul>
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
@@ -209,6 +206,9 @@
             <div class="col-lg-12 py-0">
                 <div class="card">
                     <div class="card-body">
+                        <a href="#">
+                            <img class="card-img img-fluid" src="{% static 'media/file/company.jpg'%}" alt="Product Image 4">
+                        </a>
                         <h1 class="h2, list-inline-item">Original Code</h1>
                         <p>{% if sku.o_code1  %}{{ sku.o_code1 }}{% else %}{% endif %}</p>
                         <p>{% if sku.o_code2  %}{{ sku.o_code2 }}{% else %}{% endif %}</p>
@@ -220,8 +220,75 @@
                         <p>{% if sku.o_code8  %}{{ sku.o_code8 }}{% else %}{% endif %}</p>
                         <p>{% if sku.o_code9  %}{{ sku.o_code9 }}{% else %}{% endif %}</p>
                         <p>{% if sku.o_code10  %}{{ sku.o_code10 }}{% else %}{% endif %}</p>
-                        <h1 class="h2, list-inline-item">Fundamental Specification</h1>
-                        <p>55P1 A     55HR330M04A0  V2     4C-LB5504-HR05J</p>
+                        <h1 class="h2, list-inline-item">Pcb info</h1>
+                        <div class="container mt-3">
+                            <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                <th>PCB Type</th>
+                                <th>PCB Length</th>
+                                <th>PCB Number</th>
+                                <th>PCB LED Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if sku.a_pcb  %}
+                                <tr>
+                                <td>{{ sku.a_pcb }}</td>
+                                <td>{{ sku.a_pcb_l }}</td>
+                                <td>{{ sku.a_pcb_num }}</td>
+                                <td>{{ sku.a_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.b_pcb  %}
+                                <tr>
+                                <td>{{ sku.b_pcb }}</td>
+                                <td>{{ sku.b_pcb_l }}</td>
+                                <td>{{ sku.b_pcb_num }}</td>
+                                <td>{{ sku.b_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.c_pcb  %}
+                                <tr>
+                                <td>{{ sku.c_pcb }}</td>
+                                <td>{{ sku.c_pcb_l }}</td>
+                                <td>{{ sku.c_pcb_num }}</td>
+                                <td>{{ sku.c_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.d_pcb  %}
+                                <tr>
+                                <td>{{ sku.d_pcb }}</td>
+                                <td>{{ sku.d_pcb_l }}</td>
+                                <td>{{ sku.d_pcb_num }}</td>
+                                <td>{{ sku.d_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.e_pcb  %}
+                                <tr>
+                                <td>{{ sku.e_pcb }}</td>
+                                <td>{{ sku.e_pcb_l }}</td>
+                                <td>{{ sku.e_pcb_num }}</td>
+                                <td>{{ sku.e_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.f_pcb  %}
+                                <tr>
+                                <td>{{ sku.f_pcb }}</td>
+                                <td>{{ sku.f_pcb_l }}</td>
+                                <td>{{ sku.f_pcb_num }}</td>
+                                <td>{{ sku.f_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                            </tbody>
+                            </table>
+                        </div>
                         <h1 class="h2, list-inline-item">TV Model</h1>
                         <p>{{ sku.tv_model }}</p>
                         <ul class="list-unstyled pb-3">
@@ -278,12 +345,11 @@
                                 <p></p>
                                 {% endif %}
                             </li>
-                        </ul>
-                        <h1 class="h2, list-inline-item">Packaging & Shipping</h1>
-                        <ul class="list-unstyled pb-3">
-                            <li>1. The Light bars are packed in the cardboard boxes after being set in the tray plate with a drier.</li>
-                            <li>2. The tray plate should be packed by the paper self-adhesive tape in a loop.</li>
-                        </ul>
+                            <h1 class="h2, list-inline-item">Packaging & Shipping</h1>
+                            <ul class="list-unstyled pb-3">
+                                <li>1. The Light bars are packed in the cardboard boxes after being set in the tray plate with a drier.</li>
+                                <li>2. The tray plate should be packed by the paper self-adhesive tape in a loop.</li>
+                            </ul>
                         </ul>
                     </div>
                 </div>
