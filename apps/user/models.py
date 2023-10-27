@@ -4,6 +4,7 @@ from item.models import *
 from django.contrib.auth.hashers import make_password 
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 class CustomerLogin(BaseModel):
     """用户登录表"""
     is_active = BooleanField(default=True, verbose_name='启用状态')     # 真上线,假下线
@@ -17,7 +18,6 @@ class CustomerLogin(BaseModel):
         db_table = 'user_customer_login' # 定义属性表名字
         verbose_name = '用户登录表'
         verbose_name_plural = verbose_name
-
 
 class CustomerInfo(BaseModel):
     """用户信息表"""
@@ -33,19 +33,19 @@ class CustomerInfo(BaseModel):
     mobile_phone = CharField(max_length=50, verbose_name='手机号码')   
     customer_email = CharField(max_length=50, verbose_name='用户邮箱')   
     gender_choices = (
-        ('1', 'man'),
-        ('2', 'woman'),
-        ('3', 'null'),
+        ('0', 'man'),
+        ('1', 'woman'),
+        ('2', 'null'),
         )
+    gender = IntegerField(choices=gender_choices, default=2,verbose_name="性别")
     user_point = DecimalField(max_digits=10, decimal_places=0, verbose_name='用户积分')
-    register_time = models.DateTimeField(auto_now_add=True, verbose_name='注册时间')
-    update_time = models.DateTimeField(auto_now=True, verbose_name='最后登录时间')
     birthday = CharField(max_length=50, verbose_name='会员生日')   
-    user_money = DecimalField(max_digits=10, decimal_places=0, verbose_name='账户余额')
+    user_money = DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='账户余额')
+    last_login_time = models.DateTimeField(null=True, blank=True,verbose_name="最后一次登录时间")
 
     class Meta:
         db_table = 'user_customer_info' # 定义属性表名字
-        verbose_name = '用户登录表'
+        verbose_name = '用户信息表'
         verbose_name_plural = verbose_name
 
 
@@ -101,7 +101,6 @@ class CustomerPointLog(BaseModel):
     city = CharField(max_length=50, verbose_name='城市')
     district = CharField(max_length=50, verbose_name='区')
     address = CharField(max_length=200, verbose_name='区')
-    password = models.CharField(max_length=128, verbose_name='用户登录密码')
     update_time = models.DateTimeField(auto_now=True, verbose_name='最后修改时间')
     is_default = BooleanField(default=True, verbose_name='是否默认地址') 
     refer_number = IntegerField( verbose_name='积分来源编号')
@@ -131,7 +130,7 @@ class CustomerBalanceLog(BaseModel):
 
     class Meta:
         db_table = 'user_customer_balance_log' # 定义属性表名字
-        verbose_name = '用户积分日志表'
+        verbose_name = '用户余额变动表'
         verbose_name_plural = verbose_name
 
 class CustomerLoginLog(BaseModel):
