@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from user import views
 
-urlpattern = [
-	path('/register/', views.register),
-	path('/login/', views.login),
-	path('/logout/', views.logout),
+urlpatterns = [
+    path('', views.login),
+	path('register/', views.register),
+	path('logout/', views.logout),
 ]
 #视图配置(重点)
 
