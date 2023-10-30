@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include, re_path  # 由于使用了二级路由机制，需要添加include
 from apps.system import views
 #以下两条是配置媒体文件
 from django.views.static import serve

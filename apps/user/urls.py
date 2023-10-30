@@ -18,12 +18,9 @@ from django.urls import path
 from user import views
 from .views import register
 
-
 urlpatterns = [
-    path('', views.login, name='user'),
-	path('register/', views.register, name='register'),
-	#path('logout/', views.logout, name='logout'),
-    #path('CBV/', views.logout, name='logout'),	# 调用类视图的 as_view 方法
+    path('', views.login, name='user'),  # 指向views视图文件的视图函数
+    path('index/', views.index, name="index"),
+    path('register/', views.register),
+    path('logout/', views.logout)
 ]
-#视图配置(重点)
-

@@ -1,3 +1,13 @@
+# 用户登录需要的插件
+[[source]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+name = "pip_conf_index_global"
+
+[packages]
+django = "==3.1"
+django-simple-captcha = "*"
+django-simpleui = "*"
 asgiref          3.7.2
 Django           4.2.6
 mysqlclient      2.2.0
@@ -10,3 +20,10 @@ pytzdata         2020.1
 setuptools       59.6.0
 six              1.16.0
 sqlparse         0.4.4
+
+[dev-packages]
+black = "*"
+
+[requires]
+python_version = "3.9"
+python_full_version = "3.9.12"

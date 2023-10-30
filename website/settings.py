@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'system.apps.SystemConfig',
     'item.apps.ItemConfig',
     'user.apps.UserConfig',
+    'captcha',  # 注册验证码
     
 ]
 
@@ -120,18 +121,21 @@ LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
+USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False  # 这里需要改为false
+
+
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' # 浏览器需要的前缀
 
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # static路径
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Automatically Created on Production
 
 # Settings for Media
@@ -152,5 +156,11 @@ PAGE_SIZE=12
 ORPHANS=5
 RANGE_LIST_SIZE=9
 
+# 发送邮件配置
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.sina.com'
+# EMAIL_PORT = 25
+# EMAIL_HOST_USER = 'a357965604@sina.com'
+# EMAIL_HOST_PASSWORD = 'ea125048a98a3041'
 
 

@@ -4,17 +4,16 @@ from item.models import *
 from django.contrib.auth.hashers import make_password 
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-
 class CustomerLogin(BaseModel):
     """用户登录表"""
-    is_active = BooleanField(default=True, verbose_name='启用状态')     # 真上线,假下线
     login_name = CharField(max_length=50, verbose_name='用户登录名')
-    customer_email = CharField(max_length=50, verbose_name='用户邮箱')  
     password = models.CharField(max_length=128, verbose_name='用户登录密码')
-    re_password = models.CharField(max_length=128, verbose_name='登录密码确认')
 
-    def set_password(self, raw_password):
-        self.password = make_password(raw_password)
+    # def set_password(self, raw_password):
+    #     self.password = make_password(raw_password)
+    
+    def __str__(self):
+        return self.login_name
 
     class Meta:
         db_table = 'user_customer_login' # 定义属性表名字
@@ -24,14 +23,9 @@ class CustomerLogin(BaseModel):
 class CustomerInfo(BaseModel):
     """用户信息表"""
     customer_id = ForeignKey(CustomerLogin, on_delete=CASCADE, verbose_name='用户登录表ID')
-    customer_name = CharField(max_length=50, verbose_name='用户真实姓名')
-    identity_card_no = CharField(max_length=50, verbose_name='证件号码')    
-    identity_choices = (
-        ('1', '身份证'),
-        ('2', '军官证'),
-        ('3', '护照'),
-        ('4', '驾驶证'),
-        )
+    login_name = CharField(max_length=50, verbose_name='用户登录名')
+    password = models.CharField(max_length=128, verbose_name='用户登录密码')
+    customer_email = CharField(max_length=50, verbose_name='用户邮箱')  
     mobile_phone = CharField(max_length=50, verbose_name='手机号码')    
     gender_choices = (
         ('0', 'man'),
@@ -68,17 +62,18 @@ class CustomerLevelInfo(BaseModel):
 
 class CustomerAddress(BaseModel):
     """用户地址表"""
+    is_default = BooleanField(default=True, verbose_name='是否默认地址') 
     customer_id = ForeignKey(CustomerLogin, on_delete=CASCADE, verbose_name='用户登录表ID')
     zip_code = IntegerField(validators=[MinValueValidator(0), MaxValueValidator(999999)], verbose_name='邮编地址')
     level_name = CharField(max_length=50, verbose_name='会员级别名称')
+    customer_name = CharField(max_length=50, verbose_name='收件人姓名')
+    mobile_phone = CharField(max_length=50, verbose_name='收件人手机号码')    
     country = CharField(max_length=50, verbose_name='国家')
     province = CharField(max_length=50, verbose_name='州')
     city = CharField(max_length=50, verbose_name='城市')
     district = CharField(max_length=50, verbose_name='区')
     address = CharField(max_length=200, verbose_name='详细地址')
-    password = models.CharField(max_length=128, verbose_name='用户登录密码')
     update_time = models.DateTimeField(auto_now=True, verbose_name='最后修改时间')
-    is_default = BooleanField(default=True, verbose_name='是否默认地址') 
 
 
     class Meta:
@@ -152,4 +147,3 @@ class CustomerLoginLog(BaseModel):
         db_table = 'user_customer_login_log' # 定义属性表名字
         verbose_name = '用户登录日志表'
         verbose_name_plural = verbose_name
-
