@@ -19,9 +19,9 @@ from django.urls import path, include
 from user import views
 
 urlpatterns = [
-    path('', views.login),
-	path('register/', views.register),
-	path('logout/', views.logout),
+    path('', views.login, name='user'),
+	path('register/', views.register, name='register'),
+	path('logout/', views.logout, name='logout'),
 ]
 #视图配置(重点)
 

@@ -27,11 +27,8 @@ urlpatterns = [
     # 配置媒体文件路由
     re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
     # 配置子路由
-    path('about/', views.about, name="about"),
-    path('contact/', views.contact, name="contact"),
-    path('faqs/', views.faqs, name="faqs"),
     path('jf/admin/', admin.site.urls),
     path('shop/',include('shop.urls')),
     path('user/',include('user.urls')),
-    path('', views.home, name="home"),
+    path('', include('system.urls')),
 ]
