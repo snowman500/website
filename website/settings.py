@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'system.apps.SystemConfig',
     'item.apps.ItemConfig',
     'user.apps.UserConfig',
-    'captcha',  # 注册验证码
     
 ]
 
@@ -81,18 +80,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'website.wsgi.application'
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'jf_db',
+#         'USER': 'qiaomin',
+#         'PASSWORD': '123456',
+#         'HOST': '10.0.0.108',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jf_db',
-        'USER': 'qiaomin',
-        'PASSWORD': '123456',
-        'HOST': '10.0.0.108',
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "OPTIONS": {
+            "service": "my_service",
+            "passfile": ".my_pgpass",
+        },
     }
 }
-
-
 
 
 # Password validation
@@ -121,10 +128,10 @@ LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = False
-USE_L10N = False
+USE_I18N = True
+USE_L10N = True
 
-USE_TZ = False  # 这里需要改为false
+USE_TZ = True 
 
 
 
@@ -155,12 +162,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAGE_SIZE=12
 ORPHANS=5
 RANGE_LIST_SIZE=9
-
-# 发送邮件配置
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.sina.com'
-# EMAIL_PORT = 25
-# EMAIL_HOST_USER = 'a357965604@sina.com'
-# EMAIL_HOST_PASSWORD = 'ea125048a98a3041'
-
-
