@@ -9,7 +9,9 @@ class CustomerLogin(BaseModel):
     """用户登录表"""
     is_active = BooleanField(default=True, verbose_name='启用状态')     # 真上线,假下线
     login_name = CharField(max_length=50, verbose_name='用户登录名')
+    customer_email = CharField(max_length=50, verbose_name='用户邮箱')  
     password = models.CharField(max_length=128, verbose_name='用户登录密码')
+    re_password = models.CharField(max_length=128, verbose_name='登录密码确认')
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
@@ -30,8 +32,7 @@ class CustomerInfo(BaseModel):
         ('3', '护照'),
         ('4', '驾驶证'),
         )
-    mobile_phone = CharField(max_length=50, verbose_name='手机号码')   
-    customer_email = CharField(max_length=50, verbose_name='用户邮箱')   
+    mobile_phone = CharField(max_length=50, verbose_name='手机号码')    
     gender_choices = (
         ('0', 'man'),
         ('1', 'woman'),
