@@ -92,14 +92,12 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # }
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "OPTIONS": {
-            "service": "my_service",
-            "passfile": ".my_pgpass",
-        },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation
@@ -159,6 +157,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 分页配置
 
-PAGE_SIZE=12
-ORPHANS=5
-RANGE_LIST_SIZE=9
+PAGE_SIZE = 3
+ORPHANS = 5
+RANGE_LIST_SIZE = 9
