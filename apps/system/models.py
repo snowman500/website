@@ -1,8 +1,8 @@
   
 
 # bom models
-from extensions.models import *
-from extensions.common.base_model import *
+from content.extensions.models import *
+from content.extensions.common.base_model import *
 from shop.models import ShopSKU 
 # Create your models here.
 class Team(Model):

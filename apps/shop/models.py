@@ -1,9 +1,9 @@
 # goods models 
-from extensions.models import *
-from extensions.common.base_model import BaseModel
-from django.shortcuts import get_object_or_404
+from content.extensions.models import *
+from content.extensions.common.base_model import BaseModel
 from user.models import *
-import os
+
+
 # Create your models here.
 
 

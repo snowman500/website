@@ -140,7 +140,7 @@ USE_TZ = True
 STATIC_URL = '/static/' # 浏览器需要的前缀
 
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # static路径
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'content/static')] # static路径
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Automatically Created on Production
 
 # Settings for Media

@@ -1,7 +1,6 @@
-from extensions.models import * 
-from extensions.common.base_model import BaseModel 
-from item.models import * 
-from django.contrib.auth.hashers import make_password 
+from content.extensions.models import *
+from content.extensions.common.base_model import BaseModel
+from item.models import *
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class CustomerLogin(BaseModel):
@@ -22,21 +21,21 @@ class CustomerLogin(BaseModel):
 
 class CustomerInfo(BaseModel):
     """用户信息表"""
-    customer_id = ForeignKey(CustomerLogin, on_delete=CASCADE, verbose_name='用户登录表ID')
-    login_name = CharField(max_length=50, verbose_name='用户登录名')
-    password = models.CharField(max_length=128, verbose_name='用户登录密码')
-    customer_email = CharField(max_length=50, verbose_name='用户邮箱')  
-    mobile_phone = CharField(max_length=50, verbose_name='手机号码')    
+    #customer_id = ForeignKey(CustomerLogin, on_delete=CASCADE, verbose_name='用户登录表ID')
+    login_name = CharField(max_length=50, verbose_name='User name')
+    password = CharField(max_length=128, verbose_name='Password')
+    customer_email = CharField(max_length=50, verbose_name='Email address')
+    mobile_phone = CharField(max_length=50, verbose_name='Phone Number')
     gender_choices = (
         ('0', 'man'),
         ('1', 'woman'),
         ('2', 'null'),
         )
-    gender = IntegerField(choices=gender_choices, default=2,verbose_name="性别")
-    user_point = DecimalField(max_digits=10, decimal_places=0, verbose_name='用户积分')
-    birthday = CharField(max_length=50, verbose_name='会员生日')   
-    user_money = DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='账户余额')
-    last_login_time = models.DateTimeField(null=True, blank=True,verbose_name="最后一次登录时间")
+    gender = IntegerField(choices=gender_choices, default=2, verbose_name="性别")
+    user_point = DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, verbose_name='用户积分')
+    birthday = CharField(max_length=50, null=True, blank=True, verbose_name='会员生日')
+    user_money = DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True, verbose_name='账户余额')
+    last_login_time = DateTimeField(null=True, blank=True, verbose_name="最后一次登录时间")
 
     class Meta:
         db_table = 'user_customer_info' # 定义属性表名字

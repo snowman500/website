@@ -1,21 +1,21 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-{% include 'store/head.html' %}
-    <title>LED TV backlight strip</title>
-    <!-- Slick -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.min.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css'%}">
-<body>
-    {% include 'store/navbar.html' %}
-
+{% block content %}
     <!-- Open Content -->
     <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="{% static 'img/JF-D-012.jpg'%}" alt="Card image cap" id="product-detail">
+                        {% if sku.image1  %}
+                        <a href="#">
+                            <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Card image cap" id="product-detail">
+                        </a>
+                        {% else %}
+                        <a href="#">
+                            <img class="card-img img-fluid" src="{% static 'img/no_image.png'%}" alt="Card image cap" id="product-detail">
+                        </a>
+                        {% endif %}
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -30,24 +30,32 @@
                         <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
                             <!--Start Slides-->
                             <div class="carousel-inner product-links-wap" role="listbox">
-
                                 <!--First slide-->
                                 <div class="carousel-item active">
                                     <div class="row">
                                         <div class="col-4">
+                                            {% if sku.image1  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-01.jpg'%}" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Product Image 1">
                                             </a>
+                                            {% else %}
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
+                                            {% if sku.image2  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-01.jpg'%}" alt="Product Image 2">
+                                                <img class="card-img img-fluid" src="{{ sku.image2.url }}" alt="Product Image 2">
                                             </a>
+                                            {% else %}
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
+                                            {% if sku.image3  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-01.jpg'%}" alt="Product Image 3">
+                                                <img class="card-img img-fluid" src="{{ sku.image3.url }}" alt="Product Image 3">
                                             </a>
+                                            {% else %}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -57,45 +65,32 @@
                                 <div class="carousel-item">
                                     <div class="row">
                                         <div class="col-4">
+                                            {% if sku.image4  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-02.jpg'%}" alt="Product Image 4">
+                                                <img class="card-img img-fluid" src="{{ sku.image4.url }}" alt="Product Image 4">
                                             </a>
+                                            {% else %}
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
+                                            {% if sku.image5  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-02.jpg'%}" alt="Product Image 5">
+                                                <img class="card-img img-fluid" src="{{ sku.image5.url }}" alt="Product Image 5">
                                             </a>
+                                            {% else %}
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
+                                            {% if sku.image6  %}
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-02.jpg'%}" alt="Product Image 6">
+                                                <img class="card-img img-fluid" src="{{ sku.image6.url }}" alt="Product Image 6">
                                             </a>
+                                            {% else %}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
                                 <!--/.Second slide-->
-
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-04.jpg'%}" alt="Product Image 7">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-04.jpg'%}" alt="Product Image 8">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/JF-D-012-04.jpg'%}" alt="Product Image 9">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Third slide-->
                             </div>
                             <!--End Slides-->
                         </div>
@@ -114,59 +109,60 @@
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2">Active Wear</h1>
-                            <p class="h3 py-2">$25.00</p>
+                            <h1 class="h2">{{ sku.goods_name }}</h1>
+                            <p class="h3 py-2">{{ sku.price }} / SET</p>
                             <p class="py-2">
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                                <!-- 对传入的{{ sku.fa_star }}值向下取整 -->
+                                {% block scripts %}
+                                <script>
+                                    var product_id = "{{ sku.fa_star }}";
+                                        product_id = Math.floor(product_id); 
+                                    for (let i = 0; i < product_id; i++) {
+                                        document.write('<i class="text-warning fa fa-star"></i>');
+                                    }
+                                    for (let i = 0; i < 5 - product_id; i++) {
+                                        document.write('<i class="text-muted fa fa-star"></i>');
+                                    }
+                                </script>
+                                {% endblock %}
+                                <span class="list-inline-item text-dark">{{ sku.fa_star }} | {{ sku.comment_num }} Comments</span>
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <h6>Brand:</h6>
+                                    <h5>Used for brand:</h5>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>LG</strong></p>
+                                    <p class="text-muted">
+                                        <strong>{% for brand in sku.brand.all %}{{ brand.name }}&nbsp;&nbsp;&nbsp;{% endfor %}</strong>
+                                    </p>
                                 </li>
                             </ul>
-
-                            <h6>Description:</h6>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse. Donec condimentum elementum convallis. Nunc sed orci a diam ultrices aliquet interdum quis nulla.</p>
+                            <h5>Description:</h5>
+                            <p>{{ sku.listing }}</p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <h6>Avaliable Color :</h6>
+                                    <h5>Power :</h5>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>White / Black</strong></p>
+                                    <p class="text-muted"><strong>{{ sku.led_power }}</strong></p> 
                                 </li>
                             </ul>
-
-                            <h6>Specification:</h6>
-                            <ul class="list-unstyled pb-3">
-                                <li>Lorem ipsum dolor sit</li>
-                                <li>Amet, consectetur</li>
-                                <li>Adipiscing elit,set</li>
-                                <li>Duis aute irure</li>
-                                <li>Ut enim ad minim</li>
-                                <li>Dolore magna aliqua</li>
-                                <li>Excepteur sint</li>
+                            <h5>Specification:</h5>
+                            <ul class="list-unstyled pb-1">
+                                <li><b>warranty :</b>&nbsp;&nbsp;2 years</li>
+                                <li><b>Pcb Material :</b>&nbsp;&nbsp;{{ sku.pcb_material }}</li>
+                                <li><b>Emitting Color :</b>&nbsp;&nbsp;{{ sku.color }}</li>
                             </ul>
-
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
-                                            <li class="list-inline-item">Size :
+                                            <li class="list-inline-item">Choices :
                                                 <input type="hidden" name="product-size" id="product-size" value="S">
                                             </li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
+                                            <li class="list-inline-item"><span class="btn btn-success btn-size">PAIR</span></li>
+                                            <li class="list-inline-item"><span class="btn btn-success btn-size">SET</span></li>
                                         </ul>
                                     </div>
                                     <div class="col-auto">
@@ -190,39 +186,194 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- Open Content -->
+    <section class="bg-light">
+        <div class="container pb-5">
+            <div class="col-lg-12 py-0">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="#">
+                            <img class="card-img img-fluid" src="{% static 'img/file/company.jpg'%}" alt="Product Image 4">
+                        </a>
+                        <h1 class="h2, list-inline-item">Original Code</h1>
+                        <p>{% if sku.o_code1  %}{{ sku.o_code1 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code2  %}{{ sku.o_code2 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code3  %}{{ sku.o_code3 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code4  %}{{ sku.o_code4 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code5  %}{{ sku.o_code5 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code6  %}{{ sku.o_code6 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code7  %}{{ sku.o_code7 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code8  %}{{ sku.o_code8 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code9  %}{{ sku.o_code9 }}{% else %}{% endif %}</p>
+                        <p>{% if sku.o_code10  %}{{ sku.o_code10 }}{% else %}{% endif %}</p>
+                        <h1 class="h2, list-inline-item">Pcb Information</h1>
+                        <div class="container mt-3">
+                            <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                <th>PCB Type</th>
+                                <th>PCB Length</th>
+                                <th>PCB Number</th>
+                                <th>PCB LED Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if sku.a_pcb  %}
+                                <tr>
+                                <td>{{ sku.a_pcb }}</td>
+                                <td>{{ sku.a_pcb_l }}</td>
+                                <td>{{ sku.a_pcb_num }}</td>
+                                <td>{{ sku.a_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.b_pcb  %}
+                                <tr>
+                                <td>{{ sku.b_pcb }}</td>
+                                <td>{{ sku.b_pcb_l }}</td>
+                                <td>{{ sku.b_pcb_num }}</td>
+                                <td>{{ sku.b_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.c_pcb  %}
+                                <tr>
+                                <td>{{ sku.c_pcb }}</td>
+                                <td>{{ sku.c_pcb_l }}</td>
+                                <td>{{ sku.c_pcb_num }}</td>
+                                <td>{{ sku.c_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.d_pcb  %}
+                                <tr>
+                                <td>{{ sku.d_pcb }}</td>
+                                <td>{{ sku.d_pcb_l }}</td>
+                                <td>{{ sku.d_pcb_num }}</td>
+                                <td>{{ sku.d_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.e_pcb  %}
+                                <tr>
+                                <td>{{ sku.e_pcb }}</td>
+                                <td>{{ sku.e_pcb_l }}</td>
+                                <td>{{ sku.e_pcb_num }}</td>
+                                <td>{{ sku.e_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                                {% if sku.f_pcb  %}
+                                <tr>
+                                <td>{{ sku.f_pcb }}</td>
+                                <td>{{ sku.f_pcb_l }}</td>
+                                <td>{{ sku.f_pcb_num }}</td>
+                                <td>{{ sku.f_led_num }}</td>
+                                </tr>
+                                {% else %}
+                                {% endif %}
+                            </tbody>
+                            </table>
+                        </div>
+                        <h1 class="h2, list-inline-item">TV Model</h1>
+                        <p>{{ sku.tv_model }}</p>
+                        <ul class="list-unstyled pb-3">
+                            <li>{% if sku.image1  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image1.url }}" alt="Product Image 1">
+                                </a>
+                                <p></p>
+                                {% else %}
+                                <p></p>
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image2  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image2.url }}" alt="Product Image 2">
+                                </a>
+                                <p></p>
+                                {% else %}
+                                <p></p>
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image3  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image3.url }}" alt="Product Image 3">
+                                </a>
+                                <p></p>
+                                {% else %}
+                                <p></p>
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image4  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image4.url }}" alt="Product Image 4">
+                                </a>
+                                {% else %}
+                                <p></p>
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image5  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image5.url }}" alt="Product Image 5">
+                                </a>
+                                <p></p>
+                                {% else %}
+                                <p></p>
+                                {% endif %}
+                            </li>
+                            <li>{% if sku.image6  %}
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="{{ sku.image6.url }}" alt="Product Image 6">
+                                </a>
+                                <p></p>
+                                {% else %}
+                                <p></p>
+                                {% endif %}
+                            </li>
+                            <h1 class="h2, list-inline-item">Packaging & Shipping</h1>
+                            <ul class="list-unstyled pb-3">
+                                <li>1. The Light bars are packed in the cardboard boxes after being set in the tray plate with a drier.</li>
+                                <li>2. The tray plate should be packed by the paper self-adhesive tape in a loop.</li>
+                            </ul>
+                            <a href="#">
+                                <img class="card-img img-fluid" src="{% static 'img/file/transport.jpg'%}" alt="transport">
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </section>
     <!-- Close Content -->
-
-    <!-- Start Article -->
+    <!-- Start AD -->
     <section class="py-5">
         <div class="container">
             <div class="row text-left p-2 pb-3">
                 <h4>Related Products</h4>
             </div>
-
             <!--Start Carousel Wrapper-->
             <div id="carousel-related-product">
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
-                            <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_08.jpg'%}">
+                            <img class="card-img rounded-0 img-fluid" src="{% static 'img/no_image.png'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Red Clothing</a>
+                            <a href="#" class="h3 text-decoration-none">Red Clothing</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -246,21 +397,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">White Shirt</a>
+                            <a href="#" class="h3 text-decoration-none">White Shirt</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -284,21 +434,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -322,21 +471,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Black Fashion</a>
+                            <a href="#" class="h3 text-decoration-none">Black Fashion</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -360,21 +508,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li class="">M/L/X/XL</li>
                                 <li class="pt-2">
@@ -398,21 +545,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -436,21 +582,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -474,21 +619,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -512,21 +656,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -550,21 +693,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -588,21 +730,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -626,21 +767,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="{% static 'img/shop_11.jpg'%}">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                            <a href="#" class="h3 text-decoration-none">Oupidatat non</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li>M/L/X/XL</li>
                                 <li class="pt-2">
@@ -664,18 +804,15 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </section>
-    <!-- End Article -->
-    {% include 'store/footer.html' %}
-    {% include 'store/scripts.html' %}
+    <!-- End AD -->
+{% endblock %}
 
-    <!-- Start Slider Script -->
-    <script src="{% static 'js/slick.min.js'%}"></script>
+
+{% block Script %}
+    <script src="{% static '/js/slick.min.js' %}"></script>
     <script>
         $('#carousel-related-product').slick({
             infinite: true,
@@ -707,8 +844,4 @@
             ]
         });
     </script>
-    <!-- End Slider Script -->
-
-</body>
-
-</html>
+{% endblock %}

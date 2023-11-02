@@ -1,78 +1,31 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-{% include 'store/head.html' %}
-    <title>Jufeng Shop - About</title>
-<body>
-    {% include 'store/navbar.html' %}
-
+{% block content %}
     <!-- Banner -->
     <section class="bg-success py-5">
         <div class="container">
             <div class="row align-items-center py-5">
-                <div class="col-md-8 text-white">
-                    <h1>About Us</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
+                <div class="col-md-9 text-white">
+                    <h1>Welcome! 注册</h1>
                 </div>
-                <div class="col-md-4">
-                    <form class="form-register" action="/user/register/" method="post">
-
-                        {% if register_form.captcha.errors %}
-                            <div class="alert alert-warning">{{ register_form.captcha.errors }}</div>
-                        {% elif message %}
-                            <div class="alert alert-warning">{{ message }}</div>
-                        {% endif %}
-    
-                      {% csrf_token %}
-                      <h3 class="text-center">Welcome </h3>
-    
-                      <div class="form-group">
-                          {{ register_form.username.label_tag }}
-                          {{ register_form.username }}
-                      </div>
-                      <div class="form-group">
-                          {{ register_form.password1.label_tag }}
-                          {{ register_form.password1 }}
-                      </div>
-                      <div class="form-group">
-                          {{ register_form.password2.label_tag }}
-                          {{ register_form.password2 }}
-                      </div>
-                      <div class="form-group">
-                        {{ register_form.phone_number.label_tag }}
-                        {{ register_form.phone_number }}
-                      </div>
-                      <div class="form-group">
-                          {{ register_form.email.label_tag }}
-                          {{ register_form.email }}
-                      </div>
-                      <div class="form-group">
-                          {{ register_form.sex.label_tag }}
-                          {{ register_form.sex }}
-                      </div>
-
-                      <div class="form-group">
-                          {{ register_form.captcha.label_tag }}
-                          {{ register_form.captcha }}
-                      </div>
-    
-                      <div>
-                          <a href="/user/login/"  ><ins>Sign in</ins></a>
-                          <button type="submit" class="btn btn-primary float-right">Sign up</button>
-                      </div>
+                <div class="col-md-3">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-floating mb-3">
+                            {{ field }}
+                            <label for="floatingInput">{{ field.label }}</label>
+                            <span style="color: red;">{{ field.errors.0 }}</span>
+                        </div>
+                        {% endfor %}
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Sign up</button>
+                            <a class="form-check-label"  style="float: right;" href="{% url 'user' %}">点此登录</a><span style="float: right;">已有帐号?</span>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
     <!-- Close Banner -->
-    {% include 'store/footer.html' %}
-    {% include 'store/scripts.html' %}
-
-</body>
-
-</html>
+{% endblock %}

@@ -1,10 +1,6 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-{% include 'store/head.html' %}
-    <title>LED TV backlight strip</title>
-<body>
-    {% include 'store/navbar.html' %}
+{% block content %}
     <!-- Start Banner Hero -->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
@@ -180,7 +176,7 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.html">
-                            <img src="/static/img/JF-D-012.jpg" class="card-img-top" alt="...">
+                            <img src="/content/static/img/JF-D-012.jpg" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -205,10 +201,4 @@
         </div>
     </section>
     <!-- End Featured Product -->
-
-    {% include 'store/footer.html' %}
-    {% include 'store/scripts.html' %}
-
-</body>
-
-</html>
+{% endblock %}

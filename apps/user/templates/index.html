@@ -1,61 +1,36 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-{% include 'store/head.html' %}
-    <title>Jufeng Shop - About</title>
-<body>
-    {% include 'store/navbar.html' %}
-
+{% block content %}
     <!-- Banner -->
     <section class="bg-success py-5">
         <div class="container">
             <div class="row align-items-center py-5">
-                <div class="col-md-8 text-white">
-                    <h1>About Us</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
+                <div class="col-md-9 text-white">
+                    <h1>Welcome!</h1>
                 </div>
-                <div class="col-md-4">
-                    <form class="form-login" action="/user/login/" method="post">
-                        <!--判断变量message是否为空，不是就执行if语句内的代码显示提示信息-->
-     
-                       {% if login_from.captcha.errors %}
-                             <div class="alert alert-warning">{{ login_from.captcha.errors }}</div>
-                       {% elif message %}
-                           <div class="alert alert-warning">{{ message }}</div>
-                       {% endif %}
-                       {% csrf_token %}   <!--django跨站请求保护机制，需要加入这行 -->
-                       <h3 class="text-center">欢迎登录</h3>
-                         <!--单独渲染-->
-                         <div class="form-group">
-                             {{ login_from.username.label_tag }}
-                             {{ login_from.username }}
-                         </div>
-                         <div class="form-group">
-                             {{ login_from.password.label_tag }}
-                             {{ login_from.password }}
-                         </div>
-                         <div class="form-group">
-                             {{ login_from.captcha.label_tag }}
-     
-                         </div>
-                     <div>
-                       <a href="/user/register/" class="text-success "><ins>新用户注册</ins></a>
-                       <button type="submit" class="btn btn-primary float-right">登录</button>
-                     </div>
-                   </form>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="User name">
+                        <label for="floatingInput">User name or Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="Password">
+                        <label for="floatingInput">Password</label>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">Check me out</label>
+                            <a class="form-check-label" for="gridCheck" style="float: right;" href="{% url 'register' %}">还未注册?</a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Close Banner -->
-    {% include 'store/brands.html' %}
-    {% include 'store/footer.html' %}
-    {% include 'store/scripts.html' %}
-
-</body>
-
-</html>
+{% endblock %}
