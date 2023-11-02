@@ -11,6 +11,7 @@
                 <div class="col-md-3">
                     <form method="post" novalidate>
                         {% csrf_token %}
+                        <span style="color: white;">{{ error_message }}</span>
                         {% for field in form %}
                         <div class="form-floating mb-3">
                             {{ field }}
@@ -20,7 +21,7 @@
                         {% endfor %}
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Sign up</button>
-                            <a class="form-check-label"  style="float: right;" href="{% url 'user' %}">点此登录</a><span style="float: right;">已有帐号?</span>
+                            <a class="form-check-label"  style="float: right;" href="{% url 'user' %}">点此登录</a><span style="float: right;color: white;">已有帐号?</span>
                         </div>
                     </form>
                 </div>

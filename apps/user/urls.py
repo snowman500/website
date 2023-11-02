@@ -21,5 +21,5 @@ from .views import register
 urlpatterns = [
     path('', views.login, name='user'),  # 指向views视图文件的视图函数
     path('register/', views.register, name="register"),
-    path('logout/', views.logout)
+    # path('logout/', views.logout, name='logout')
 ]

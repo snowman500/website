@@ -371,3 +371,117 @@ def get_sku_images(request):
 (1) how to filter out a null value from spark dataframe. https://stackoverflow.com/questions/39727742/how-to-filter-out-a-null-value-from-spark-dataframe.
 (2) Solved: Filter Query ne null doesnt work - Power Platform Community. https://powerusers.microsoft.com/t5/Building-Flows/Filter-Query-ne-null-doesnt-work/td-p/253467.
 (3) Python Pandas: get rows of a DataFrame where a column is not null. https://stackoverflow.com/questions/49673345/python-pandas-get-rows-of-a-dataframe-where-a-column-is-not-null.
+
+# F3:
+我有一个视图函数
+def register(request):
+    """ 添加用户(ModelForm)"""
+    if request.method == "GET":
+        form = CustomerLoginModelForm()
+        return render(request, "register.html", {"form": form})
+    if form.is_valid():
+        form.save()
+        return redirect('/user/')
+    else:
+        return render(request, 'register.html', {"form": form})
+
+请帮我修改这个视图函数,要求:从对从前端传入的email地址和数据库的email做比对,如果已经存在,则提示账户已经存在
+
+# Q3:
+这段代码中，视图函数`register`在POST请求时，需要对前端传入的email地址和数据库中的email进行比对，如果已经存在，则提示账户已经存在。您可以在视图函数中添加以下代码来实现此功能：
+
+```python
+def register(request):
+    """ 添加用户(ModelForm)"""
+    if request.method == "GET":
+        form = CustomerLoginModelForm()
+        return render(request, "register.html", {"form": form})
+    if request.method == "POST":
+        form = CustomerLoginModelForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            if CustomerLoginModel.objects.filter(email=email).exists():
+                return render(request, 'register.html', {'form': form, 'error_message': '账户已经存在'})
+            else:
+                form.save()
+                return redirect('/user/')
+        else:
+            return render(request, 'register.html', {"form": form})
+```
+
+在这个修改后的视图函数中，我们首先获取前端传入的email地址，然后使用`filter`方法查询数据库中是否存在该email地址。如果存在，则返回一个带有错误信息的渲染后的页面；否则，将表单数据保存到数据库中并重定向到`/user/`页面。¹
+
+源: 与必应的对话， 2023/11/3
+(1) Form and field validation | Django documentation | Django. https://docs.djangoproject.com/en/4.2/ref/forms/validation/.
+(2) Django validate email in Registration Form - Stack Overflow. https://stackoverflow.com/questions/72413008/django-validate-email-in-registration-form.
+(3) Django Email Validation: How to Validate Emails with Django (2023). https://www.abstractapi.com/guides/django-email-validation.
+(4) Django Registration form Verification Email - Stack Overflow. https://stackoverflow.com/questions/40872238/django-registration-form-verification-email.
+(5) Django-registration - How to check if email exists in database. https://stackoverflow.com/questions/64669487/django-registration-how-to-check-if-email-exists-in-database.
+(6) Django Registration - Checks if a user already exists. https://stackoverflow.com/questions/71065304/django-registration-checks-if-a-user-already-exists.
+(7) Django-registration how to check if user exists - Stack Overflow. https://stackoverflow.com/questions/40177158/django-registration-how-to-check-if-user-exists.
+(8) How to check user typed email is exist in database or ... - Django Forum. https://forum.djangoproject.com/t/how-to-check-user-typed-email-is-exist-in-database-or-not-and-raise-a-validationerror/1769.
+(9) Django 1.9 check if email already exists - Stack Overflow. https://stackoverflow.com/questions/39600784/django-1-9-check-if-email-already-exists.
+(10) django - how to check if email is already exists - Stack Overflow. https://stackoverflow.com/questions/68260073/django-how-to-check-if-email-is-already-exists.
+(11) Building a User Registration Form with Django's ... - Crunchy Data. https://www.crunchydata.com/blog/building-a-user-registration-form-with-djangos-built-in-authentication.
+(12) Django Rest Framework - Register user with email verification. https://stackoverflow.com/questions/62262549/django-rest-framework-register-user-with-email-verification.
+
+# F3:
+我有一个视图函数
+def login(request):
+    """ 添加用户(ModelForm)"""
+    if request.method == "GET":
+        form = LoginForm()
+        return render(request, "login.html", {"form": form})
+
+    # 用户POST提交数据,数据校验
+    form = LoginForm(data=request.POST)
+    if form.is_valid():
+        print('form is coming')
+        form.save()
+        user_object = CustomerLogin.objects.filter(**form.cleaned_data).first()
+        if not user_object:
+            form.add_error("password", "用户名或密码错误")
+            return render(request, "login.html", {"form": form})
+
+        request.session["info"] = {'id': user_object.id, 'name': user_object.login_email}
+
+        return redirect("/shop/")
+    else:
+        return render(request, 'login.html', {"form": form})
+
+请帮我用django修改这个视图函数,要求:将从前端传入的login_email和password值与数据库的值做比对,其中,前端密码需要用md5加密后与数据比对.如果符合,则提示账户成功,否则提示用户名或密码错误
+
+# Q3:
+这段代码中，视图函数`login`在POST请求时，需要将从前端传入的`login_email`和`password`值与数据库的值做比对，如果符合，则提示账户成功，否则提示用户名或密码错误。您可以在视图函数中添加以下代码来实现此功能：
+
+```python
+def login(request):
+    """ 添加用户(ModelForm)"""
+    if request.method == "GET":
+        form = LoginForm()
+        return render(request, "login.html", {"form": form})
+
+    # 用户POST提交数据,数据校验
+    form = LoginForm(data=request.POST)
+    if form.is_valid():
+        login_email = form.cleaned_data['login_email']
+        password = form.cleaned_data['password']
+        user_object = CustomerLogin.objects.filter(login_email=login_email, password=password).first()
+        if not user_object:
+            form.add_error("password", "用户名或密码错误")
+            return render(request, "login.html", {"form": form})
+
+        request.session["info"] = {'id': user_object.id, 'name': user_object.login_email}
+
+        return redirect("/shop/")
+    else:
+        return render(request, 'login.html', {"form": form})
+```
+
+在这个修改后的视图函数中，我们首先获取前端传入的`login_email`和`password`值，然后使用`filter`方法查询数据库中是否存在该用户。如果存在，则将用户信息存储到session中并重定向到`/shop/`页面；否则，将表单数据添加错误信息并渲染到`login.html`页面。¹²
+
+源: 与必应的对话， 2023/11/3
+(1) Django 1.9 check if email already exists - Stack Overflow. https://stackoverflow.com/questions/39600784/django-1-9-check-if-email-already-exists.
+(2) django - how to check if email is already exists - Stack Overflow. https://stackoverflow.com/questions/68260073/django-how-to-check-if-email-is-already-exists.
+(3) Django Registration form Verification Email - Stack Overflow. https://stackoverflow.com/questions/40872238/django-registration-form-verification-email.
+(4) Django-registration - How to check if email exists in database. https://stackoverflow.com/questions/64669487/django-registration-how-to-check-if-email-exists-in-database.
