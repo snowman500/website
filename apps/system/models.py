@@ -1,12 +1,11 @@
-  
-
 # bom models
 from content.extensions.models import *
 from content.extensions.common.base_model import *
-from shop.models import ShopSKU 
+from apps.shop.models import ShopSKU
+
+
 # Create your models here.
 class Team(Model):
-
     number = CharField(max_length=32, verbose_name='编号')
     expiry_time = DateTimeField(verbose_name='到期时间')
     create_time = DateTimeField(auto_now_add=True, verbose_name='创建时间')
@@ -14,8 +13,8 @@ class Team(Model):
     remark = CharField(max_length=256, blank=True, null=True, verbose_name='备注')
     enable_auto_stock_in = BooleanField(default=False, verbose_name='启用自动入库')
     enable_auto_stock_out = BooleanField(default=False, verbose_name='启用自动出库')
-    
-    
+
+
 # class ContentCategory(BaseModel):
 #     """广告内容类别"""
 #     name = CharField(max_length=50, verbose_name='名称')
@@ -49,20 +48,19 @@ class Team(Model):
 # #--------------------------------------广告部分结束----------------------------------------------
 
 # '首页轮播商品'
-class IndexGoodsBanner(BaseModel):
-    '''首页轮播商品展示模型类'''
-    sku = ForeignKey(ShopSKU, on_delete=CASCADE, verbose_name='商品')  # 其实是存的sku的id
-    image = ImageField(upload_to='banner', verbose_name='图片')
-    index = SmallIntegerField(default=0, verbose_name='展示顺序')  # 0 1 2 3
-
-    class Meta:
-        db_table = 'df_index_banner'
-        verbose_name = '首页轮播商品'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return self.sku.name
-
+# class IndexGoodsBanner(BaseModel):
+#     '''首页轮播商品展示模型类'''
+#     sku = ForeignKey(ShopSKU, on_delete=CASCADE, verbose_name='商品')  # 其实是存的sku的id
+#     image = ImageField(upload_to='banner', verbose_name='图片')
+#     index = SmallIntegerField(default=0, verbose_name='展示顺序')  # 0 1 2 3
+#
+#     class Meta:
+#         db_table = 'df_index_banner'
+#         verbose_name = '首页轮播商品'
+#         verbose_name_plural = verbose_name
+#
+#     def __str__(self):
+#         return self.sku
 
 # # "主页分类展示商品"
 # class IndexTypeGoodsBanner(BaseModel):
