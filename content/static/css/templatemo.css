@@ -69,6 +69,10 @@ body, ul, li, p, a, label, input, div {
 .pagination-gap a {
   margin-right: 8px;
 }
+/* 字体加粗 */
+.st {
+    font-weight: bold;
+}
 /* Nav */
 #templatemo_nav_top { min-height: 40px;}
 #templatemo_nav_top * { font-size: .9em !important;}

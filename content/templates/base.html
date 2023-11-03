@@ -94,26 +94,25 @@
                     <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                     <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ user.id }}</span>
                 </a>
-                <a class="nav-icon position-relative text-decoration-none" href="{% url 'user' %}">
-                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ user.gender }}</span>
-                </a>
+{#                <a class="nav-icon position-relative text-decoration-none" href="{% url 'user' %}">#}
+{#                    <i class="fa fa-fw fa-user text-dark mr-3"></i>#}
+{#                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ user.gender }}</span>#}
+{#                </a>#}
             </div>
             <div class="dropdown">
-                <button class="fa fa-fw fa-user text-dark mr-3" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                <button class="btn" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" ><i class="fa fa-fw fa-user text-dark mr-3"></i>
+                     <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ user.id }}</span>
                 </button>
-                <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ user.gender }}</span>
                 <ul class="dropdown-menu">
                     <li>
-                        <button class="dropdown-item" type="button">Action</button>
+                        <a class="dropdown-item st" type="button" href="{% url 'user' %}">Sign in</a>
                     </li>
                     <li>
-                        <button class="dropdown-item" type="button">Another action</button>
+                        <a class="dropdown-item st" type="button" href="{% url 'user' %}">Sign up</a>
                     </li>
                     <li>
-                        <button class="dropdown-item" type="button">Something else here</button>
-                    </li>
+                        <a class="dropdown-item st" type="button" href="{% url 'user' %}">Sign out</a>
                 </ul>
             </div>
         </div>
