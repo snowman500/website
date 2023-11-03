@@ -80,6 +80,7 @@ class LoginForm(forms.ModelForm):
                 attrs={"class": "form-control", "id": "floatingInput", "type": "password",
                        "placeholder": "Password"}),
         }
+
     # 对登录输入的密码进行加密,并返回.
     def clean_password(self):
         pwd = self.cleaned_data.get("password")

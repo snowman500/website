@@ -1,8 +1,8 @@
 # goods models 
 from content.extensions.models import *
 from content.extensions.common.base_model import BaseModel
-from user.models import *
-from item.models import *
+from apps.user.models import *
+from apps.item.models import *
 
 
 # Create your models here.
@@ -157,7 +157,7 @@ class OrderMaster(BaseModel):
     """订单主表"""
     order_sn = CharField(max_length=20, unique=True, editable=False,
                          verbose_name='订单编号')  # 订单编号可以自己生成且格式为YYYYMMDDnnnnn
-    customer_id = ForeignKey(CustomerInfo, on_delete=PROTECT, verbose_name='下单人ID',
+    customer_id = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='下单人ID',
                              related_name='order_master')  # 其实是存的用户登陆的id
     shipping_user = CharField(max_length=20, unique=True, editable=False, verbose_name='订单编号')
     country = CharField(max_length=50, null=True, blank=True, verbose_name='国家')  # 这里的默认信息从客户账户那里拿到
@@ -195,7 +195,7 @@ class OrderDetail(BaseModel):
     order_sn = ForeignKey(OrderMaster, on_delete=PROTECT, related_name='orderdetail_ordermaster')  # 其实是存的用户登陆的id
     order_id = IntegerField(verbose_name='订单表ID')
     product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='下单人ID', related_name='orderdetail_itemsku')
-    product_name = ForeignKey(CustomerInfo, on_delete=PROTECT, verbose_name='下单人ID',
+    product_name = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='下单人ID',
                               related_name='orderdetail_customerinfo')
     product_cnt = IntegerField(default=0, verbose_name='购买商品数量')
     product_price = ForeignKey(ShopSKU, on_delete=PROTECT, verbose_name='商品价格', related_name='orderdetail_shopsku')
@@ -216,7 +216,7 @@ class OrderDetail(BaseModel):
 class OrderCart(BaseModel):
     """购物车表"""
     order_id = IntegerField(verbose_name='订单表ID')
-    customer_id = ForeignKey(CustomerInfo, on_delete=PROTECT, verbose_name='用户ID',
+    customer_id = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='用户ID',
                              related_name='order_cart')  # 其实是存的用户登陆的id
     product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='物料编码', related_name='order_cart')
     product_amount = IntegerField(verbose_name='加入购物车的数量')

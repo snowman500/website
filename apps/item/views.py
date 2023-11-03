@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from item.models import *
+from apps.item.models import *
 
 def item_list(request):
     # 1.0 获取数据库中所有的信息

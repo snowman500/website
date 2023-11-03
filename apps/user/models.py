@@ -12,36 +12,26 @@ class CustomerLogin(BaseModel):
     password = CharField(max_length=128, verbose_name='Password')
     mobile_phone = CharField(max_length=50, verbose_name='Phone Number')
     last_login_time = DateTimeField(null=True, blank=True, verbose_name="最后一次登录时间")
+    gender_choices = (
+        (1, 'man'),
+        (2, 'woman'),
+        (3, 'null'),
+    )
+    gender = SmallIntegerField(choices=gender_choices, verbose_name="性别")
+    user_point = DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, verbose_name='用户积分')
+    birthday = DateField(null=True, blank=True, verbose_name='会员生日')
+    user_money = DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
+                              verbose_name='账户余额')
 
     class Meta:
         db_table = 'user_customer_login'  # 定义属性表名字
         verbose_name = '用户登陆表'
         verbose_name_plural = verbose_name
 
-    @classmethod
-    def encrypt_password(cls, password):
-        """使用SHA-1加密密码，返回长度为40的加密后的字符串。"""
-        return hashlib.sha1(password.encode()).hexdigest()
-
-
-class CustomerInfo(BaseModel):
-    """用户信息表"""
-    gender_choices = (
-        ('0', 'man'),
-        ('1', 'woman'),
-        ('2', 'null'),
-    )
-    gender = IntegerField(choices=gender_choices, default=2, verbose_name="性别")
-    user_point = DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, verbose_name='用户积分')
-    birthday = CharField(max_length=50, null=True, blank=True, verbose_name='会员生日')
-    user_money = DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
-                              verbose_name='账户余额')
-    last_login_time = DateTimeField(null=True, blank=True, verbose_name="最后一次登录时间")
-
-    class Meta:
-        db_table = 'user_customer_info'  # 定义属性表名字
-        verbose_name = '用户信息表'
-        verbose_name_plural = verbose_name
+    # @classmethod
+    # def encrypt_password(cls, password):
+    #     """使用SHA-1加密密码，返回长度为40的加密后的字符串。"""
+    #     return hashlib.sha1(password.encode()).hexdigest()
 
 
 class CustomerLevelInfo(BaseModel):
@@ -102,10 +92,10 @@ class CustomerPointLog(BaseModel):
 class CustomerBalanceLog(BaseModel):
     """用户余额变动表"""
     source_chioces = (
-        ('1', 'order'),
-        ('2', 'rejected'),
+        (1, 'order'),
+        (2, 'rejected'),
     )
-    source_sn = IntegerField(verbose_name='相关单据')
+    source_sn = SmallIntegerField(choices=source_chioces, verbose_name='相关单据')
     create_time = DateTimeField(auto_now_add=True, verbose_name='记录日志生成时间')
     amount = IntegerField(verbose_name='变动金额')
 
@@ -122,7 +112,7 @@ class CustomerLoginLog(BaseModel):
         ('1', 'succeed'),
         ('2', 'def'),
     )
-    source_sn = IntegerField(verbose_name='相关单据')
+    source_sn = SmallIntegerField(choices=login_type, verbose_name='相关单据')
     create_time = DateTimeField(auto_now_add=True, verbose_name='记录日志生成时间')
     amount = IntegerField(verbose_name='变动金额')
 

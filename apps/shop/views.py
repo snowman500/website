@@ -1,10 +1,8 @@
-from django.shortcuts import render, redirect,reverse
+from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.views.generic import View
-from shop.models import ShopSKU, ShopChannelGroup, ShopBrand
-
-
+from apps.shop.models import ShopSKU, ShopChannelGroup, ShopBrand
 
 
 def single(request):
@@ -14,6 +12,7 @@ def single(request):
 
     return render(request, 'single.html', {'sku': sku})
 
+
 def shop(request):
     """左侧边栏分栏目录循环 """
     # 查询频道组目
@@ -21,9 +20,8 @@ def shop(request):
     # 查询商品品牌
     brand = ShopBrand.objects.all()
 
-
     # 取出当前用户页码,并把这个字符转换为整型.没有娶到默认为1
-    current_num =int(request.GET.get('num',1))
+    current_num = int(request.GET.get('num', 1))
     # 获取所有is_activate为ture(产品处于激活状态)的ShopSPU对象   
     skus = ShopSKU.objects.filter(is_activate=True)
     # 创建一个分页器对象，每页显示settings.PAGE_SIZE(这个数据是在setting中设置的)条数据
@@ -45,6 +43,7 @@ def shop(request):
     # 小于11页时显示所有页码
     else:
         page_range = paginator.page_range
-        
-    return render(request, "shop.html", {'channel_group':channel_group,'brand':brand,"page_obj": page_obj, "paginator": paginator, "current_num": current_num, "page_range": page_range})
-    
+
+    return render(request, "shop.html",
+                  {'channel_group': channel_group, 'brand': brand, "page_obj": page_obj, "paginator": paginator,
+                   "current_num": current_num, "page_range": page_range})
