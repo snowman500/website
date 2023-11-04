@@ -17,18 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path  # 由于使用了二级路由机制，需要添加include
 from apps.system import views
-#以下两条是配置媒体文件
+# 以下两条是配置媒体文件
 from django.views.static import serve
 from django.conf import settings
-
-
 
 urlpatterns = [
     # 配置媒体文件路由
     re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
     # 配置子路由
     path('jf/admin/', admin.site.urls),
-    path('shop/',include('shop.urls')),
-    path('user/',include('user.urls')),
-    path('', include('system.urls')),
+    path('shop/', include('apps.shop.urls')),
+    path('user/', include('apps.user.urls')),
+    path('', include('apps.system.urls')),
 ]

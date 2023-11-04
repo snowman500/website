@@ -105,9 +105,12 @@
                 <!--商品列表分页器开始-->
                 <div class="row ">
                     <ul class="pagination  justify-content-end pagination-gap ">
+                        <!--分页器首页-->
                         <li class="page-item">
                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?num=1">First</a>
                         </li>
+                        <!--/分页器首页-->
+                        <!--分页器上一页<<-->
                         {% if page_obj.has_previous %}
                         <li class="page-item">
                             <a href="?num={{page_obj.previous_page_number}}" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
@@ -121,6 +124,8 @@
                             </a>
                         </li>
                         {% endif %}
+                        <!--/分页器上一页<<-->
+                        <!--分页器主体-->
                         {% for num in page_range %}
                         {% if num == current_num %}
                             <li class="page-item disabled">
@@ -130,6 +135,8 @@
                             <li class="page-item "><a href="?num={{ num }}" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">{{ num }}</a></li>
                         {% endif %}
                         {% endfor %}
+                        <!--/分页器主体-->
+                        <!--分页器下一页-->
                         {% if page_obj.has_next  %}
                         <li class="page-item">
                             <a href="?num={{page_obj.next_page_number}}" class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
@@ -143,9 +150,20 @@
                             </a>
                         </li>
                         {% endif %}
+                        <!--/分页器下一页-->
+                        <!--分页器尾页-->
                         <li class="page-item">
                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"  href="?num={{page_obj.paginator.num_pages}}">End</a>
                         </li>
+                        <!--/分页器尾页-->
+                        <form method="get">
+                            <div class="input-group" style="width: 130px">
+                                <input type="text" name="num" class="form-control" placeholder="page">
+                                <span class="input-group-btn">
+                                    <button class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" type="submit">go</button>
+                                </span>
+                            </div>
+                        </form>
                     </ul>
                 </div>
                 <!--商品列表分页器结束-->
