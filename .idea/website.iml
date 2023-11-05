@@ -9,6 +9,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/apps/shop/templates" />
+        <option value="$MODULE_DIR$/content/templates" />
       </list>
     </option>
   </component>

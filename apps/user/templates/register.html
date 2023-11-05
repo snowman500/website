@@ -13,15 +13,29 @@
                         {% csrf_token %}
                         <span style="color: white;">{{ error_message }}</span>
                         {% for field in form %}
-                        <div class="form-floating mb-3">
-                            {{ field }}
-                            <label for="floatingInput">{{ field.label }}</label>
-                            <span style="color: red;">{{ field.errors.0 }}</span>
-                        </div>
+                            <div class="form-floating mb-3">
+                                {{ field }}
+                                <label for="floatingInput">{{ field.label }}</label>
+                                <span style="color: red;">{{ field.errors.0 }}</span>
+                            </div>
                         {% endfor %}
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="form-floating mb-3" style="width: 190px;">
+                                    {{ form.code }}
+                                    <label for="floatingInput">&nbsp;&nbsp;&nbsp;{{ form.code.label }}</label>
+                                    <span style="color: red;">{{ form.code.errors.0 }}</span>
+                                </div>
+                                <div class="col-md-5 mb-3" style="display: flex; align-items: center;">
+                                    <img id="image_code" src="http://127.0.0.1:8000/user/image/code/"
+                                         style="height: 58px; width: 120px; margin-left: -5px;" alt="none">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Sign up</button>
-                            <a class="form-check-label"  style="float: right;" href="{% url 'user' %}">点此登录</a><span style="float: right;color: white;">已有帐号?</span>
+                            <a class="form-check-label" style="float: right;" href="{% url 'user' %}">点此登录</a><span
+                                style="float: right;color: white;">已有帐号?</span>
                         </div>
                     </form>
                 </div>
