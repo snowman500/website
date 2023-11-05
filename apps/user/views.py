@@ -1,110 +1,9 @@
-from django import forms
-from django.core.exceptions import ValidationError
-
-from .models import CustomerLogin
-from content.utils.md5 import md5
-from content.utils.check_code import check_code
-from django.shortcuts import render, redirect, HttpResponse
 from io import BytesIO
-from django.contrib import auth
-from django.http import JsonResponse
 
+from django.shortcuts import render, redirect, HttpResponse
 
-def logout(request):
-    """ 注销 """
-    request.session.clear()
-    return redirect('/login/')
-
-
-class CustomerLoginModelForm(forms.ModelForm):
-    confirm_password = forms.CharField(label="Confirm Password",
-                                       widget=forms.PasswordInput(render_value=True,
-                                                                  attrs={"class": "form-control", "id": "floatingInput",
-                                                                         "type": "password",
-                                                                         "placeholder": "confirm_password"}))
-
-    # render_value=True, 是为了让两次输入密码不相同的时候,输入框的密码不被清空.
-    class Meta:
-        model = CustomerLogin
-        fields = ["login_email", "user_name", "mobile_phone", "password", "confirm_password"]
-        widgets = {
-            "login_email": forms.TextInput(
-                attrs={"class": "form-control", "id": "floatingInput", "type": "email", "placeholder": "login_email"}),
-            "user_name": forms.TextInput(
-                attrs={"class": "form-control", "id": "floatingInput", "type": "text", "placeholder": "user_name"}),
-            "mobile_phone": forms.TextInput(
-                attrs={"class": "form-control", "id": "floatingInput", "type": "text", "placeholder": "Phone number"}),
-            "password": forms.PasswordInput(render_value=True,
-                                            attrs={"class": "form-control", "id": "floatingInput", "type": "password",
-                                                   "placeholder": "Password"}),
-        }
-
-    def clean_password(self):
-        pwd = self.cleaned_data.get("password")
-        return md5(pwd)
-
-    # 这里是比较两次输入的密码是否一致,不一致弹出报错框,一致则返回确认的密码值
-    def clean_confirm_password(self):
-        pwd = self.cleaned_data.get("password")
-        confirm = md5(self.cleaned_data.get("confirm_password"))
-        if confirm != pwd:
-            raise ValidationError("密码不一致")
-        return confirm
-
-
-def register(request):
-    """ 添加用户(ModelForm)"""
-    if request.method == "GET":
-        form = CustomerLoginModelForm()
-        return render(request, "register.html", {"form": form})
-
-    if request.method == "POST":
-        form = CustomerLoginModelForm(request.POST)
-
-        if form.is_valid():
-            # 验证码的校验
-            user_input_code = form.cleaned_data.pop('code')
-            code = request.session.get('image_code', "")
-
-            if code.upper() != user_input_code.upper():
-
-                form.add_error("code", "验证码输入错误")
-                return render(request, "register.html", {"form": form})
-
-            email = form.cleaned_data['login_email']
-
-            if CustomerLogin.objects.filter(login_email=email).exists():
-                return render(request, 'register.html', {'form': form, 'error_message': '账户已经存在'})
-
-            else:
-                form.save()
-                return redirect('/user/register/')
-        else:
-            return render(request, 'register.html', {"form": form})
-
-
-class LoginForm(forms.ModelForm):
-    code = forms.CharField(label="CAPTCHA",
-                           widget=forms.PasswordInput(
-                               attrs={"class": "form-control", "id": "floatingInput", "type": "text",
-                                      "placeholder": "CAPTCHA"}))
-
-    class Meta:
-        model = CustomerLogin
-
-        fields = ["login_email", "password"]
-        widgets = {
-            "login_email": forms.TextInput(
-                attrs={"class": "form-control", "id": "floatingInput", "type": "email", "placeholder": "Email"}),
-            "password": forms.PasswordInput(
-                attrs={"class": "form-control", "id": "floatingInput", "type": "password",
-                       "placeholder": "Password"}),
-        }
-
-    # 对登录输入的密码进行加密,并返回.
-    def clean_password(self):
-        pwd = self.cleaned_data.get("password")
-        return md5(pwd)
+from content.utils.check_code import check_code
+from .modelform import *
 
 
 def image_code(request):
@@ -124,14 +23,65 @@ def image_code(request):
     return HttpResponse(stream.getvalue())
 
 
+def register(request):
+    """ 添加用户(ModelForm)"""
+    if request.method == "GET":
+        form = RegisterModelForm()
+        return render(request, "register.html", {"form": form})
+
+    if request.method == "POST":
+        form = RegisterModelForm(request.POST)
+
+        if form.is_valid():
+            # 验证码的校验
+            user_input_code = form.cleaned_data.pop('code')
+            code = request.session.get('image_code', "")
+            print(code)
+            if code.upper() != user_input_code.upper():
+                form.add_error("code", "验证码输入错误")
+                return render(request, "register.html", {"form": form})
+
+            email = form.cleaned_data['login_email']
+            if CustomerLogin.objects.filter(login_email=email).exists():
+                return render(request, 'register.html', {'form': form, 'error_message': '账户已经存在'})
+            else:
+                form.save()
+                return redirect('/login/')
+
+        else:
+            return render(request, 'register.html', {"form": form})
+
+
+# def register(request):
+#     """ 添加用户(ModelForm)"""
+#     if request.method == "GET":
+#         form = CustomerLoginModelForm()
+#         return render(request, "register.html", {"form": form})
+#
+#     if request.method == "POST":
+#         form = CustomerLoginModelForm(request.POST)
+#
+#         if form.is_valid():
+#             email = form.cleaned_data['login_email']
+#
+#             if CustomerLogin.objects.filter(login_email=email).exists():
+#                 return render(request, 'register.html', {'form': form, 'error_message': '账户已经存在'})
+#
+#             else:
+#                 form.save()
+#                 return redirect('/user/register/')
+#         else:
+#             return render(request, 'register.html', {"form": form})
+
+
 def login(request):
     """ 添加用户(ModelForm)"""
     if request.method == "GET":
-        form = LoginForm()
+        form = LoginModelForm()
         return render(request, "login.html", {"form": form})
 
     # 用户POST提交数据,数据校验
-    form = LoginForm(data=request.POST)
+    form = LoginModelForm(data=request.POST)
     if form.is_valid():
         # 验证码的校验
         user_input_code = form.cleaned_data.pop('code')
@@ -153,3 +103,9 @@ def login(request):
         return redirect("/shop/")
     else:
         return render(request, 'login.html', {"form": form})
+
+
+def logout(request):
+    """ 注销 """
+    request.session.clear()
+    return redirect('/login/')

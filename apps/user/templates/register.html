@@ -6,19 +6,39 @@
         <div class="container">
             <div class="row align-items-center py-5">
                 <div class="col-md-9 text-white">
-                    <h1>Welcome! 注册</h1>
+                    <h1>Welcome!</h1>
+                    <div class="col-md-5">
+                        <img src="{% static 'img/about-hero.svg' %}" alt="About Hero">
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        <span style="color: white;">{{ error_message }}</span>
-                        {% for field in form %}
-                            <div class="form-floating mb-3">
-                                {{ field }}
-                                <label for="floatingInput">{{ field.label }}</label>
-                                <span style="color: red;">{{ field.errors.0 }}</span>
-                            </div>
-                        {% endfor %}
+                        <div class="form-floating mb-3">
+                            {{ form.login_email }}
+                            <label for="floatingInput">{{ form.login_email.label }}</label>
+                            <span style="color: red;">{{ form.login_email.errors.0 }}</span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            {{ form.user_name }}
+                            <label for="floatingInput">{{ form.user_name.label }}</label>
+                            <span style="color: red;">{{ form.user_name.errors.0 }}</span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            {{ form.mobile_phone }}
+                            <label for="floatingInput">{{ form.mobile_phone.label }}</label>
+                            <span style="color: red;">{{ form.mobile_phone.errors.0 }}</span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            {{ form.password }}
+                            <label for="floatingInput">{{ form.password.label }}</label>
+                            <span style="color: red;">{{ form.password.errors.0 }}</span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            {{ form.confirm_password }}
+                            <label for="floatingInput">{{ form.confirm_password.label }}</label>
+                            <span style="color: red;">{{ form.confirm_password.errors.0 }}</span>
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="form-floating mb-3" style="width: 190px;">
@@ -33,9 +53,10 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign up</button>
-                            <a class="form-check-label" style="float: right;" href="{% url 'user' %}">点此登录</a><span
-                                style="float: right;color: white;">已有帐号?</span>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            <a class="form-check-label mb-3" style="float: right;"
+                               href="{% url 'register' %}">点此注册</a><span
+                                style="float: right;color: white;">还没帐号?</span>
                         </div>
                     </form>
                 </div>
@@ -44,3 +65,7 @@
     </section>
     <!-- Close Banner -->
 {% endblock %}
+
+{% block Script %}
+
+{% endblock Script %}

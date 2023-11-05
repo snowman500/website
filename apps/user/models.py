@@ -17,7 +17,7 @@ class CustomerLogin(BaseModel):
         (2, 'woman'),
         (3, 'null'),
     )
-    gender = SmallIntegerField(choices=gender_choices, verbose_name="性别")
+    gender = SmallIntegerField(choices=gender_choices,null=True, blank=True, verbose_name="性别")
     user_point = DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, verbose_name='用户积分')
     birthday = DateField(null=True, blank=True, verbose_name='会员生日')
     user_money = DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
