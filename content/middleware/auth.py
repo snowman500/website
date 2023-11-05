@@ -7,8 +7,6 @@ class AuthMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         # 0. 排除不需要登录就可以访问的页面
-        if request.path_info == "/jf/admin/login/?next=/jf/admin/":
-            return
         if request.path_info == "/user/login/":
             return
         if request.path_info == "/user/register/":

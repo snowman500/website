@@ -7,11 +7,9 @@ from content.utils.md5 import md5
 
 
 def logout(request):
-    return render(request, "login.html")
-
-
-def index(request):
-    return render(request, "index.html")
+    """ 注销 """
+    request.session.clear()
+    return redirect('/login/')
 
 
 class CustomerLoginModelForm(forms.ModelForm):
