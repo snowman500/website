@@ -52,8 +52,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12" style="float: right;align-items: center;">
-                            <button type="submit" class="btn btn-primary">Register</button>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <label class="form-check-label" for="flexCheckChecked" style="color: white">
+                                Checked checkbox <a style="color: white;"
+                               href="{% url 'login' %}">Sign in here</a> Checked checkboxChecked checkbox
+                                <a style="color: white;"
+                               href="{% url 'login' %}">Sign in here</a>
+                            </label>
+                        </div>
+                        <div class="col-12 " style="float: right;align-items: center;">
+                            <button type="submit" class="btn btn-primary ">Register</button>
                             <a class="form-check-label mb-3" style="float: right; margin-top: 4px;"
                                href="{% url 'login' %}">Sign in here</a><span
                                 style="float: right;color: white;margin-top: 4px;">Already have?&nbsp;&nbsp;</span>
