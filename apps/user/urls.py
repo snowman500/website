@@ -18,7 +18,7 @@ from django.urls import path, include
 from apps.user import views
 
 urlpatterns = [
-    path('login/', views.login, name='user'),  # 指向views视图文件的视图函数
+    path('login/', views.login, name='login'),  # 指向views视图文件的视图函数
     path('register/', views.register, name="register"),
     path('logout/', views.logout, name='logout'),
     path('image/code/', views.image_code, name='check_code'),

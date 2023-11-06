@@ -14,12 +14,10 @@ from pathlib import Path
 import os
 import sys
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -31,7 +29,6 @@ SECRET_KEY = 'django-insecure-vya^tj6=#5e_-ya^w=$_#&n9h3+-1jc$ewp_3=9kyx5$s&4ht*
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -46,8 +43,12 @@ INSTALLED_APPS = [
     'apps.system',
     'apps.item',
     'apps.user',
-    
+
 ]
+
+TY_ADMIN_CONFIG = {
+    'GEN_APPS': ['apps']
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -98,8 +98,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -119,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -130,31 +127,24 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 
-USE_TZ = True 
-
-
-
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/' # 浏览器需要的前缀
+STATIC_URL = '/static/'  # 浏览器需要的前缀
 
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'content/static')] # static路径
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'content/static')]  # static路径
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Automatically Created on Production
 
 # Settings for Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'content/media')
 
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 # 分页配置
 
