@@ -2,9 +2,9 @@
 {% block link %}
     <style>
         .btn:hover, .btn:focus, .btn:active, .btn:visited {
-        outline: none;
-        box-shadow: none !important;
-    }
+            outline: none;
+            box-shadow: none !important;
+        }
     </style>
 {% endblock link %}
 {% block nav %}
@@ -48,46 +48,43 @@
                             </div>
                         </div>
                     </div>
-                        <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
-                           data-bs-target="#templatemo_search">
-                            <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                        </a>
-                        <div class="dropdown" style=" margin-left: 5px;">
-                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                                <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark" style="margin-top: -5px; margin-left: 8px;">+9999</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item st" type="button" href="{% url 'login' %}">Sign in</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item st" type="button" href="{% url 'register' %}">register</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item st" type="button" href="{% url 'logout' %}">Sign out</a>
-                            </ul>
-                        </div>
-                        <div class="dropdown" style=" margin-left: 10px;">
-                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                                <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark" style="margin-top: -5px; margin-left: 12px;">+99</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item st" type="button" href="{% url 'login' %}">Sign in</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item st" type="button" href="{% url 'register' %}">Sign up</a>
-                                </li>
-                                <li style="border-top: 1px solid rgb(128,128,128);">
-                                    <a class="dropdown-item st" type="button" href="{% url 'logout' %}">Sign out</a>
-                            </ul>
-                        </div>
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
+                       data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    <div class="dropdown" style=" margin-left: 5px;">
+                        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
+                                  style="margin-top: -5px; margin-left: 8px;">+9999</span>
+                        </button>
+                    </div>
+                    <div class="dropdown" style=" margin-left: 10px;">
+                        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
+                                  style="margin-top: -5px; margin-left: 12px;">+99</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item st" type="button" href="{% url 'profile' %}">profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item st" type="button" href="{% url 'login' %}">Sign in</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item st" type="button" href="{% url 'register' %}">Sign up</a>
+                            </li>
+                            <li style="border-top: 1px solid rgb(128,128,128);">
+                                <a class="dropdown-item st" type="button" href="{% url 'logout' %}">Sign out</a>
+                            </li>
+
+                        </ul>
                     </div>
                 </div>
-
             </div>
+
+        </div>
     </nav>
     <!-- Close Header -->
     <!-- Modal -->

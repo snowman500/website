@@ -21,6 +21,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),  # 指向views视图文件的视图函数
     path('register/', views.register, name="register"),
     path('logout/', views.logout, name='logout'),
+    path('profile/', views.profile, name='profile'),
     path('image/code/', views.image_code, name='check_code'),
 
 ]

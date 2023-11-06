@@ -52,28 +52,6 @@ def register(request):
             return render(request, 'register.html', {"form": form})
 
 
-# def register(request):
-#     """ 添加用户(ModelForm)"""
-#     if request.method == "GET":
-#         form = CustomerLoginModelForm()
-#         return render(request, "register.html", {"form": form})
-#
-#     if request.method == "POST":
-#         form = CustomerLoginModelForm(request.POST)
-#
-#         if form.is_valid():
-#             email = form.cleaned_data['login_email']
-#
-#             if CustomerLogin.objects.filter(login_email=email).exists():
-#                 return render(request, 'register.html', {'form': form, 'error_message': '账户已经存在'})
-#
-#             else:
-#                 form.save()
-#                 return redirect('/user/register/')
-#         else:
-#             return render(request, 'register.html', {"form": form})
-
-
 def login(request):
     """ 添加用户(ModelForm)"""
     if request.method == "GET":
@@ -109,3 +87,9 @@ def logout(request):
     """ 注销 """
     request.session.clear()
     return redirect('/login/')
+
+
+def profile(request):
+    """ 用户中心 """
+
+    return render(request, 'profile.html')
