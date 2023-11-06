@@ -13,6 +13,11 @@
             border-radius: 10px;
         }
 
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
     </style>
 {% endblock %}
 {% block content %}
@@ -21,22 +26,22 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
             </ol>
         </nav>
         <!-- /Breadcrumb -->
         <div class="row">
             <!--侧边栏开始 -->
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <ul class="list-unstyled accordion">
                     <li>
                         <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse"
                            data-bs-target="#order-collapse" aria-expanded="false"
                            aria-controls="order-collapse">Account</a>
                         <ul class="collapse list-unstyled pl-3" id="order-collapse">
-                            <li><a href="#" class="list-group-item list-group-item-action" style="margin-left: 20px;">安全设置</a></li>
-                            <li><a href="#" class="list-group-item list-group-item-action" style="margin-left: 20px;">个人资料</a></li>
-                            <li><a href="#" class="list-group-item list-group-item-action" style="margin-left: 20px;">收货地址</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;安全设置</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;个人资料</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;收货地址</a></li>
                         </ul>
                     </li>
                     <li>
@@ -44,25 +49,23 @@
                            data-bs-target="#order-collapse1" aria-expanded="false"
                            aria-controls="order-collapse1">Cart</a>
                         <ul class="collapse list-unstyled pl-3" id="order-collapse1">
-                            <li><a href="#" class="list-group-item list-group-item-action" style="margin-left: 20px;">My Order</a></li>
-                            <li><a href="#" class="list-group-item list-group-item-action" style="margin-left: 20px;">历史订单</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;My Order</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;历史订单</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="list-group-item list-group-item-action" >我的收藏</a></li>
+                    <li><a href="#" class="list-group-item list-group-item-action">我的收藏</a></li>
                     <li><a href="#" class="list-group-item list-group-item-action">我的积分</a></li>
                     <li><a href="#" class="list-group-item list-group-item-action">我的优惠</a></li>
                     <li><a href="#" class="list-group-item list-group-item-action">我的评价</a></li>
                     <li><a href="#" class="list-group-item list-group-item-action">订单投诉</a></li>
                 </ul>
             </div>
-
             <!--侧边栏结束 -->
-            <div class="col-lg-9">
+            <div class="col-lg-10">
             </div>
         </div>
     </div>
 {% endblock %}
-
 <div class="col-lg-3">
     <ul class="list-unstyled templatemo-accordion">
         <li>

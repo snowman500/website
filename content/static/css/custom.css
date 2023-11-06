@@ -6,3 +6,9 @@ Custom Css
     outline: none;
     box-shadow: none !important;
 }
+
+/* 定义分页器外边框距离为 ** PX*/
+.mc {
+     margin-left: 3px;
+    margin-right: 3px;
+}
