@@ -485,3 +485,31 @@ def login(request):
 (2) django - how to check if email is already exists - Stack Overflow. https://stackoverflow.com/questions/68260073/django-how-to-check-if-email-is-already-exists.
 (3) Django Registration form Verification Email - Stack Overflow. https://stackoverflow.com/questions/40872238/django-registration-form-verification-email.
 (4) Django-registration - How to check if email exists in database. https://stackoverflow.com/questions/64669487/django-registration-how-to-check-if-email-exists-in-database.
+
+# F3:
+我有一个组件,
+<div class="col-lg-3">
+    <ul class="list-unstyled accordion">
+        <li>
+            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse"
+               data-bs-target="#order-collapse" aria-expanded="false"
+               aria-controls="order-collapse1">Order1</a>
+            <ul class="collapse list-unstyled pl-3" id="order-collapse">
+                <li><a href="#" class="list-group-item list-group-item-action">我的订单</a></li>
+                <li><a href="#" class="list-group-item list-group-item-action">评价订单</a></li>
+                <li><a href="#" class="list-group-item list-group-item-action">订单投诉</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse"
+               data-bs-target="#order-collapse" aria-expanded="false"
+               aria-controls="order-collapse1">Order2</a>
+            <ul class="collapse list-unstyled pl-3" id="order-collapse">
+                <li><a href="#" class="list-group-item list-group-item-action">我的订单2</a></li>
+                <li><a href="#" class="list-group-item list-group-item-action">评价订单2</a></li>
+                <li><a href="#" class="list-group-item list-group-item-action">订单投诉2</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+为什么我点击Order1的时候,Order2也会展开
