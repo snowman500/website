@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.min.css' %}">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">#}
+    <style>
+        .list-group-item {
+            border-radius: 10px;
+            border: none;
+        }
+
+        li {
+            border-radius: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container py-5">
+        <!-- Breadcrumb -->
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <div class="row">
+            <!--侧边栏 -->
+            <div class="col-lg-2 list-group">
+                <ul class="list-unstyled ">
+                    <li>
+                        <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse"
+                           data-bs-target="#order-collapse" aria-expanded="false"
+                           aria-controls="order-collapse">Account</a>
+                        <ul class="collapse list-unstyled pl-3" id="order-collapse">
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;安全设置</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;个人资料</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;收货地址</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse"
+                           data-bs-target="#order-collapse1" aria-expanded   ="false"
+                           aria-controls="order-collapse1">Cart</a>
+                        <ul class="collapse list-unstyled pl-3" id="order-collapse1">
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;My Order</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action">&nbsp;&nbsp;历史订单</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="list-group-item list-group-item-action">我的收藏</a></li>
+                    <li><a href="#" class="list-group-item list-group-item-action">我的积分</a></li>
+                    <li><a href="#" class="list-group-item list-group-item-action">我的优惠</a></li>
+                    <li><a href="#" class="list-group-item list-group-item-action">我的评价</a></li>
+                    <li><a href="#" class="list-group-item list-group-item-action">订单投诉</a></li>
+                </ul>
+            </div>
+            <!--/侧边栏 -->
+            <!--正文 -->
+            <div class="col-lg-10">
+            </div>
+            <!--/正文 -->
+        </div>
+    </div>
+{% endblock %}
