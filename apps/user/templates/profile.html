@@ -22,9 +22,8 @@
 {% block content %}
     <section class="user-dashboard-section section-b-space">
         <div class="container py-5">
-            <div class="container-fluid-lg">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="dashboard-left-sidebar">
                             <div class="close-button d-flex d-lg-none">
                                 <button class="close-sidebar">
@@ -33,16 +32,16 @@
                             </div>
                             <div class="profile-box">
                                 <div class="cover-image">
-                                    <img src="{% static 'img/cover.jpg' %}" class="img-fluid blur-up lazyload" alt="">
+                                    <img src="{% static 'img/cover.jpg' %}" class="img-fluid" alt="">
                                 </div>
 
                                 <div class="profile-contain">
                                     <div class="profile-image">
                                         <div class="position-relative">
-                                            <img src="{% static 'img/16.jpg' %}" class="blur-up lazyload update_img"
+                                            <img src="{% static 'img/a.jpg' %}" class="update_img"
                                                  alt="">
                                             <div class="cover-icon">
-                                                <i class="fa-solid fa-pen">
+                                                <i class="fa fa-fw fa-pen">
                                                     <input type="file" onchange="readURL(this,0)">
                                                 </i>
                                             </div>
@@ -50,8 +49,8 @@
                                     </div>
 
                                     <div class="profile-name">
-                                        <h3>Vicki E. Pope</h3>
-                                        <h6 class="text-content">vicki.pope@gmail.com</h6>
+                                        <h3>Alboter.chiao</h3>
+                                        <h6 class="text-content">qiao@test.com</h6>
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +119,7 @@
                             </ul>
                         </div>
                     </div>
-
-                    <div class="col-lg-8">
+                    <div class="col-lg-9">
                         <button class="btn left-dashboard-show btn-animation btn-md fw-bold d-block mb-4 d-lg-none">Show
                             Menu
                         </button>
@@ -1752,9 +1750,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
-    </section>
 
+    </section>
+ </div>
 
 {% endblock %}
+{% block Script %}
+
+{% endblock Script %}
