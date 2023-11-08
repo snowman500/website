@@ -813,7 +813,9 @@
     </section>
     <!-- End AD -->
 {% endblock %}
-
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
 
 {% block Script %}
     <script src="{% static '/js/slick.min.js' %}"></script>

@@ -98,3 +98,13 @@ def cart(request):
     """ 用户中心 """
 
     return render(request, 'cart.html')
+
+def checkout(request):
+    """ 用户中心 """
+
+    return render(request, 'checkout.html')
+
+def order_tracking(request):
+    """ 用户中心 """
+
+    return render(request, 'order_tracking.html')

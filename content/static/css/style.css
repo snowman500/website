@@ -549,8 +549,8 @@
 .breadscrumb-section .breadscrumb-order .order-box .order-image .checkmark {
     position: relative;
     padding: 30px;
-    -webkit-animation: checkmark 5m cubic-bezier(0.42, 0, 0.275, 1.155) both;
-    animation: checkmark 5m cubic-bezier(0.42, 0, 0.275, 1.155) both;
+    -webkit-animation: checkmark 5 m cubic-bezier(0.42, 0, 0.275, 1.155) both;
+    animation: checkmark 5 m cubic-bezier(0.42, 0, 0.275, 1.155) both;
     display: inline-block;
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
@@ -656,8 +656,8 @@
 .breadscrumb-section .breadscrumb-order .order-box .order-image .checkmark {
     position: relative;
     padding: 30px;
-    -webkit-animation: checkmark 5m cubic-bezier(0.42, 0, 0.275, 1.155) both;
-    animation: checkmark 5m cubic-bezier(0.42, 0, 0.275, 1.155) both;
+    -webkit-animation: checkmark 5 m cubic-bezier(0.42, 0, 0.275, 1.155) both;
+    animation: checkmark 5 m cubic-bezier(0.42, 0, 0.275, 1.155) both;
     display: inline-block;
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
@@ -2075,15 +2075,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     }
 }
 
-.theme-modal .modal-dialog .modal-content .modal-footer {
-    border: none;
-    padding: calc(8px + (16 - 8) * ((100vw - 320px) / (1920 - 320))) calc(17px + (16 - 17) * ((100vw - 320px) / (1920 - 320)));
-    gap: 8px
-}
-
-.theme-modal .modal-dialog .modal-content .modal-footer button {
-    margin: 0
-}
 
 .view-modal .modal-dialog .modal-content .modal-body {
     padding: calc(18px + (29 - 18) * ((100vw - 320px) / (1920 - 320)))
@@ -4652,12 +4643,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     color: #fff
 }
 
-@media (min-width: 1464px) {
-    .container {
-        max-width: 1440px
-    }
-}
-
 .col-custome-3 {
     width: 22%
 }
@@ -5800,20 +5785,6 @@ span {
     overflow: hidden
 }
 
-.bank-section .bank-offer:hover .bank-footer-1 .bank-coupon::after {
-    top: 0;
-    height: 100%
-}
-
-.bank-section .bank-offer:hover .bank-footer-2 .bank-coupon::after {
-    top: 0;
-    height: 100%
-}
-
-.bank-section .bank-offer:hover .bank-footer-3 .bank-coupon::after {
-    top: 0;
-    height: 100%
-}
 
 .bank-section .bank-offer .bank-header {
     background: linear-gradient(76.68deg, #e6e6e6 -9.39%, #fafafa 78.76%, #f0f0f0 101.45%, #fff 112.78%);
@@ -5855,120 +5826,11 @@ span {
     margin-top: calc(22px + (69 - 22) * ((100vw - 320px) / (1920 - 320)))
 }
 
-.bank-section .bank-offer .bank-footer {
-    padding: calc(7px + (17 - 7) * ((100vw - 320px) / (1920 - 320))) calc(13px + (26 - 13) * ((100vw - 320px) / (1920 - 320)));
-    color: #fff;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center
-}
 
-.bank-section .bank-offer .bank-footer-1 {
-    background: linear-gradient(85.8deg, #bb0032 -4.64%, #ff584d 109.73%, #ff8c75 131.73%)
-}
 
-.bank-section .bank-offer .bank-footer-1 .bank-coupon {
-    background: linear-gradient(85.8deg, #ff584d -4.64%, rgba(187, 0, 50, 0.1) 131.73%)
-}
 
-.bank-section .bank-offer .bank-footer-1 .bank-coupon::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 5px;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    background: #ff584d;
-    background: linear-gradient(85.8deg, rgba(187, 0, 50, 0.1) 131.73%, #ff584d -4.64%)
-}
 
-.bank-section .bank-offer .bank-footer-2 {
-    background: -webkit-gradient(linear, left top, right top, color-stop(15.92%, #2395e8), color-stop(49.57%, #4eb5ff));
-    background: linear-gradient(90deg, #2395e8 15.92%, #4eb5ff 49.57%)
-}
 
-.bank-section .bank-offer .bank-footer-2 .bank-coupon {
-    background: -webkit-gradient(linear, left top, right top, color-stop(15.92%, #2395e8), color-stop(49.57%, #4eb5ff));
-    background: linear-gradient(90deg, #2395e8 15.92%, #4eb5ff 49.57%)
-}
-
-.bank-section .bank-offer .bank-footer-2 .bank-coupon::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 5px;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    background: #4eb5ff;
-    background: -webkit-gradient(linear, left top, right top, color-stop(15.92%, #4eb5ff), color-stop(49.57%, #2395e8));
-    background: linear-gradient(90deg, #4eb5ff 15.92%, #2395e8 49.57%)
-}
-
-.bank-section .bank-offer .bank-footer-3 {
-    background: linear-gradient(85.8deg, #ffb321 -4.64%, #ff584d 109.73%, #ff8c75 131.73%)
-}
-
-.bank-section .bank-offer .bank-footer-3 .bank-coupon {
-    background: linear-gradient(85.8deg, #ffb321 -4.64%, #ff584d 109.73%, #ff8c75 131.73%)
-}
-
-.bank-section .bank-offer .bank-footer-3 .bank-coupon::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 5px;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    background: #ffb321;
-    background: -webkit-gradient(linear, right top, left top, color-stop(-4.64%, rgba(255, 140, 117, 0)), color-stop(109.73, rgba(255, 88, 77, 0.1)), color-stop(131.73%, #ffb321));
-    background: linear-gradient(-90deg, rgba(255, 140, 117, 0) -4.64%, rgba(255, 88, 77, 0.1) 109.73, #ffb321 131.73%)
-}
-
-.bank-section .bank-offer .bank-footer h4 {
-    font-weight: 500;
-    font-size: calc(15px + (18 - 15) * ((100vw - 320px) / (1920 - 320)))
-}
-
-.bank-section .bank-offer .bank-footer h4 input {
-    pointer-events: none;
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    font-weight: 600;
-    width: 60%
-}
-
-.bank-section .bank-offer .bank-footer .bank-coupon {
-    margin-left: auto;
-    color: #fff;
-    font-weight: 600;
-    padding: 6px 21px;
-    position: relative;
-    overflow: hidden;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    z-index: 0
-}
-
-[dir="rtl"] .bank-section .bank-offer .bank-footer .bank-coupon {
-    margin-left: unset;
-    margin-right: auto
-}
 
 .shop-banner {
     width: 52% !important
@@ -14081,7 +13943,6 @@ header .offcanvas.show {
 }
 
 
-
 header .sidebar-toggle {
     display: none;
     position: fixed;
@@ -14443,9 +14304,7 @@ header .hot-deal-box span {
         display: none
     }
 
-    header .offcanvas-collapse .offcanvas-footer {
-        display: none
-    }
+
 
     header .offcanvas-collapse .offcanvas-body {
         padding: 0;
@@ -16905,8 +16764,6 @@ header .offcanvas-backdrop {
 }
 
 
-
-
 .product-box-3 {
     padding: calc(7px + (14 - 7) * ((100vw - 320px) / (1920 - 320)));
     position: relative;
@@ -17101,6 +16958,8 @@ header .offcanvas-backdrop {
     height: auto;
     color: #4a5568
 }
+
+
 
 .product-section-3 .circle-box {
     position: relative
@@ -19181,6 +19040,27 @@ header .offcanvas-backdrop {
     font-size: 15px;
     color: #bf2020;
     text-decoration: underline
+}
+
+.cart-table table tfoot {
+    border-top: 1px solid #ececec
+}
+
+.cart-table table tfoot tr td:first-child {
+    border: none
+}
+
+.cart-table table tfoot tr td:nth-child(2) {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px;
+    border-left: 1px solid #ececec
+}
+
+.cart-table table tfoot tr td:last-child {
+    font-size: 16px;
+    font-weight: 500;
+    border-right: 1px solid #ececec
 }
 
 .summery-box {
@@ -24935,7 +24815,7 @@ header .offcanvas-backdrop {
     width: 30px;
     height: 30px;
     padding-top: 2px;
-    content: "";
+    content: "\f00c";
     color: #fff;
     background: #959595;
     line-height: 35px;

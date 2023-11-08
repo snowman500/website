@@ -93,17 +93,17 @@
         </div>
         <div class="row">
             <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{% static '/img/JF-D-004.jpg' %}" class="rounded-circle img-fluid border"></a>
+                <a href="#"><img src="{% static 'img/JF-D-002.jpg' %}" class="rounded-circle img-fluid border"></a>
                 <h5 class="text-center mt-3 mb-3">E-LED</h5>
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div>
             <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{% static '/img/JF-D-004.jpg' %}" class="rounded-circle img-fluid border"></a>
+                <a href="#"><img src="{% static 'img/JF-D-002.jpg' %}" class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">D-LED</h2>
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div>
             <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{% static '/img/JF-D-004.jpg' %}" class="rounded-circle img-fluid border"></a>
+                <a href="#"><img src="{% static 'img/JF-D-002.jpg' %}" class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">Other Part</h2>
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div>
@@ -128,7 +128,7 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.html">
-                            <img src="{% static '/img/JF-D-012.jpg' %}" class="card-img-top" alt="...">
+                            <img src="{% static 'img/JF-D-002.jpg' %}" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -152,7 +152,7 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.html">
-                            <img src="{% static '/img/JF-D-012.jpg' %}" class="card-img-top" alt="...">
+                            <img src="{% static 'img/JF-D-002.jpg' %}" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -176,7 +176,7 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.html">
-                            <img src="/content/static/img/JF-D-012.jpg" class="card-img-top" alt="...">
+                            <img src="{% static 'img/JF-D-002.jpg' %}" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -202,3 +202,6 @@
     </section>
     <!-- End Featured Product -->
 {% endblock %}
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
