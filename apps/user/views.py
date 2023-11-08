@@ -93,3 +93,8 @@ def profile(request):
     """ 用户中心 """
 
     return render(request, 'profile.html')
+
+def cart(request):
+    """ 用户中心 """
+
+    return render(request, 'cart.html')
