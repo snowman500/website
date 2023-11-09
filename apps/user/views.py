@@ -86,7 +86,7 @@ def login(request):
 def logout(request):
     """ 注销 """
     request.session.clear()
-    return redirect('/login/')
+    pass
 
 
 def profile(request):
@@ -94,15 +94,18 @@ def profile(request):
 
     return render(request, 'profile.html')
 
+
 def cart(request):
     """ 用户中心 """
 
     return render(request, 'cart.html')
 
+
 def checkout(request):
     """ 用户中心 """
 
     return render(request, 'checkout.html')
+
 
 def order_tracking(request):
     """ 用户中心 """
