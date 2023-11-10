@@ -111,3 +111,9 @@ def order_tracking(request):
     """ 用户中心 """
 
     return render(request, 'order_tracking.html')
+
+
+def order_list(request):
+    """ 用户中心 """
+
+    return render(request, 'order_list.html')
