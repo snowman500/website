@@ -220,7 +220,6 @@ class OrderCart(BaseModel):
                              related_name='order_cart')  # 其实是存的用户登陆的id
     product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='物料编码', related_name='order_cart')
     product_amount = IntegerField(verbose_name='加入购物车的数量')
-    product_price = ForeignKey(ShopSKU, on_delete=PROTECT, verbose_name='商品价格', related_name='order_cart')
 
     class Meta:
         db_table = 'order_cart'

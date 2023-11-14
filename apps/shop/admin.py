@@ -28,7 +28,7 @@ class OrderDetailAdmin(admin.ModelAdmin):
 
 
 class OrderCartAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_activate', 'order_id', 'customer_id', 'product_id', 'product_amount', 'product_price')
+    list_display = ('id', 'is_activate', 'order_id', 'customer_id', 'product_id', 'product_amount')
 
 
 class ShopCommentAdmin(admin.ModelAdmin):
