@@ -22,6 +22,7 @@ class CustomerLogin(BaseModel):
     birthday = DateField(null=True, blank=True, verbose_name='会员生日')
     user_money = DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                               verbose_name='账户余额')
+    avatar = ImageField(upload_to='avatar/', default='avatar/avatar.png', verbose_name='头像')
 
     class Meta:
         db_table = 'user_customer_login'  # 定义属性表名字

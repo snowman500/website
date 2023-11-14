@@ -3,6 +3,7 @@ from content.extensions.models import *
 from content.extensions.common.base_model import BaseModel
 from apps.user.models import *
 from apps.item.models import *
+from django.utils import timezone
 
 
 # Create your models here.
@@ -185,6 +186,23 @@ class OrderMaster(BaseModel):
         db_table = 'order_master'
         verbose_name = '订单主表'
         verbose_name_plural = verbose_name
+
+    """我们使用了 Django 的 timezone.now() 方法获取当前时间，然后将其格式化为 YYYYMMDD 的形式作为订单编号的前缀。
+    接下来，我们从数据库中获取当天已有的订单编号，找到最大的订单编号并将其序列号加 1，以生成新的订单编号。如果当天没有订单，则序列号为 1。
+    最后，我们将生成的订单编号赋值给 order_sn 字段，并调用父类的 save 方法保存对象。"""
+
+    def save(self, *args, **kwargs):
+        if not self.order_sn:
+            now = timezone.now()
+            prefix = now.strftime('%Y%m%d')
+            latest_order = OrderMaster.objects.filter(order_sn__startswith=prefix).order_by('-order_sn').first()
+            if latest_order:
+                order_sn = latest_order.order_sn
+                serial_number = int(order_sn[-5:]) + 1
+            else:
+                serial_number = 1
+            self.order_sn = prefix + '{:0>5d}'.format(serial_number)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.order_sn
