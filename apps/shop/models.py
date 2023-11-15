@@ -25,6 +25,7 @@ class ShopChannelGroup(BaseModel):
 class ShopBrand(BaseModel):
     """商品品牌"""
     name = CharField(max_length=20, null=True, blank=True, verbose_name='品牌名称')
+    slug = SlugField(max_length=55, verbose_name="品牌 Slug")
     logo = ImageField(max_length=200, upload_to="logo/", null=True, blank=True, verbose_name='LOGO图片')
     first_letter = CharField(max_length=1, null=True, blank=True, verbose_name='品牌首字母')
     url = CharField(max_length=50, null=True, blank=True, verbose_name='品牌页面链接')

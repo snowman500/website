@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
+    <style>
+        .list-group-item {
+            border-radius: 10px;
+            border: none;
+        }
+
+        li {
+            border-radius: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <!-- Start Content -->
+    <div class="container py-5">
+        <div class="row">
+            <!--侧边栏开始 -->
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">Categories</h1>
+                <ul class="list-unstyled accordion">
+                    <li class="pb-3">
+                        <a href="#"
+                           class="collapsed d-flex justify-content-between h3 text-decoration-none list-group-item list-group-item-action"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#order-collapse" aria-expanded="false"
+                           aria-controls="order-collapse">D-LED BACKLIGHT BAR<i
+                                class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+                        <ul class="collapse list-unstyled pl-3" id="order-collapse">
+                            {% for item in brand %}
+                                {% if item.is_activate %}
+                                    <li><a class="list-group-item list-group-item-action"
+                                           href="#">&nbsp;&nbsp;{{ item.name }}</a></li>
+                                {% else %}
+                                    <li></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="pb-3">
+                        <a href="#"
+                           class="collapsed d-flex justify-content-between h3 text-decoration-none list-group-item list-group-item-action"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#order-collapse-1" aria-expanded="false"
+                           aria-controls="order-collapse-1">E-LED BACKLIGHT BAR<i
+                                class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+                        <ul class="collapse list-unstyled pl-3" id="order-collapse-1">
+                            {% for item in brand %}
+                                {% if item.is_activate %}
+                                    <li><a class="list-group-item list-group-item-action"
+                                           href="#">&nbsp;&nbsp;{{ item.name }}</a></li>
+                                    <button type="button" class="btn btn-link">{{ item.name }}</button>
+                                {% else %}
+                                    <li></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="pb-3">
+                        <a href="#"
+                           class="collapsed d-flex justify-content-between h3 text-decoration-none list-group-item list-group-item-action"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#order-collapse-2" aria-expanded="false"
+                           aria-controls="order-collapse-2">OTHER<i
+                                class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+                        <ul class="collapse list-unstyled pl-3" id="order-collapse-2">
+                            {% for item in brand %}
+                                {% if item.is_activate %}
+                                    <li><a class="list-group-item list-group-item-action"
+                                           href="#">&nbsp;&nbsp;{{ item.name }}</a></li>
+                                {% else %}
+                                    <li></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--侧边栏结束 -->
+            <!--商品列表开始 -->
+            <div class="col-lg-9">
+                <!--商品列表表头开始 -->
+                <form class="d-flex  pb-3 pt-1 ">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <!--商品列表表头结束 -->
+                <!--商品列表正循环开始 -->
+                <div class="row">
+                    <!--商品列表正循环内容 -->
+                    <!--这里是使用分页器进行分页循环展示 -->
+                    {% for spu in page_obj %}
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    {% if spu.image1 %}
+                                        <img class="card-img rounded-0 img-fluid" src="{{ spu.image1.url }}">
+                                    {% else %}
+                                        <img class="card-img rounded-0 img-fluid" src="{% static 'img/no_image.png' %}">
+                                    {% endif %}
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="single/?num={{ spu.id }}"><i
+                                                    class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2"
+                                                   href="single/?num={{ spu.id }}"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2"
+                                                   href="single/?num={{ spu.id }}"><i class="fas fa-cart-plus"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body"
+                                     style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    <a href="single/?num={{ spu.id }}"
+                                       class="h3 text-decoration-none">{{ spu.listing }}</a>
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            {% block scripts %}
+                                                <script>
+                                                    var product_id = "{{ spu.fa_star }}";
+                                                    product_id = Math.floor(product_id);
+                                                    for (let i = 0; i < product_id; i++) {
+                                                        document.write('<i class="text-warning fa fa-star"></i>');
+                                                    }
+                                                    for (let i = 0; i < 5 - product_id; i++) {
+                                                        document.write('<i class="text-muted fa fa-star"></i>');
+                                                    }
+                                                </script>
+                                            {% endblock %}
+                                        </li>
+                                    </ul>
+                                    <p class="text-center mb-0">{{ spu.price }} USD</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!--商品列表正循环结束 -->
+                </div>
+                <!--商品列表正循环结束 -->
+                <!--商品列表分页器开始-->
+                <div class="row ">
+                    <ul class="pagination  justify-content-end pagination-gap ">
+                        <!--分页器首页-->
+                        <li class="page-item mc">
+                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
+                               href="?num=1">First</a>
+                        </li>
+                        <!--/分页器首页-->
+                        <!--分页器上一页<<-->
+                        {% if page_obj.has_previous %}
+                            <li class="page-item mc">
+                                <a href="?num={{ page_obj.previous_page_number }}"
+                                   class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
+                                    <span>&laquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled mc">
+                                <a href="#"
+                                   class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
+                                    <span>&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        <!--/分页器上一页<<-->
+                        <!--分页器主体-->
+                        {% for num in page_range %}
+                            {% if num == current_num %}
+                                <li class="page-item disabled mc">
+                                    <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0"
+                                       href="?num={{ num }}" tabindex="-1">{{ num }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item mc"><a href="?num={{ num }}"
+                                                          class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        <!--/分页器主体-->
+                        <!--分页器下一页-->
+                        {% if page_obj.has_next %}
+                            <li class="page-item mc">
+                                <a href="?num={{ page_obj.next_page_number }}"
+                                   class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
+                                    <span>&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled mc">
+                                <a href="#"
+                                   class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">
+                                    <span>&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        <!--/分页器下一页-->
+                        <!--分页器尾页-->
+                        <li class="page-item mc">
+                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
+                               href="?num={{ page_obj.paginator.num_pages }}">End</a>
+                        </li>
+                        <!--/分页器尾页-->
+                        <form method="get">
+                            <div class="input-group mc" style="width: 120px">
+                                <input type="text" name="num"
+                                       class="form-control page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
+                                       placeholder="page">
+                                <span class="input-group-btn" >
+                                    <button class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
+                                            type="submit" style="margin-left: 6px;height: 40px">go</button>
+                                </span>
+                            </div>
+                        </form>
+                    </ul>
+                </div>
+                <!--商品列表分页器结束-->
+
+            </div>
+            <!--商品列表结束 -->
+            <p style="text-align: right;">{{ page_obj.number }}/{{ page_obj.paginator.num_pages }} </p>
+
+        </div>
+    </div>
+    <!-- End Content -->
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}

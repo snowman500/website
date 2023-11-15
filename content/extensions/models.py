@@ -4,7 +4,7 @@ from django.db.models import Sum, Count, Min, Avg, Max, Value, F, Q, Prefetch
 from django.db.models.deletion import CASCADE, SET_NULL, SET_DEFAULT, PROTECT
 from django.db.models import OneToOneField, ForeignKey, ManyToManyField
 from django.db.models import Model, IntegerChoices, TextChoices, TextField
-from django.db.models import SmallIntegerField
+from django.db.models import SmallIntegerField, SlugField
 from datetime import datetime
 
 
@@ -28,5 +28,5 @@ __all__ = [
     'CharField', 'DateField', 'DateTimeField', 'JSONField', 'FileField', 'ImageField',
     'Sum', 'Count', 'Min', 'Avg', 'Max', 'Value', 
     'F', 'Q', 'Prefetch', 'Coalesce', 'connection',
-    'SmallIntegerField',
+    'SmallIntegerField','SlugField'
 ]

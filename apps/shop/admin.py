@@ -10,7 +10,7 @@ class ShopChannelGroupAdmin(admin.ModelAdmin):
 
 
 class ShopBrandAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_activate', 'name', 'logo', 'first_letter', 'url')
+    list_display = ('id', 'is_activate', 'name', 'slug', 'logo', 'first_letter', 'url')
 
 
 class ShopSKUAdmin(admin.ModelAdmin):
