@@ -24,7 +24,7 @@ class ShopChannelGroup(BaseModel):
 
 class ShopBrand(BaseModel):
     """商品品牌"""
-    name = CharField(max_length=20, null=True, blank=True, verbose_name='品牌名称')
+    name = CharField(max_length=20, null=True, blank=True, unique=True, verbose_name='品牌名称')
     slug = SlugField(max_length=55, verbose_name="品牌 Slug")
     logo = ImageField(max_length=200, upload_to="logo/", null=True, blank=True, verbose_name='LOGO图片')
     first_letter = CharField(max_length=1, null=True, blank=True, verbose_name='品牌首字母')
@@ -44,7 +44,8 @@ class ShopSKU(BaseModel):
     goods_name = CharField(max_length=200, verbose_name='物料型号:(JF-D-***)')
     item_sku = CharField(max_length=64, verbose_name='物料编码(F2.2.09.30.00000)')
     listing = TextField(verbose_name='listing')
-    brand = ManyToManyField(ShopBrand, null=True, blank=True, verbose_name="品牌")
+    brand = ForeignKey(ShopBrand, on_delete=PROTECT, verbose_name='商品品牌',
+                       related_name='sku_brand')
     price = DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='售价')
     transport_package = CharField(max_length=64, null=True, blank=True, verbose_name='运输包装')
     likes_num = IntegerField(default=0, null=True, blank=True, verbose_name='收藏')

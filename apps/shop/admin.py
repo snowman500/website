@@ -14,7 +14,7 @@ class ShopBrandAdmin(admin.ModelAdmin):
 
 
 class ShopSKUAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_activate', 'goods_name', 'item_sku', 'stock', 'sales', 'price')
+    list_display = ('id', 'is_activate','brand', 'goods_name', 'item_sku', 'stock', 'sales', 'price')
 
 
 class OrderMasterAdmin(admin.ModelAdmin):

@@ -19,8 +19,8 @@ from django.urls import path, include
 from apps.shop import views
 
 urlpatterns = [
-    path('', views.shop, name="shop"),
-    path('shop/<slug:slug>/', views.shop, name="brand"),
+    path('', views.shop, name="shop"), 
+    path('<str:brand_name>/', views.category, name='category'),  
     # path('', views.ShopView.as_view(), name="shop"),
     path('single/', views.single, name="single"),
 
