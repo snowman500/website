@@ -33,17 +33,19 @@
                            class="collapsed d-flex justify-content-between h3 text-decoration-none list-group-item list-group-item-action"
                            data-bs-toggle="collapse"
                            data-bs-target="#order-collapse" aria-expanded="false"
-                           aria-controls="order-collapse">D-LED BACKLIGHT BAR<i
+                           aria-controls="order-collapse">D-LED BACKLIGHT BAR这个是shop<i
                                 class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
                         <ul class="collapse list-unstyled pl-3" id="order-collapse">
-                            {% for item in brand %}
+                          {% if brands %}
+                            {% for item in brands %}
                                 {% if item.is_activate %}
                                     <li><a class="list-group-item list-group-item-action"
-                                           href="{{ item.name }}">&nbsp;&nbsp;{{ item.name }}</a></li>
+                                           href="{% url 'category' item.name %}">&nbsp;&nbsp;{{ item.name }}</a></li>
                                 {% else %}
                                     <li></li>
                                 {% endif %}
                             {% endfor %}
+                            {% endif %}
                         </ul>
                     </li>
                     <li class="pb-3">
@@ -109,12 +111,12 @@
                                     {% endif %}
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
-                                            <li><a class="btn btn-success text-white" href="single/?num={{ spu.id }}"><i
+                                            <li><a class="btn btn-success text-white" href="{% url 'single' spu.goods_name %}"><i
                                                     class="far fa-heart"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
                                                    href="single/?num={{ spu.id }}"><i class="far fa-eye"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
-                                                   href="single/?num={{ spu.id }}"><i class="fas fa-cart-plus"></i></a>
+                                                   href="{% url 'single' spu.goods_name %}"><i class="fas fa-cart-plus"></i></a>
                                             </li>
                                         </ul>
                                     </div>

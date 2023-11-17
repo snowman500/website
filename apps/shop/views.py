@@ -5,10 +5,9 @@ from django.views.generic import View
 from apps.shop.models import ShopSKU, ShopChannelGroup, ShopBrand
 
 
-def single(request):
+def single(request, goods_name):
     # 查询产品的所属其他属性
-    num = request.GET.get('num')
-    sku = ShopSKU.objects.filter(id=num).first()
+    sku = get_object_or_404(ShopSKU, goods_name=goods_name)
 
     return render(request, 'single.html', {'sku': sku})
 
@@ -18,10 +17,10 @@ def shop(request):
     # 查询频道组目
     channel_group = ShopChannelGroup.objects.all()
     # 查询商品品牌
-    brand =  ShopBrand.objects.filter(is_activate=True)
+    brands = ShopBrand.objects.filter(is_activate=True)
     # 取出当前用户页码,并把这个字符转换为整型.没有娶到默认为1
     current_num = int(request.GET.get('num', 1))
-    # 获取所有is_activate为ture(产品处于激活状态)的ShopSPU对象   
+    # 获取所有is_activate为ture(产品处于激活状态)的ShopSPU对象
     skus = ShopSKU.objects.filter(is_activate=True)
     # 创建一个分页器对象，每页显示settings.PAGE_SIZE(这个数据是在setting中设置的)条数据
     paginator = Paginator(skus, settings.PAGE_SIZE)
@@ -44,12 +43,8 @@ def shop(request):
         page_range = paginator.page_range
 
     return render(request, "shop.html",
-                  {'channel_group': channel_group, 'brand': brand, "page_obj": page_obj, "paginator": paginator,
+                  {'channel_group': channel_group, 'brands': brands, "page_obj": page_obj, "paginator": paginator,
                    "current_num": current_num, "page_range": page_range})
-
-
-
-
 
 
 def category(request, brand_name):
@@ -57,7 +52,7 @@ def category(request, brand_name):
     # 查询频道组目
     channel_group = ShopChannelGroup.objects.all()
     # 查询商品品牌
-    brands =  ShopBrand.objects.filter(is_activate=True)
+    brands = ShopBrand.objects.filter(is_activate=True)
     # 取出当前商品品牌,没有取到到默认为lg
     brand = get_object_or_404(ShopBrand, name=brand_name)
 
@@ -87,9 +82,9 @@ def category(request, brand_name):
         page_range = paginator.page_range
 
     return render(request, "category.html",
-                  {'channel_group': channel_group, 'brand': brand, 'brands': brands, 'page_obj': page_obj, 'paginator': paginator,
+                  {'channel_group': channel_group, 'brand': brand, 'brands': brands, 'page_obj': page_obj,
+                   'paginator': paginator,
                    'current_num': current_num, 'page_range': page_range})
-
 
 # def category(request, brand_name):
 #     channel_group = ShopChannelGroup.objects.all()

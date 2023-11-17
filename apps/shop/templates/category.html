@@ -111,7 +111,7 @@
                                     {% endif %}
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
-                                            <li><a class="btn btn-success text-white" href="single/?num={{ spu.id }}"><i
+                                            <li><a class="btn btn-success text-white" href="{% url 'single' spu.goods_name %}"><i
                                                     class="far fa-heart"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
                                                    href="single/?num={{ spu.id }}"><i class="far fa-eye"></i></a></li>
