@@ -114,9 +114,9 @@
                                             <li><a class="btn btn-success text-white" href="{% url 'single' spu.goods_name %}"><i
                                                     class="far fa-heart"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
-                                                   href="single/?num={{ spu.id }}"><i class="far fa-eye"></i></a></li>
+                                                   href="{% url 'single' spu.goods_name %}"><i class="far fa-eye"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
-                                                   href="single/?num={{ spu.id }}"><i class="fas fa-cart-plus"></i></a>
+                                                   href="{% url 'single' spu.goods_name %}"><i class="fas fa-cart-plus"></i></a>
                                             </li>
                                         </ul>
                                     </div>
