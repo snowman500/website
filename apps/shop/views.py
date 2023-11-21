@@ -35,7 +35,7 @@ def add_to_cart(request):
     else:
         OrderCart(customer_id=user, product_id=product).save()
 
-    return redirect('store:cart')
+    return redirect('cart')
 
 
 # def cart(request):

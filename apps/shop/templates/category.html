@@ -119,11 +119,11 @@
                                                    href="{% url 'single' spu.goods_name %}"><i
                                                     class="far fa-eye"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
-                                                   href="{% url 'single' spu.goods_name %}"><i
+                                                   href="{% url 'cart' spu.goods_name %}"><i
                                                     class="fas fa-cart-plus"></i></a>
                                             </li>
                                             <li>
-                                                <form action="{% url 'cart' %}" method="post">
+                                                <form action="{% url 'add_to_cart' %}" method="post">
                                                     {% csrf_token %}
                                                     <!-- csrf_token 用于防止跨站请求伪造攻击 -->
 
@@ -134,24 +134,6 @@
                                                         <i class="fas fa-cart-plus"></i>
                                                     </a>
                                                     <!-- 这是一个链接按钮，点击时会触发表单的提交 -->
-                                                </form>
-                                            </li>
-
-
-                                        </ul>
-                                    </div>
-                                    <div class="product-overlay">
-                                        <ul class="mb-0 list-inline">
-                                            <li class="list-inline-item m-0 p-0">
-                                                {% comment %}
-                                                    <a class="btn btn-sm btn-dark" href="{% url 'single' %}">Add
-                                                        to cassrt</a> {% endcomment %}
-
-                                                <form action="{% url 'cart' %}">
-                                                    <input type="hidden" name="prod_id" value="{{ product.id }}"
-                                                           id="product_id">
-                                                    <button type="submit" class="btn btn-sm btn-dark">Add to Cart
-                                                    </button>
                                                 </form>
                                             </li>
                                         </ul>
