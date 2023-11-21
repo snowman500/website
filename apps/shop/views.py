@@ -20,7 +20,7 @@ def cart(request, goods_name):
     return render(request, 'cart.html', {'sku': sku})
 
 
-#@login_required
+# @login_required
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
