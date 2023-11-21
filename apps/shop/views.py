@@ -1,8 +1,9 @@
+import decimal
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.paginator import Paginator
 from django.conf import settings
-from django.views.generic import View
 from apps.shop.models import ShopSKU, ShopChannelGroup, ShopBrand, OrderCart
+from django.contrib.auth.decorators import login_required
 
 
 def single(request, goods_name):
@@ -16,7 +17,80 @@ def cart(request, goods_name):
     # 查询产品的所属其他属性
     sku = get_object_or_404(ShopSKU, goods_name=goods_name)
 
-    return render(request, 'single.html', {'sku': sku})
+    return render(request, 'cart.html', {'sku': sku})
+
+
+#@login_required
+def add_to_cart(request):
+    user = request.user
+    product_id = request.GET.get('prod_id')
+    product = get_object_or_404(ShopSKU, id=product_id)
+
+    # Check whether the Product is already in Cart or Not
+    item_already_in_cart = OrderCart.objects.filter(product=product_id, user=user)
+    if item_already_in_cart:
+        cp = get_object_or_404(OrderCart, product_id=product_id, customer_id=user)
+        cp.product_amount += 1
+        cp.save()
+    else:
+        OrderCart(customer_id=user, product_id=product).save()
+
+    return redirect('store:cart')
+
+
+# def cart(request):
+#     user = request.user
+#     cart_products = Cart.objects.filter(user=user)
+#
+#     # Display Total on Cart Page
+#     amount = decimal.Decimal(0)
+#     shipping_amount = decimal.Decimal(10)
+#     # using list comprehension to calculate total amount based on quantity and shipping
+#     cp = [p for p in Cart.objects.all() if p.user == user]
+#     if cp:
+#         for p in cp:
+#             temp_amount = (p.quantity * p.product.price)
+#             amount += temp_amount
+#
+#     # Customer Addresses
+#     addresses = Address.objects.filter(user=user)
+#
+#     context = {
+#         'cart_products': cart_products,
+#         'amount': amount,
+#         'shipping_amount': shipping_amount,
+#         'total_amount': amount + shipping_amount,
+#         'addresses': addresses,
+#     }
+#     return render(request, 'store/cart.html', context)
+#
+#
+# def remove_cart(request, cart_id):
+#     if request.method == 'GET':
+#         c = get_object_or_404(Cart, id=cart_id)
+#         c.delete()
+#         messages.success(request, "Product removed from Cart.")
+#     return redirect('store:cart')
+#
+#
+# def plus_cart(request, cart_id):
+#     if request.method == 'GET':
+#         cp = get_object_or_404(Cart, id=cart_id)
+#         cp.quantity += 1
+#         cp.save()
+#     return redirect('store:cart')
+#
+#
+# def minus_cart(request, cart_id):
+#     if request.method == 'GET':
+#         cp = get_object_or_404(Cart, id=cart_id)
+#         # Remove the Product if the quantity is already 1
+#         if cp.quantity == 1:
+#             cp.delete()
+#         else:
+#             cp.quantity -= 1
+#             cp.save()
+#     return redirect('store:cart')
 
 
 def shop(request):

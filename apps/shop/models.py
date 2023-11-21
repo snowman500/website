@@ -214,11 +214,11 @@ class OrderDetail(BaseModel):
     """订单详情表"""
     order_sn = ForeignKey(OrderMaster, on_delete=PROTECT, related_name='orderdetail_ordermaster')  # 其实是存的用户登陆的id
     order_id = IntegerField(verbose_name='订单表ID')
-    product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='下单人ID', related_name='orderdetail_itemsku')
+    product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='下单人ID', related_name='OrderDetail_ItemSku')
     product_name = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='下单人ID',
-                              related_name='orderdetail_customerinfo')
+                              related_name='OrderDetail_CustomerInfo')
     product_cnt = IntegerField(default=0, verbose_name='购买商品数量')
-    product_price = ForeignKey(ShopSKU, on_delete=PROTECT, verbose_name='商品价格', related_name='orderdetail_shopsku')
+    product_price = ForeignKey(ShopSKU, on_delete=PROTECT, verbose_name='商品价格', related_name='OrderDetail_ShopSku')
     weight = CharField(max_length=200, null=True, blank=True, verbose_name='商品重量')
     fee_money = CharField(max_length=200, null=True, blank=True, verbose_name='优惠分摊金额')
     w_id = CharField(max_length=200, null=True, blank=True, verbose_name='仓库ID')
@@ -237,9 +237,9 @@ class OrderCart(BaseModel):
     """购物车表"""
     order_id = IntegerField(verbose_name='订单编号')
     customer_id = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='用户ID',
-                             related_name='order_cart')  # 其实是存的用户登陆的id
-    product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='物料编码', related_name='order_cart')
-    product_amount = IntegerField(verbose_name='加入购物车的数量')
+                             related_name='OrderCart_CustomerLogin')  # 其实是存的用户登陆的id
+    product_id = ForeignKey(ShopSKU, on_delete=PROTECT, verbose_name='物料编码', related_name='OrderCart_ShopSKU')
+    product_amount = PositiveIntegerField(default=1, verbose_name="数量")
 
     class Meta:
         db_table = 'order_cart'
@@ -247,7 +247,7 @@ class OrderCart(BaseModel):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.id
+        return self.order_id
 
 
 class ShopComment(BaseModel):
