@@ -36,15 +36,16 @@
                            aria-controls="order-collapse">D-LED BACKLIGHT BAR<i
                                 class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
                         <ul class="collapse list-unstyled pl-3" id="order-collapse">
-                          {% if brands %}
-                            {% for item in brands %}
-                                {% if item.is_activate %}
-                                    <li><a class="list-group-item list-group-item-action"
-                                           href="{% url 'category' item.name %}">&nbsp;&nbsp;{{ item.name }}</a></li>
-                                {% else %}
-                                    <li></li>
-                                {% endif %}
-                            {% endfor %}
+                            {% if brands %}
+                                {% for item in brands %}
+                                    {% if item.is_activate %}
+                                        <li><a class="list-group-item list-group-item-action"
+                                               href="{% url 'category' item.name %}">&nbsp;&nbsp;{{ item.name }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li></li>
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                         </ul>
                     </li>
@@ -111,12 +112,15 @@
                                     {% endif %}
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
-                                            <li><a class="btn btn-success text-white" href="{% url 'single' spu.goods_name %}"><i
+                                            <li><a class="btn btn-success text-white"
+                                                   href="{% url 'single' spu.goods_name %}"><i
                                                     class="far fa-heart"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
-                                                   href="{% url 'single' spu.goods_name %}"><i class="far fa-eye"></i></a></li>
+                                                   href="{% url 'single' spu.goods_name %}"><i
+                                                    class="far fa-eye"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
-                                                   href="{% url 'single' spu.goods_name %}"><i class="fas fa-cart-plus"></i></a>
+                                                   href="{% url 'single' spu.goods_name %}"><i
+                                                    class="fas fa-cart-plus"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -184,7 +188,7 @@
                                 </li>
                             {% else %}
                                 <li class="page-item mc"><a href="?num={{ num }}"
-                                                          class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">{{ num }}</a>
+                                                            class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark">{{ num }}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}
@@ -217,7 +221,7 @@
                                 <input type="text" name="num"
                                        class="form-control page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
                                        placeholder="page">
-                                <span class="input-group-btn" >
+                                <span class="input-group-btn">
                                     <button class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
                                             type="submit" style="margin-left: 6px;height: 40px">go</button>
                                 </span>
@@ -229,7 +233,13 @@
 
             </div>
             <!--商品列表结束 -->
-            <p style="text-align: right;">{{ page_obj.number }}/{{ page_obj.paginator.num_pages }} </p>
+
+
+            <form action="#">
+                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                <button type="submit" class="btn btn-sm btn-dark">Add to Cart</button>
+            </form>
+
 
         </div>
     </div>

@@ -235,7 +235,7 @@ class OrderDetail(BaseModel):
 
 class OrderCart(BaseModel):
     """购物车表"""
-    order_id = IntegerField(verbose_name='订单表ID')
+    order_id = IntegerField(verbose_name='订单编号')
     customer_id = ForeignKey(CustomerLogin, on_delete=PROTECT, verbose_name='用户ID',
                              related_name='order_cart')  # 其实是存的用户登陆的id
     product_id = ForeignKey(ItemSKU, on_delete=PROTECT, verbose_name='物料编码', related_name='order_cart')
@@ -247,7 +247,7 @@ class OrderCart(BaseModel):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.order_id
+        return self.id
 
 
 class ShopComment(BaseModel):

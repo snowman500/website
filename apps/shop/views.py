@@ -2,10 +2,17 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.views.generic import View
-from apps.shop.models import ShopSKU, ShopChannelGroup, ShopBrand
+from apps.shop.models import ShopSKU, ShopChannelGroup, ShopBrand, OrderCart
 
 
 def single(request, goods_name):
+    # 查询产品的所属其他属性
+    sku = get_object_or_404(ShopSKU, goods_name=goods_name)
+
+    return render(request, 'single.html', {'sku': sku})
+
+
+def cart(request, goods_name):
     # 查询产品的所属其他属性
     sku = get_object_or_404(ShopSKU, goods_name=goods_name)
 
@@ -85,39 +92,3 @@ def category(request, brand_name):
                   {'channel_group': channel_group, 'brand': brand, 'brands': brands, 'page_obj': page_obj,
                    'paginator': paginator,
                    'current_num': current_num, 'page_range': page_range})
-
-# def category(request, brand_name):
-#     channel_group = ShopChannelGroup.objects.all()
-#     brands = ShopBrand.objects.filter(is_activate=True)
-#     brand = get_object_or_404(ShopBrand, name=brand_name)
-#     skus = ShopSKU.objects.filter(is_activate=True, brand=brand)
-#     current_num = int(request.GET.get('num', 1))
-#     paginator = Paginator(skus, settings.PAGE_SIZE)
-#     page_obj = paginator.get_page(current_num)
-
-#     if paginator.num_pages > 11:
-#         if current_num + 5 > paginator.num_pages:
-#             page_range = range(paginator.num_pages - 10, paginator.num_pages + 1)
-#         elif current_num - 5 < 1:
-#             page_range = range(1, 12)
-#         else:
-#             page_range = range(current_num - 5, current_num + 5 + 1)
-#     else:
-#         page_range = paginator.page_range
-
-#     # 构建新的URL
-#     new_url = reverse('category', args=[brand.name])  # 假设你的URL配置使用slug作为参数
-
-#     # 如果当前的URL和新的URL不同，进行重定向
-#     if request.build_absolute_uri() != new_url:
-#         return redirect(new_url)
-
-#     return render(request, "category.html", {
-#         'channel_group': channel_group,
-#         'brand': brand,
-#         'brands': brands,
-#         'page_obj': page_obj,
-#         'paginator': paginator,
-#         'current_num': current_num,
-#         'page_range': page_range
-#     })

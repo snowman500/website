@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
 from content.utils.check_code import check_code
 from .modelform import *
@@ -93,12 +93,6 @@ def profile(request):
     """ 用户中心 """
 
     return render(request, 'profile.html')
-
-
-def cart(request):
-    """ 用户中心 """
-
-    return render(request, 'cart.html')
 
 
 def checkout(request):

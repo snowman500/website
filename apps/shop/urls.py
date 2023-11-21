@@ -22,5 +22,5 @@ urlpatterns = [
     path('', views.shop, name="shop"),
     path('<str:brand_name>/', views.category, name='category'),
     path('single/<str:goods_name>/', views.single, name="single"),
-
+    path('cart/<str:goods_name>/', views.cart, name="cart"),
 ]
