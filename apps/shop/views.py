@@ -15,18 +15,22 @@ def single(request, goods_name):
 
 # @login_required
 def add_to_cart(request):
-    user = request.user
+    info_dict = request.session.get('info')
+    user_id = info_dict.get('id')
     product_id = request.GET.get('prod_id')
+    print(user_id)
+    print(product_id)
     product = get_object_or_404(ShopSKU, id=product_id)
+    print(product)
 
     # Check whether the Product is already in Cart or Not
-    item_already_in_cart = OrderCart.objects.filter(product=product_id, user=user)
+    item_already_in_cart = OrderCart.objects.filter(product=product_id, customer_id=user_id)
     if item_already_in_cart:
-        cp = get_object_or_404(OrderCart, product_id=product_id, customer_id=user)
+        cp = get_object_or_404(OrderCart, product_id=product_id, customer_id=user_id)
         cp.product_amount += 1
         cp.save()
     else:
-        OrderCart(customer_id=user, product_id=product).save()
+        OrderCart(customer_id=user_id, product_id=product).save()
 
     return redirect('cart')
 

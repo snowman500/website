@@ -123,7 +123,7 @@
                                                     class="fas fa-cart-plus"></i></a>
                                             </li>
                                             <li>
-                                                <form action="{% url 'cart' %}" method="post">
+                                                <form action="{% url 'add_to_cart' %}" method="post">
                                                     {% csrf_token %}
                                                     <!-- csrf_token 用于防止跨站请求伪造攻击 -->
 
