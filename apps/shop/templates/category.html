@@ -119,11 +119,11 @@
                                                    href="{% url 'single' spu.goods_name %}"><i
                                                     class="far fa-eye"></i></a></li>
                                             <li><a class="btn btn-success text-white mt-2"
-                                                   href="{% url 'cart' spu.goods_name %}"><i
+                                                   href="{% url 'cart' %}"><i
                                                     class="fas fa-cart-plus"></i></a>
                                             </li>
                                             <li>
-                                                <form action="{% url 'add_to_cart' %}" method="post">
+                                                <form action="{% url 'cart' %}" method="post">
                                                     {% csrf_token %}
                                                     <!-- csrf_token 用于防止跨站请求伪造攻击 -->
 

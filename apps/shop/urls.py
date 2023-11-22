@@ -20,8 +20,8 @@ from apps.shop import views
 
 urlpatterns = [
     path('', views.shop, name="shop"),
-    path('<str:brand_name>/', views.category, name='category'),
+    path('category/<str:brand_name>/', views.category, name='category'),
     path('single/<str:goods_name>/', views.single, name="single"),
-    path('cart/<str:goods_name>/', views.cart, name="cart"),
+    path('cart/', views.cart, name="cart"),
     path('add_to_cart/', views.add_to_cart, name="add_to_cart"),
 ]

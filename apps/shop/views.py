@@ -13,13 +13,6 @@ def single(request, goods_name):
     return render(request, 'single.html', {'sku': sku})
 
 
-def cart(request, goods_name):
-    # 查询产品的所属其他属性
-    sku = get_object_or_404(ShopSKU, goods_name=goods_name)
-
-    return render(request, 'cart.html', {'sku': sku})
-
-
 # @login_required
 def add_to_cart(request):
     user = request.user
@@ -36,6 +29,10 @@ def add_to_cart(request):
         OrderCart(customer_id=user, product_id=product).save()
 
     return redirect('cart')
+
+
+def cart(request):
+    return render(request, 'cart.html')
 
 
 # def cart(request):
