@@ -2,7 +2,6 @@ from content.extensions.models import *
 from content.extensions.common.base_model import BaseModel
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import GenericIPAddressField, EmailField
-import hashlib
 
 
 class CustomerLogin(BaseModel):
